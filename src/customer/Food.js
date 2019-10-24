@@ -1,15 +1,14 @@
 import React from "react";
-import "./FoodPage.css";
 
 /* The Header Component */
 class Food extends React.Component {
   render() {
     const { foodName, price, foodImage } = this.props;
     return (
-      <div>
+      <div class="food">
         <p>{foodName}</p>
         <p>{price}</p>
-        <img src={foodImage} />
+        <img src={foodImage} alt="food image" />
       </div>
     );
   }

@@ -10,7 +10,7 @@ class TruckHeader extends React.Component {
       <div className="truck-header">
         <h2 className="truck-name"> {truckName} </h2>
         <p className="truck-rate"> {rate} </p>
-        <img className="rate-star" src={star} />
+        <img className="rate-star" src={star} alt="" />
         <p className="serve-time"> {serveTime} </p>
         <p className="truck-type"> {foodType} </p>
         <p className="truck-location"> {location} </p>

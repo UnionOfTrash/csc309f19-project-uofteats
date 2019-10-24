@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import Header from "./Header";
 import TruckHeader from "./TruckHeader";
 import FoodCategoryTitle from "./FoodCategoryTitle";
 import Food from "./Food";
+import "./FoodPage.css";
 
 import beefHotDog from "./images/BeefHotDog.jpeg";
 import chickenHotDog from "./images/ChickenHotDog.jpeg";

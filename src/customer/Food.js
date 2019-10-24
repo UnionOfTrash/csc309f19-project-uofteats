@@ -6,9 +6,11 @@ class Food extends React.Component {
     const { foodName, price, foodImage } = this.props;
     return (
       <div class="food">
-        <p>{foodName}</p>
-        <p>{price}</p>
-        <img src={foodImage} alt="food image" />
+        <div class="food-container">
+          <img src={foodImage} alt="food image" />
+          <p className="food-name">{foodName}</p>
+          <p className="food-price">{price}</p>
+        </div>
       </div>
     );
   }

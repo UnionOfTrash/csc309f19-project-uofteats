@@ -3,11 +3,13 @@ import React from "react";
 /* The Header Component */
 class TruckInfo extends React.Component {
     render() {
-        const { name, location, type, rate, image, alternative } = this.props;
+        const { name, location, type, rate, image, alternative, link} = this.props;
         return (
             <div className="truck-info">
                 <div className="truck-img">
-                    <img src={image} alt={alternative} />
+                    <a href={link}>
+                        <img src={image} alt={alternative}/>
+                    </a>
                 </div>
                 <div className="truck-description">
                     <p>{name}</p>

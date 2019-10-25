@@ -1,5 +1,5 @@
 import React from "react";
-import star from "./images/star.png";
+import star from "../images/star.png";
 
 /* The Header Component */
 class TruckHeader extends React.Component {

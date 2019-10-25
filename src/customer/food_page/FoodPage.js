@@ -1,21 +1,21 @@
 import React from "react";
-import Header from "./Header";
+import Header from "../Header/Header";
 import TruckHeader from "./TruckHeader";
 import FoodCategoryTitle from "./FoodCategoryTitle";
 import Food from "./Food";
 import "./FoodPage.css";
 
-import beefHotDog from "./images/BeefHotDog.jpeg";
-import chickenHotDog from "./images/ChickenHotDog.jpeg";
-import italianSpicySausage from "./images/ItalianSpicySausage.jpeg";
-import germanSausage from "./images/GermanSausage.jpeg";
-import frenchFries from "./images/FrenchFries.jpeg";
-import poutine from "./images/Poutine.jpg";
-import chickenNuggets from "./images/ChickenNuggets.jpg";
-import onionRings from "./images/OnionRings.jpg";
-import canadaDry from "./images/CanadaDry.jpg";
-import greenTea from "./images/GreenTea.jpg";
-import water from "./images/Water.jpeg";
+import beefHotDog from "../images/BeefHotDog.jpeg";
+import chickenHotDog from "../images/ChickenHotDog.jpeg";
+import italianSpicySausage from "../images/ItalianSpicySausage.jpeg";
+import germanSausage from "../images/GermanSausage.jpeg";
+import frenchFries from "../images/FrenchFries.jpeg";
+import poutine from "../images/Poutine.jpg";
+import chickenNuggets from "../images/ChickenNuggets.jpg";
+import onionRings from "../images/OnionRings.jpg";
+import canadaDry from "../images/CanadaDry.jpg";
+import greenTea from "../images/GreenTea.jpg";
+import water from "../images/Water.jpeg";
 
 class FoodPage extends React.Component {
   render() {

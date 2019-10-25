@@ -1,8 +1,7 @@
 import React from "react";
 import Header from "../Header/Header";
 import TruckHeader from "./TruckHeader";
-import FoodCategoryTitle from "./FoodCategoryTitle";
-import Food from "./Food";
+import FoodList from "./FoodList";
 import "./FoodPage.css";
 
 import beefHotDog from "../images/BeefHotDog.jpeg";
@@ -35,40 +34,40 @@ class FoodPage extends React.Component {
           {
             name: "All Beef Hotdog",
             price: "$4.00",
-            img: { beefHotDog }
+            img: beefHotDog
           },
           {
             name: "Chicken Hotdog",
             price: "$4.00",
-            img: { chickenHotDog }
+            img: chickenHotDog
           },
           {
             name: "Italian Spicy Sausage",
             price: "$5.00",
-            img: { italianSpicySausage }
+            img: italianSpicySausage
           },
           {
             name: "German Sausage",
             price: "$5.00",
-            img: { germanSausage }
+            img: germanSausage
           }
         ]
       },
       {
         category: "Sides",
         foods: [
-          { name: "French Fries", price: "$2.50", img: { frenchFries } },
-          { name: "Poutine", price: "$3.75", img: { poutine } },
-          { name: "Chicken Nuggets", price: "$4.50", img: { chickenNuggets } },
-          { name: "Onion Rings", price: "$3.50", img: { onionRings } }
+          { name: "French Fries", price: "$2.50", img: frenchFries },
+          { name: "Poutine", price: "$3.75", img: poutine },
+          { name: "Chicken Nuggets", price: "$4.50", img: chickenNuggets },
+          { name: "Onion Rings", price: "$3.50", img: onionRings }
         ]
       },
       {
         category: "Beverages",
         foods: [
-          { name: "Canada Dry", price: "$1.25", img: { canadaDry } },
-          { name: "Green Tea", price: "$1.25", img: { greenTea } },
-          { name: "Water", price: "$1.00", img: { water } }
+          { name: "Canada Dry", price: "$1.25", img: canadaDry },
+          { name: "Green Tea", price: "$1.25", img: greenTea },
+          { name: "Water", price: "$1.00", img: water }
         ]
       }
     ]
@@ -86,41 +85,8 @@ class FoodPage extends React.Component {
           foodType={this.state.truck.foodType}
           serveTime={this.state.truck.serveTime}
         />
-        <FoodCategoryTitle categoryName="Combos" />
 
-        <Food foodName="All Beef Hotdog" price="$4.00" foodImage={beefHotDog} />
-        <Food
-          foodName="Chicken Hotdog"
-          price="$4.00"
-          foodImage={chickenHotDog}
-        />
-        <Food
-          foodName="Italian Spicy Sausage"
-          price="$5.00"
-          foodImage={italianSpicySausage}
-        />
-        <Food
-          foodName="German Sausage"
-          price="$5.00"
-          foodImage={germanSausage}
-        />
-
-        <FoodCategoryTitle categoryName="Sides" />
-
-        <Food foodName="French Fries" price="$2.50" foodImage={frenchFries} />
-        <Food foodName="Poutine" price="$3.75" foodImage={poutine} />
-        <Food
-          foodName="Chicken Nuggets"
-          price="$4.50"
-          foodImage={chickenNuggets}
-        />
-        <Food foodName="Onion Rings" price="$3.50" foodImage={onionRings} />
-
-        <FoodCategoryTitle categoryName="Beverages" />
-
-        <Food foodName="Canada Dry" price="$1.25" foodImage={canadaDry} />
-        <Food foodName="Green Tea" price="$1.25" foodImage={greenTea} />
-        <Food foodName="Water" price="$1.00" foodImage={water} />
+        <FoodList foodList={this.state.foodList} />
       </div>
     );
   }

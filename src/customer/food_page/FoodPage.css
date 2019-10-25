@@ -47,6 +47,18 @@ h6 {
 ul,
 ol {
   list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+ul {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+li {
+  list-style: none;
+  display: inline-block;
 }
 
 img {

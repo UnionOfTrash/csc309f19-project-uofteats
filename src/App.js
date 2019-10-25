@@ -6,7 +6,7 @@ import { Route, Switch, BrowserRouter } from "react-router-dom";
 
 // Import Routing Paths
 import Home from "./Home";
-import Login from "./Login";
+import Login from "./commons/Login";
 import FoodPage from "./customer/food_page/FoodPage";
 import CustomerMain from "./customer/main_page/CustomerMain";
 

@@ -5,7 +5,7 @@ class FoodCategoryTitle extends React.Component {
   render() {
     const { categoryName } = this.props;
     return (
-      <div class="food-category-title">
+      <div className="food-category-title">
         <h3>{categoryName}</h3>
       </div>
     );

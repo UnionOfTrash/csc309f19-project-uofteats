@@ -5,11 +5,16 @@ import "./App.css";
 class Home extends React.Component {
   render() {
     return (
-      <Link to={"./customer/FoodPage"}>
-        {" "}
-        {/* This element will link the URL path to /queue */}
-        <button>Go to Food Page of a Food Truck</button>
-      </Link>
+      <div>
+        <Link to={"./customer/FoodPage"}>
+          {" "}
+          {/* This element will link the URL path to /queue */}
+          <button>Go to Food Page</button>
+        </Link>
+        <Link to={"./customer/CustomerMain"}>
+          <button>Go to Main Page</button>
+        </Link>
+      </div>
     );
   }
 }

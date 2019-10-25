@@ -8,7 +8,7 @@ class Home extends React.Component {
       <Link to={"./customer/FoodPage"}>
         {" "}
         {/* This element will link the URL path to /queue */}
-        <button>Go to the Food Page</button>
+        <button>Go to Food Page of a Food Truck</button>
       </Link>
     );
   }

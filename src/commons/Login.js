@@ -13,9 +13,10 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+
+const styles = theme => ({
     loginContainer: {
         margin: theme.spacing(8),
         display: 'flex',
@@ -34,44 +35,49 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+});
+
+
+class Login extends React.Component {
+
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <Container component='main' maxWidth='sm'>
+                <div className={ classes.loginContainer } >
+                    <Typography component='h1' variant='h5'>Sign In</Typography>
+                    <FormControl className={ classes.loginForm } component='form'>
+                        <TextField className={ classes.loginComponent } label='Email Address' type='email' variant='outlined' required fullWidth autoFocus />
+                        <TextField className={ classes.loginComponent } label='Password' type='password' variant='outlined' required fullWidth />
+                        <Grid className={ classes.loginComponent } container>
+                            <Grid className={ classes.gridComponent } item xs={ 3 }>
+                                <FormLabel required>Role</FormLabel>
+                            </Grid>
+                            <Grid item xs>
+                                <RadioGroup row>
+                                    <FormControlLabel name='loginAsStudent' value='Student' control= { <Radio color='primary' /> } label='Student' />
+                                    <FormControlLabel name='loginAsTruck' value='Truck' control= { <Radio color='primary' /> } label='Truck Manager' />
+                                </RadioGroup>
+                            </Grid>
+                        </Grid>
+                        <FormControlLabel className={ classes.loginComponent } control={ <Checkbox value='Remember' color='primary' /> } label='Remember me?' />
+                        <Button className={ classes.loginComponent } variant='contained' color='primary' fullWidth>Log me in</Button>
+                        <Grid className={ classes.loginComponent } container>
+                            <Grid className={ classes.gridComponent } item xs={ 6 }>
+                                <Link variant='body2'>Forget Password?</Link>
+                            </Grid>
+                            <Grid className={ classes.gridComponent } item xs={ 6 }>
+                                <Link variant='body2' href='/register'>Register Here!</Link>
+                            </Grid>
+                        </Grid>
+                    </FormControl>
+                </div>
+            </Container>
+        );
     }
-}));
-
-function Login() {
-    const classes = useStyles();
-
-    return (
-        <Container component='main' maxWidth='sm'>
-            <div className={ classes.loginContainer } >
-                <Typography component='h1' variant='h5'>Sign In</Typography>
-                <FormControl className={ classes.loginForm } component='form'>
-                    <TextField className={ classes.loginComponent } label='Email Address' type='email' variant='outlined' required fullWidth autoFocus />
-                    <TextField className={ classes.loginComponent } label='Password' type='password' variant='outlined' required fullWidth />
-                    <Grid className={ classes.loginComponent } container>
-                        <Grid className={ classes.gridComponent } item xs={ 3 }>
-                            <FormLabel required>Role</FormLabel>
-                        </Grid>
-                        <Grid item xs>
-                            <RadioGroup row>
-                                <FormControlLabel name='loginAsStudent' value='Student' control= { <Radio color='primary' /> } label='Student' />
-                                <FormControlLabel name='loginAsTruck' value='Truck' control= { <Radio color='primary' /> } label='Truck Manager' />
-                            </RadioGroup>
-                        </Grid>
-                    </Grid>
-                    <FormControlLabel className={ classes.loginComponent } control={ <Checkbox value='Remember' color='primary' /> } label='Remember me?' />
-                    <Button className={ classes.loginComponent } variant='contained' color='primary' fullWidth>Log me in</Button>
-                    <Grid className={ classes.loginComponent } container>
-                        <Grid className={ classes.gridComponent } item xs={ 6 }>
-                            <Link variant='body2'>Forget Password?</Link>
-                        </Grid>
-                        <Grid className={ classes.gridComponent } item xs={ 6 }>
-                            <Link variant='body2' href='/register'>Register Here!</Link>
-                        </Grid>
-                    </Grid>
-                </FormControl>
-            </div>
-        </Container>
-    )
 }
 
-export default Login;
+
+export default withStyles(styles, {withTheme: true})(Login);

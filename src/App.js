@@ -4,12 +4,16 @@ import "./App.css";
 // Import react-router-dom to use the React Router
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 
+// Import BS4
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // Import Routing Paths
 import Home from "./Home";
 import Login from "./commons/Login";
 import Register from "./commons/Register";
 import FoodPage from "./customer/food_page/FoodPage";
 import CustomerMain from "./customer/main_page/CustomerMain";
+import Admin from './admin/Admin'
 
 class App extends React.Component {
   render() {
@@ -22,6 +26,7 @@ class App extends React.Component {
             <Route exact path='/register' component={Register} />
             <Route exact path="/customer/food_page/FoodPage" component={FoodPage} />
             <Route exact path="/customer/main_page/CustomerMain" component={CustomerMain}/>
+            <Route exact path="/admin" component={Admin} />
           </Switch>
         </BrowserRouter>
       </div>

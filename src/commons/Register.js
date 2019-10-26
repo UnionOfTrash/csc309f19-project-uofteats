@@ -1,7 +1,6 @@
 import React from "react";
 
 import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
 import Container from "@material-ui/core/Container";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,17 +15,17 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-    loginContainer: {
+    registerContainer: {
         margin: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
-    loginForm: {
+    registerForm: {
         marginTop: theme.spacing(3),
         width: '100%',
     },
-    loginComponent: {
+    registerComponent: {
         marginTop: theme.spacing(2),
     },
     gridComponent: {
@@ -37,35 +36,33 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Login() {
+function Register() {
     const classes = useStyles();
 
     return (
         <Container component='main' maxWidth='sm'>
-            <div className={ classes.loginContainer } >
-                <Typography component='h1' variant='h5'>Sign In</Typography>
-                <FormControl className={ classes.loginForm } component='form'>
-                    <TextField className={ classes.loginComponent } label='Email Address' type='email' variant='outlined' required fullWidth autoFocus />
-                    <TextField className={ classes.loginComponent } label='Password' type='password' variant='outlined' required fullWidth />
-                    <Grid className={ classes.loginComponent } container>
+            <div className={ classes.registerContainer } >
+                <Typography component='h1' variant='h5'>Get U a ticket to UofTEats!</Typography>
+                <FormControl className={ classes.registerForm } component='form'>
+                    <TextField className={ classes.registerComponent } label='Username' type='text' variant='outlined' required fullWidth autoFocus />
+                    <TextField className={ classes.registerComponent } label='Email Address' type='email' variant='outlined' required fullWidth/>
+                    <TextField className={ classes.registerComponent } label='Password' type='password' variant='outlined' required fullWidth />
+                    <TextField className={ classes.registerComponent } label='Confirm Password' type='password' variant='outlined' required fullWidth />
+                    <Grid className={ classes.registerComponent } container>
                         <Grid className={ classes.gridComponent } item xs={ 3 }>
                             <FormLabel required>Role</FormLabel>
                         </Grid>
                         <Grid item xs>
                             <RadioGroup row>
                                 <FormControlLabel name='loginAsStudent' value='Student' control= { <Radio color='primary' /> } label='Student' />
-                                <FormControlLabel name='loginAsTruck' value='Truck' control= { <Radio color='primary' /> } label='Truck Manager' />
+                                <FormControlLabel name='loginAsTruck' value='Truck' control= { <Radio color='primary' /> } label='Truck Manager' disabled/>
                             </RadioGroup>
                         </Grid>
                     </Grid>
-                    <FormControlLabel className={ classes.loginComponent } control={ <Checkbox value='Remember' color='primary' /> } label='Remember me?' />
-                    <Button className={ classes.loginComponent } variant='contained' color='primary' fullWidth>Log me in</Button>
-                    <Grid className={ classes.loginComponent } container>
-                        <Grid className={ classes.gridComponent } item xs={ 6 }>
-                            <Link variant='body2'>Forget Password?</Link>
-                        </Grid>
-                        <Grid className={ classes.gridComponent } item xs={ 6 }>
-                            <Link variant='body2' href='/register'>Register Here!</Link>
+                    <Button className={ classes.registerComponent } variant='contained' color='secondary' fullWidth>Register</Button>
+                    <Grid className={ classes.registerComponent } container>
+                        <Grid className={ classes.gridComponent } item xs>
+                            <Link variant='body2' href='/login'>Already have an account? Login here!</Link>
                         </Grid>
                     </Grid>
                 </FormControl>
@@ -74,4 +71,4 @@ function Login() {
     )
 }
 
-export default Login;
+export default Register;

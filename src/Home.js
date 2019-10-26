@@ -18,6 +18,9 @@ class Home extends React.Component {
                 <Link to="/login">
                     <Button color='primary'> Please login Here</Button>
                 </Link>
+                <Link to="/admin">
+                    <Button color='primary'> AdminPage</Button>
+                </Link>
             </div>
         );
     }

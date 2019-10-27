@@ -31,7 +31,7 @@ class HeaderBar extends React.Component {
         return (
             <Container className={ classes.container }>
                 <div className={ classes.root }>
-                    <AppBar position='static'>
+                    <AppBar color='default' position='static'>
                         <Toolbar>
                             <Typography className={ classes.items } variant='h6'>{ title }</Typography>
                             <Button color='inherit'>{ username }</Button>

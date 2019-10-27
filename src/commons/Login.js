@@ -66,7 +66,7 @@ class Login extends React.Component {
                         <Button className={ classes.loginComponent } variant='contained' color='primary' fullWidth>Log me in</Button>
                         <Grid className={ classes.loginComponent } container>
                             <Grid className={ classes.gridComponent } item xs={ 6 }>
-                                <Link variant='body2'>Forget Password?</Link>
+                                <Link variant='body2' href='/reset'>Forget Password?</Link>
                             </Grid>
                             <Grid className={ classes.gridComponent } item xs={ 6 }>
                                 <Link variant='body2' href='/register'>Register Here!</Link>

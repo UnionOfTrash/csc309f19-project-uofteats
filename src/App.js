@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./Home";
 import Login from "./commons/Login";
 import Register from "./commons/Register";
+import Reset from "./commons/Reset";
 import FoodPage from "./customer/food_page/FoodPage";
 import CustomerMain from "./customer/main_page/CustomerMain";
 import Admin from './admin/Admin'
@@ -24,6 +25,7 @@ class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path='/register' component={Register} />
+            <Route exact path='/reset' component={Reset} />
             <Route exact path="/customer/food_page/FoodPage" component={FoodPage} />
             <Route exact path="/customer/main_page/CustomerMain" component={CustomerMain}/>
             <Route exact path="/admin" component={Admin} />

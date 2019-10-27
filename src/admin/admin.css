@@ -6,3 +6,36 @@ td{
     overflow: auto;
 }
 
+html body{
+    color: #fff;
+    background-color: rgb(52,60,69);
+}
+
+.modal-content{
+    color: #fff;
+    background-color: rgb(52,60,69);
+}
+
+.text-center, .card{
+    color: #fff;
+    background-color: rgb(52,60,69);
+}
+
+
+.nav-tabs{
+    border-bottom-color: #fff;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: rgb(52,60,69);
+    border-color: #dee2e6 #dee2e6 transparent;
+}
+
+.nav-tabs .nav-link {
+    color: rgb(202, 198, 190);
+    border: 1px 1px 0 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+

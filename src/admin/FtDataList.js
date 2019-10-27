@@ -19,7 +19,7 @@ class FtDataList extends React.Component{
             <div>
                 <br></br>
             </div>
-            <Table striped bordered hover>
+            <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
                     <th>Truck ID #</th>

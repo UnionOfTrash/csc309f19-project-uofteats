@@ -7,7 +7,7 @@ import DeleteButton from "./Buttons/DeleteButton"
 class FtDataItem extends React.Component{
 
     render() {
-        const {ft} = this.props
+        const {ft, removeUser} = this.props
         return(
             <tr>
                 <td>{ft.id}</td>
@@ -20,9 +20,9 @@ class FtDataItem extends React.Component{
                         <EditButton userdata={ft}
                                     dataname="food truck data"/> 
                         <DeleteButton userdata={ft}
-                                      dataname="food truck"/>
+                                      dataname="food truck"
+                                      removeUser = {removeUser}/>
                     </ButtonGroup>
-                    
                 </td>
             </tr>
         )

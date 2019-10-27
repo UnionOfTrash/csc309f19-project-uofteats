@@ -6,18 +6,22 @@ import {Tab, Tabs} from 'react-bootstrap'
 
 class Control extends React.Component{
     render() {
-        const {Users, Fts} = this.props
+        const {Users, Fts, admin} = this.props
         return(
             <>
                 <Tabs defaultActiveKey="UserDataList" id="tabs">
                     <Tab eventKey="UserDataList" title="User Management">
                         <UserDataList 
                             Users = {Users}
+                            removeUser = {this.props.removeUser}
+                            admin={admin}
                         />
                     </Tab>
                     <Tab eventKey="FtDataList" title="Food Truck Management">
                         <FtDataList
                             Fts = {Fts}
+                            removeUser = {this.props.removeUser}
+                            admin={admin}
                         />
                     </Tab>
                     <Tab eventKey="Search" title="Search">

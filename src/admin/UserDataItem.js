@@ -7,7 +7,7 @@ import DeleteButton from "./Buttons/DeleteButton"
 class UserDataItem extends React.Component{
 
     render() {
-        const {user} = this.props
+        const {user, removeUser} = this.props
         return(
             <tr>
                 <td>{user.id}</td>
@@ -24,6 +24,7 @@ class UserDataItem extends React.Component{
                         <DeleteButton
                                      userdata={user}
                                      dataname="user"
+                                     removeUser = {removeUser}
                         />
                     </ButtonGroup>
                     

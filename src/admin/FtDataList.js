@@ -2,11 +2,18 @@ import React from "react"
 import {Table} from "react-bootstrap"
 import FtDataItem from "./FtDataItem"
 import {uid} from "react-uid"
-import "./admin.css"
+
 
 class FtDataList extends React.Component{
     render(){
-        const {Fts} = this.props
+        const {Fts, removeUser, admin} = this.props
+
+        removeUser.bind(admin)
+
+        function rmUser(u){
+            removeUser(u)
+        }
+
         return(
         <>
             <div>
@@ -27,8 +34,9 @@ class FtDataList extends React.Component{
                     {Fts.map((ft)=>{
                         return(
                             <FtDataItem 
-                                key = {uid(ft.id)}
+                                key = {uid(ft)}
                                 ft = {ft}
+                                removeUser = {rmUser}
                             />
                         )
                     })}

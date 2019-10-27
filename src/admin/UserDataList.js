@@ -6,7 +6,14 @@ import UserDataItem from "./UserDataItem"
 
 class UserDataList extends React.Component{
     render() {
-        const {Users} = this.props
+        const {Users,removeUser, admin} = this.props
+
+        removeUser.bind(admin)
+
+        function rmUser(u){
+            removeUser(u)
+        }
+
         return (
         <>
             <div>
@@ -27,8 +34,9 @@ class UserDataList extends React.Component{
                     {Users.map((u) =>{
                         return(
                             <UserDataItem
-                                key= {uid(u.id)}
+                                key= {uid(u)}
                                 user={u}
+                                removeUser = {rmUser}
                             />
                         )
                     })}

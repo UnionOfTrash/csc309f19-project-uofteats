@@ -2,7 +2,7 @@ import React from "react"
 
 import {Modal, Button} from "react-bootstrap"
 
-// for edit button
+// this will shows a pop up window over the datalist
 function PopUpEditModal(props) {
     return (
       <Modal
@@ -19,38 +19,49 @@ function PopUpEditModal(props) {
         <Modal.Body>
           Do you want to remove the {props.dataname} : {props.userdata.name} ?
         </Modal.Body>
+
         <Modal.Footer>
-          <Button onClick={props.onHide} variant="danger">Delete</Button>
-          <Button onClick={props.onHide}>Close</Button>
+            <Button onClick={props.onClick} 
+                    variant="danger">
+                Delete
+            </Button>
+
+            <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
-  }
+}
 
-  function Delete(props) {
-    const [modalShow, setModalShow] = React.useState(false);
+  // this will create a delete button
+function Delete(props) {
   
-    return (
-      <>
-        <Button variant="danger" onClick={() => setModalShow(true)}>
+  const [modalShow, setModalShow] = React.useState(false);
+
+  return (
+    <>
+      <Button variant="danger" onClick={() => setModalShow(true)}>
           Delete
-        </Button>
+      </Button>
   
-        <PopUpEditModal
+      <PopUpEditModal
           {...props}
           show={modalShow}
           onHide={() => setModalShow(false)}
-        />
-      </>
-    );
-  }
+          onClick={props.onClick}
+      />
+    </>
+  );
+}
 
 class DeleteButton extends React.Component{
-    render() {
-        return (<Delete userdata={this.props.userdata}
-                        dataname={this.props.dataname}
-        />
-          )
-    }
+  render() {
+    const {userdata, dataname,removeUser} = this.props
+
+    return (<Delete userdata={userdata}
+                    dataname={dataname}
+                    onClick={()=>removeUser(userdata)}
+            />
+    )
+  }
 }
 export default DeleteButton

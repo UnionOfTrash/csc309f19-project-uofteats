@@ -63,7 +63,7 @@ class Login extends React.Component {
                             </Grid>
                         </Grid>
                         <FormControlLabel className={ classes.loginComponent } control={ <Checkbox value='Remember' color='primary' /> } label='Remember me?' />
-                        <Button className={ classes.loginComponent } variant='contained' color='primary' fullWidth>Log me in</Button>
+                        <Button className={ classes.loginComponent } variant='contained' color='primary' fullWidth href='/customer/main_page/CustomerMain'>Log me in</Button>
                         <Grid className={ classes.loginComponent } container>
                             <Grid className={ classes.gridComponent } item xs={ 6 }>
                                 <Link variant='body2' href='/reset'>Forget Password?</Link>

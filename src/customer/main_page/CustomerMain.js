@@ -1,6 +1,7 @@
 import React from 'react';
+
+import HeaderBar from "../../commons/HeaderBar";
 import './CustomerMain.css'
-import Header from "../Header/Header";
 import SearchTruck from "./SearchTruck";
 import TruckInfo from "./TruckInfo"
 
@@ -45,7 +46,7 @@ class CustomerMain extends React.Component {
     render() {
         return (
             <div>
-                <Header title="UofT Eats" username="David Liu" />
+                <HeaderBar title="UofT Eats" username="David Liu" />
                 <SearchTruck placeholder="truck name"/>
 
                 <div>

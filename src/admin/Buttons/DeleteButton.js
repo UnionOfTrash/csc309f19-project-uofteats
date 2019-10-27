@@ -1,6 +1,6 @@
 import React from "react"
 
-import {Modal, Button} from "react-bootstrap"
+import {Modal, Button, Toast} from "react-bootstrap"
 
 // this will shows a pop up window over the datalist
 function PopUpEditModal(props) {
@@ -21,7 +21,7 @@ function PopUpEditModal(props) {
         </Modal.Body>
 
         <Modal.Footer>
-            <Button onClick={props.onClick} 
+            <Button onClick={props.onDelete} 
                     variant="danger">
                 Delete
             </Button>
@@ -30,6 +30,20 @@ function PopUpEditModal(props) {
         </Modal.Footer>
       </Modal>
     );
+}
+
+function DeleteToast(props){
+
+  return(
+    <Toast>
+        <Toast.Header>
+          <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+          <strong className="mr-auto">Bootstrap</strong>
+          <small>11 mins ago</small>
+        </Toast.Header>
+        <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+      </Toast>
+  );
 }
 
   // this will create a delete button
@@ -47,19 +61,27 @@ function Delete(props) {
           {...props}
           show={modalShow}
           onHide={() => setModalShow(false)}
-          onClick={props.onClick}
+          onDelete={props.onDelete}
       />
+      {/* <DeleteToast {...props}
+          show={modalShow}
+          onClick={() => setModalShow(false)}/> */}
     </>
   );
 }
 
 class DeleteButton extends React.Component{
+
+
   render() {
     const {userdata, dataname,removeUser} = this.props
 
     return (<Delete userdata={userdata}
                     dataname={dataname}
-                    onClick={()=>removeUser(userdata)}
+                    onDelete={()=>{
+
+                      removeUser(userdata)}
+                    }
             />
     )
   }

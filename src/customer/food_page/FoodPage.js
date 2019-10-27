@@ -1,5 +1,6 @@
 import React from "react";
-import Header from "../Header/Header";
+
+import HeaderBar from "../../commons/HeaderBar";
 import TruckHeader from "./TruckHeader";
 import FoodList from "./FoodList";
 import "./FoodPage.css";
@@ -73,23 +74,23 @@ class FoodPage extends React.Component {
     ]
   };
 
-  render() {
-    return (
-      <div>
-        <Header title="UofT Eats" username={this.state.userName} />
+    render() {
+        return (
+            <div>
+                <HeaderBar title="UofT Eats" username={this.state.userName} />
 
-        <TruckHeader
-          truckName={this.state.truck.name}
-          rate={this.state.truck.rate}
-          location={this.state.truck.location}
-          foodType={this.state.truck.foodType}
-          serveTime={this.state.truck.serveTime}
-        />
+                <TruckHeader
+                    truckName={this.state.truck.name}
+                    rate={this.state.truck.rate}
+                    location={this.state.truck.location}
+                    foodType={this.state.truck.foodType}
+                    serveTime={this.state.truck.serveTime}
+                />
 
-        <FoodList foodList={this.state.foodList} />
-      </div>
-    );
-  }
+                <FoodList foodList={this.state.foodList} />
+            </div>
+        );
+    }
 }
 
 export default FoodPage;

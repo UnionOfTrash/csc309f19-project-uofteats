@@ -1,6 +1,8 @@
 import React from "react";
+
+import HeaderBar from "../commons/HeaderBar";
+
 import "./admin.css";
-import Header from './Header';
 import Control from './Control';
 
 class Admin extends React.Component{
@@ -40,7 +42,7 @@ class Admin extends React.Component{
 
         return (
             <div id="admin-app">
-                <Header adminName="admin1"/>
+                <HeaderBar title='UofT Eats Admin' username='admin1' />
                 <br/>
                 <Control 
                     Users = {this.state.Users}

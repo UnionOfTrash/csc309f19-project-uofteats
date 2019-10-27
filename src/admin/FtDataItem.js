@@ -1,5 +1,5 @@
 import React from "react"
-import {Modal, Button, Dropdown, ButtonGroup} from "react-bootstrap"
+import {ButtonGroup} from "react-bootstrap"
 
 import EditButton from "./Buttons/EditButton"
 import DeleteButton from "./Buttons/DeleteButton"
@@ -15,11 +15,12 @@ class FtDataItem extends React.Component{
                 <td>{ft.email}</td>
                 <td>{ft.phone}</td>
                 <td>{ft.img}</td>
-                {/* Edit buttons */}
                 <td>
                     <ButtonGroup>
-                        <EditButton/> 
-                        <DeleteButton/>
+                        <EditButton userdata={ft}
+                                    dataname="food truck data"/> 
+                        <DeleteButton userdata={ft}
+                                      dataname="food truck"/>
                     </ButtonGroup>
                     
                 </td>

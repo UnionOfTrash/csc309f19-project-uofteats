@@ -13,25 +13,21 @@ function PopUpEditModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
+            Delete a {props.dataname}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </p>
+          Do you want to remove the {props.dataname} : {props.userdata.name} ?
         </Modal.Body>
         <Modal.Footer>
+          <Button onClick={props.onHide} variant="danger">Delete</Button>
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
   }
 
-  function Delete() {
+  function Delete(props) {
     const [modalShow, setModalShow] = React.useState(false);
   
     return (
@@ -41,6 +37,7 @@ function PopUpEditModal(props) {
         </Button>
   
         <PopUpEditModal
+          {...props}
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
@@ -50,7 +47,10 @@ function PopUpEditModal(props) {
 
 class DeleteButton extends React.Component{
     render() {
-        return (<Delete/>)
+        return (<Delete userdata={this.props.userdata}
+                        dataname={this.props.dataname}
+        />
+          )
     }
 }
 export default DeleteButton

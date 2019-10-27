@@ -1,5 +1,5 @@
 import React from "react"
-import {Button, ButtonGroup, Modal} from "react-bootstrap"
+import {ButtonGroup} from "react-bootstrap"
 
 import EditButton from "./Buttons/EditButton"
 import DeleteButton from "./Buttons/DeleteButton"
@@ -15,11 +15,16 @@ class UserDataItem extends React.Component{
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
                 <td>{user.img}</td>
-                {/* Edit buttons */}
                 <td>
                     <ButtonGroup>
-                        <EditButton/> 
-                        <DeleteButton/>
+                        <EditButton
+                                    userdata={user}
+                                    dataname="user data"
+                        /> 
+                        <DeleteButton
+                                     userdata={user}
+                                     dataname="user"
+                        />
                     </ButtonGroup>
                     
                 </td>

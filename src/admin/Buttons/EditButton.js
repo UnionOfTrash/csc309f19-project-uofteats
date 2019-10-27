@@ -1,5 +1,7 @@
 import React from "react"
 
+import EditUserDataCard from "./EditUserDataCard"
+
 import {Modal, Button} from "react-bootstrap"
 
 // for edit button
@@ -13,25 +15,23 @@ function PopUpEditModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
+            Edit {props.dataname}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </p>
+            <EditUserDataCard
+                user={props.userdata}
+            />
         </Modal.Body>
         <Modal.Footer>
+          <Button onClick={props.onHide} variant="success">Save</Button>
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
   }
 
-  function Edit() {
+  function Edit(props) {
     const [modalShow, setModalShow] = React.useState(false);
   
     return (
@@ -41,6 +41,7 @@ function PopUpEditModal(props) {
         </Button>
   
         <PopUpEditModal
+          {...props}
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
@@ -50,7 +51,12 @@ function PopUpEditModal(props) {
 
 class EditButton extends React.Component{
     render() {
-        return (<Edit/>)
+        return (
+        <Edit 
+            userdata={this.props.userdata}
+            dataname={this.props.dataname}
+
+          />)
     }
 }
 export default EditButton

@@ -3,12 +3,11 @@ import "./admin.css";
 import Header from './Header';
 import Control from './Control';
 
-
 class Admin extends React.Component{
 
     state = {
         Users:[
-            {id:"0", name:"WDNMD", email:"WDNMD@csgo.com", phone:"8888-8888", img:"www"},
+            {id:"0", name:"WDNMD", email:"WDNMD@csgo.com", phone:"8888-8888", img:"../../public/truck1.png"},
             {id:"1", name:"WDNMD", email:"WDNMD@csgo.com", phone:"8888-8888", img:"www"},
             {id:"2", name:"WDNMD", email:"WDNMD@csgo.com", phone:"8888-8888", img:"www"},
             {id:"3", name:"WDNMD", email:"WDNMD@csgo.com", phone:"8888-8888", img:"www"},
@@ -21,7 +20,7 @@ class Admin extends React.Component{
             {id:"10", name:"WDNMD", email:"WDNMD@csgo.com", phone:"8888-8888", img:"www"}
         ],
         Fts:[
-            {id:"0", name:"Ftnmd", email:"FTNMD@csgo.com", phone:"8888-8888", img:"www"},
+            {id:"0", name:"Ftnmd", email:"FTNMD@csgo.com", phone:"8888-8888", img:"../../public/truck1.png"},
             {id:"1", name:"Ftnmd", email:"FTNMD@csgo.com", phone:"8888-8888", img:"www"},
             {id:"2", name:"Ftnmd", email:"FTNMD@csgo.com", phone:"8888-8888", img:"www"},
             {id:"3", name:"Ftnmd", email:"FTNMD@csgo.com", phone:"8888-8888", img:"www"},

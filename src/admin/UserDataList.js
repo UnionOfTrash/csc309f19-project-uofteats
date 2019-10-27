@@ -1,5 +1,5 @@
 import React from "react"
-import {Table} from "react-bootstrap"
+import {Table, Button} from "react-bootstrap"
 
 import {uid} from "react-uid"
 import UserDataItem from "./UserDataItem"
@@ -27,7 +27,11 @@ class UserDataList extends React.Component{
                         <th>Contact Email</th>
                         <th>Phone #</th>
                         <th>Profile Image</th>
-                        <th>Edit</th>
+                        <th>
+                            <Button variant="secondary">
+                                Add New User
+                            </Button>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

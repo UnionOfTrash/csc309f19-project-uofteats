@@ -1,5 +1,5 @@
 import React from "react"
-import {Table} from "react-bootstrap"
+import {Table, Button} from "react-bootstrap"
 import FtDataItem from "./FtDataItem"
 import {uid} from "react-uid"
 
@@ -27,7 +27,11 @@ class FtDataList extends React.Component{
                     <th>Contact Email</th>
                     <th>Phone #</th>
                     <th>Profile Image</th>
-                    <th>Edit</th>
+                    <th>
+                            <Button variant="secondary">
+                                Add New Food Truck
+                            </Button>
+                    </th>
                     </tr>
                 </thead>
                 <tbody>

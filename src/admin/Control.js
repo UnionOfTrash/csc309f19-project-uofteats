@@ -25,7 +25,9 @@ class Control extends React.Component{
                         />
                     </Tab>
                     <Tab eventKey="Search" title="Search">
-                        This tab is for Search
+                        <div id="search-container">
+                            this is for search use
+                        </div>
                     </Tab>
                 </Tabs>
             </>

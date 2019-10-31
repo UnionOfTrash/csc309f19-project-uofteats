@@ -1,34 +1,27 @@
 import React from "react";
+import { Input } from 'antd';
+const { Search } = Input;
 
 /* The Header Component */
 class SearchTruck extends React.Component {
 
     render() {
-        const {placeholder} = this.props;
         return (
             <div id="search-truck">
-                <form id="searchField">
-                    <input id="inputField" type="text" placeholder={placeholder} />
-                    <input
-                        className="buttons"
-                        type="submit"
-                        onClick={this.search}
-                        onMouseOver={this.pointTo}
-                        value="Search"
-                    />
-                </form>
+                <Search
+                    placeholder={this.props.placeholder}
+                    maxLength={20}
+                    onSearch={this.props.onSearch}
+                    enterButton
+                    allowClear
+                />
             </div>
         );
-    }
-
-    search() {
-        return 0;
     }
 
     pointTo() {
         return 0;
     }
 }
-
 
 export default SearchTruck;

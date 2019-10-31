@@ -1,14 +1,3 @@
-#search-truck {
-    text-align: center;
-    width: 100%;
-    height: 50px;
-    margin-right: auto;
-    margin-left: auto;
-    /*border: 3px solid darkgreen;*/
-    background: lightgray;
-}
-
-
 #searchField {
     margin: auto;
 }

@@ -14,6 +14,7 @@ class UserProfileMain extends React.Component {
     }
 
     render() {
+        console.log("Food Page!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return (
             <div>
                 <ProfileImage image={this.state.selected.image} alt={this.state.selected.utorid}/>

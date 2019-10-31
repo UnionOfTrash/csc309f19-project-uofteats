@@ -34,7 +34,10 @@ class HeaderBar extends React.Component {
                     <AppBar color='default' position='static'>
                         <Toolbar>
                             <Typography className={ classes.items } variant='h6'>{ title }</Typography>
-                            <Button color='inherit'>{ username }</Button>
+                            <a href={"../customer/profile_page/UserProfileMain"}>
+                                <p> {username} </p>
+                            </a>
+                            {/*<Button color='inherit'> { username } </Button>*/}
                         </Toolbar>
                     </AppBar>
                 </div>

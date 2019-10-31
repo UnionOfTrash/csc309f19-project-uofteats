@@ -1,4 +1,5 @@
 import React from "react";
+import "antd/dist/antd.css";
 
 import HeaderBar from "../../commons/HeaderBar";
 import TruckHeader from "./TruckHeader";
@@ -30,7 +31,7 @@ class FoodPage extends React.Component {
     },
     foodList: [
       {
-        category: "Combos",
+        category: "HotDogs",
         foods: [
           {
             name: "All Beef Hotdog",
@@ -74,23 +75,23 @@ class FoodPage extends React.Component {
     ]
   };
 
-    render() {
-        return (
-            <div>
-                <HeaderBar title="UofT Eats" username={this.state.userName} />
+  render() {
+    return (
+      <div>
+        <HeaderBar title="UofT Eats" username={this.state.userName} />
 
-                <TruckHeader
-                    truckName={this.state.truck.name}
-                    rate={this.state.truck.rate}
-                    location={this.state.truck.location}
-                    foodType={this.state.truck.foodType}
-                    serveTime={this.state.truck.serveTime}
-                />
+        <TruckHeader
+          truckName={this.state.truck.name}
+          rate={this.state.truck.rate}
+          location={this.state.truck.location}
+          foodType={this.state.truck.foodType}
+          serveTime={this.state.truck.serveTime}
+        />
 
-                <FoodList foodList={this.state.foodList} />
-            </div>
-        );
-    }
+        <FoodList foodList={this.state.foodList} />
+      </div>
+    );
+  }
 }
 
 export default FoodPage;

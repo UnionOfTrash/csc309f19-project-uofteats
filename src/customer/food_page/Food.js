@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "antd";
 
 /* The Header Component */
 class Food extends React.Component {
@@ -9,6 +10,7 @@ class Food extends React.Component {
         <div className="food-container">
           <img src={foodImage} alt="food image" />
           <p className="food-name">{foodName}</p>
+          <Button className="add-cart-button"> Add to Cart </Button>
           <p className="food-price">{price}</p>
         </div>
       </div>

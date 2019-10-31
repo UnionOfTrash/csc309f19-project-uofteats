@@ -1,54 +1,52 @@
-
-
-
-td{
-    overflow: auto;
+td {
+  overflow: auto;
 }
 
-.modal-content{
-    color: #fff;
-    background-color: rgb(52,60,69);
+.modal-content {
+  color: #fff;
+  background-color: rgb(52, 60, 69);
 }
 
-.text-center, .card{
-    color: #fff;
-    background-color: rgb(52,60,69);
+.text-center,
+.card {
+  color: #fff;
+  background-color: rgb(52, 60, 69);
 }
 
-#admin-app{
-    color: #fff;
-    background-color: rgb(52,60,69);
+#admin-app {
+  color: #fff;
+  background-color: rgb(52, 60, 69);
 }
 
-.nav-tabs{
-    border-bottom-color: #fff;
-    color: #fff;
-    background-color: rgb(52,60,69);
+.nav-tabs {
+  border-bottom-color: #fff;
+  color: #fff;
+  background-color: rgb(52, 60, 69);
 }
 
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    color: #fff;
-    background-color: rgb(52,60,69);
-    border-color: #dee2e6 #dee2e6 transparent;
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: #fff;
+  background-color: rgb(52, 60, 69);
+  border-color: #dee2e6 #dee2e6 transparent;
 }
 
 .nav-tabs .nav-link {
-    margin: 1 0 0 0 ;
-    color: rgb(202, 198, 190);
-    border: 1px solid transparent;
-    border-top-left-radius: .25rem;
-    border-top-right-radius: .25rem;
+  margin: 1 0 0 0;
+  color: rgb(202, 198, 190);
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 
-
-.nav-tabs .nav-link:hover{
-    transition: 0.3s ease-in;
+.nav-tabs .nav-link:hover {
+  transition: 0.3s ease-in;
 }
 
-.nav-tabs .nav-link:focus{
-    transition: unset;
+.nav-tabs .nav-link:focus {
+  transition: unset;
 }
 
-#search-container{
-    height: 800px;
+#search-container {
+  height: 800px;
 }

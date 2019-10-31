@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.5.1",
+    "antd": "^3.24.3",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
     "react": "^16.11.0",
@@ -34,5 +35,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.12.2"
   }
 }

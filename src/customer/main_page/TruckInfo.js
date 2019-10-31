@@ -6,7 +6,7 @@ class TruckInfo extends React.Component {
         return (
             <div className="truck-info">
                 <div className="truck-img">
-                    <a href={this.props.foodPage}>
+                    <a href={'../food_page/FoodPage'}>
                         <img src={this.props.image} alt={this.props.alternative}/>
                     </a>
                 </div>

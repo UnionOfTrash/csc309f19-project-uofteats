@@ -50,9 +50,10 @@ class CustomerMain extends React.Component {
 
         return (
             <div>
-                <HeaderBar title="UofT Eats" username="David Liu" />
-                <SearchTruck placeholder={"truck name"} onSearch={this.searchTruck}/>
-
+                <HeaderBar title="UofT Eats" username="User name" />
+                <div id='search-field'>
+                    <SearchTruck placeholder='Input truck name' onSearch={this.searchTruck}/>
+                </div>
                 <div>
                     {trackComponents}
                 </div>

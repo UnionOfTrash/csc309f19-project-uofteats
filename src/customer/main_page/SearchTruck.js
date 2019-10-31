@@ -7,15 +7,14 @@ class SearchTruck extends React.Component {
 
     render() {
         return (
-            <div id="search-truck">
-                <Search
-                    placeholder={this.props.placeholder}
-                    maxLength={20}
-                    onSearch={this.props.onSearch}
-                    enterButton
-                    allowClear
-                />
-            </div>
+            <Search
+                placeholder={this.props.placeholder}
+                style={{width: 450, height: 30, textAlign: 'left'}}
+                maxLength={20}
+                onSearch={this.props.onSearch}
+                enterButton
+                allowClear
+            />
         );
     }
 

@@ -64,7 +64,7 @@ class Login extends React.Component {
                                     <Checkbox defaultChecked> Remember me? </Checkbox>
                                 </Form.Item>
                                 <Form.Item className='commonItem'>
-                                    <Button type='primary' href={ this.jumpLinks[this.state.role] } className='commonButton'> Log me in </Button>
+                                    <Button type='primary' href={ this.jumpLinks[this.state.role] } block> Log me in </Button>
                                 </Form.Item>
                                 <Form.Item className='commonItem'>
                                     <Row>

@@ -63,7 +63,7 @@ class Register extends React.Component {
                                     </Row>
                                 </Form.Item>
                                 <Form.Item className='commonItem'>
-                                    <Button type='danger' className='commonButton'> Sign Up </Button>
+                                    <Button type='danger' block> Sign Up </Button>
                                 </Form.Item>
                                 <Form.Item className='commonItem'>
                                     <Row>

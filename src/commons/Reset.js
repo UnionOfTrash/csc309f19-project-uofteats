@@ -9,7 +9,7 @@ import { Typography } from "antd";
 import { Form, Input, Icon, Button } from "antd";
 
 const { Content } = Layout;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 
 class Reset extends React.Component {
@@ -26,11 +26,11 @@ class Reset extends React.Component {
                             <Form className='commonForm'>
                                 <Form.Item className='commonItem'>
                                     <Row gutter={ 1 }>
-                                        <Col span={ 20 }>
+                                        <Col span={ 16 }>
                                             <Input prefix={ <Icon type='user' /> } type='email' placeholder='Email Address' autoFocus />
                                         </Col>
-                                        <Col span={ 4 }>
-                                            <Button color='primary' className='commonButton'> Send Code </Button>
+                                        <Col span={ 8 }>
+                                            <Button color='primary' block> Send Code </Button>
                                         </Col>
                                     </Row>
                                 </Form.Item>
@@ -44,7 +44,7 @@ class Reset extends React.Component {
                                     <Input.Password prefix={ <Icon type='unlock' /> } type='password' placeholder='Confirm New Password' />
                                 </Form.Item>
                                 <Form.Item className='commonItem'>
-                                    <Button type='danger' className='commonButton'> Reset </Button>
+                                    <Button type='danger' block> Reset </Button>
                                 </Form.Item>
                                 <Form.Item className='commonItem'>
                                     <Row>

@@ -26,6 +26,16 @@
     justify-content: center;
 }
 
-.commonButton {
-    width: 100%;
+.commonHeader {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    background-color: #F5F5F5;
+}
+
+#userBtn .ant-dropdown-button {
+    margin: 0 8px 8px 0;
+}
+
+.ant-dropdown-menu-item a {
+    margin: 0;
+    padding: 0;
 }

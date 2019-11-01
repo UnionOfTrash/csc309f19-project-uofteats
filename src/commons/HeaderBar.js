@@ -1,41 +1,58 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import "antd/dist/antd.css";
+import "./commons.css";
 
-import { withStyles } from "@material-ui/core/styles";
+import { Affix } from "antd";
+import { PageHeader, Dropdown, Menu } from "antd";
+import { Button } from "antd";
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    padding: theme.spacing(1)
-  },
-  items: {
-    flexGrow: 1,
-    margin: theme.spacing(1)
-  }
-});
 
 class HeaderBar extends React.Component {
-  render() {
-    const { classes, title, username } = this.props;
 
-    return (
-      <AppBar color="default" position="static">
-        <Toolbar className={classes.root}>
-          <Typography className={classes.items} variant="h6">
-            {title}
-          </Typography>
-          <a href={"../../customer/profile_page/UserProfileMain"}>
-            <p> {username} </p>
-          </a>
-          {/*<Button color='inherit'> { username } </Button>*/}
-        </Toolbar>
-      </AppBar>
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: this.props.title,
+            username: this.props.username,
+            top: 0,
+        };
+    }
+
+    handleMenuClick = (e) => {
+        if (e.key === 'Profile') {
+            console.log(e.key);
+            return <Redirect to='/customer/profile_page/UserProfileMain' />
+        }
+    }
+
+    userMenu = () => (
+        <Menu>
+            <Menu.Item key='Profile'>
+                <Button type='link' href='/customer/profile_page/UserProfileMain' block> Profile </Button>
+            </Menu.Item>
+            <Menu.Item key='Logout'>
+                <Button type='link' href='' block> Logout </Button>
+            </Menu.Item>
+        </Menu>
     );
-  }
+
+    userBtn = () => (
+        <Dropdown id='userBtn' overlay={ this.userMenu() } trigger={ ['click'] } >
+            <Button type='link' size='large'> { this.state.username } </Button>
+        </Dropdown>
+    );
+
+    render() {
+
+        return (
+            <Affix offsetTop={ this.state.top } >
+                <PageHeader ghost={ false } title={ this.state.title } extra={ this.userBtn() } className='commonHeader' />
+            </Affix>
+        );
+    }
 }
 
-export default withStyles(styles, { withTheme: true })(HeaderBar);
+
+export default HeaderBar;

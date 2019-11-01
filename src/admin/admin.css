@@ -1,21 +1,13 @@
-
-
-
 td{
     overflow: auto;
 }
 
-.modal-content{
-    color: #fff;
-    background-color: rgb(52,60,69);
+.html-body{
+    color: rgb(255, 255, 255);
+    background-color: rgb(24, 26, 27);
 }
 
-.text-center, .card{
-    color: #fff;
-    background-color: rgb(52,60,69);
-}
-
-#admin-app{
+.text-center, .card, .modal-content, #admin-app, .admin-headbar{
     color: #fff;
     background-color: rgb(52,60,69);
 }

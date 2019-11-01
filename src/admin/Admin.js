@@ -59,8 +59,6 @@ class Admin extends React.Component{
                 Fts: filteredUsers
             })
         }
-
-        
     }
 
 
@@ -68,7 +66,7 @@ class Admin extends React.Component{
 
         return (
             <div id="admin-app">
-                <HeaderBar title='UofT Eats Admin' username='admin1' />
+                <HeaderBar title='UofT Eats Admin' username='admin1'/>
                 <br/>
                 <Control 
                     Users = {this.state.Users}

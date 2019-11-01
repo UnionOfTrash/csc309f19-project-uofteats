@@ -1,7 +1,7 @@
 import React from 'react'
 import './admin.css'
-import UserDataList from "./UserDataList"
-import FtDataList from "./FtDataList"
+import UserDataList from "./UserData/UserDataList"
+import FtDataList from "./FTData/FtDataList"
 import {Tab, Tabs} from 'react-bootstrap'
 
 class Control extends React.Component{

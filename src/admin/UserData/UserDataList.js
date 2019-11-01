@@ -22,8 +22,8 @@ class UserDataList extends React.Component{
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
-                        <th>Truck ID #</th>
-                        <th>Truck Name</th>
+                        <th>User ID #</th>
+                        <th>User Name</th>
                         <th>Contact Email</th>
                         <th>Phone #</th>
                         <th>Profile Image</th>

@@ -1,8 +1,8 @@
 import React from "react"
 import {ButtonGroup} from "react-bootstrap"
 
-import EditButton from "./Buttons/EditButton"
-import DeleteButton from "./Buttons/DeleteButton"
+import EditButton from "../EditButton/EditButton"
+import DeleteButton from "../DeleteButton/DeleteButton"
 
 class FtDataItem extends React.Component{
 
@@ -17,10 +17,10 @@ class FtDataItem extends React.Component{
                 <td>{ft.img}</td>
                 <td>
                     <ButtonGroup>
-                        <EditButton userdata={ft}
-                                    dataname="food truck data"/> 
-                        <DeleteButton userdata={ft}
-                                      dataname="food truck"
+                        <EditButton data={ft}
+                                    dataType="food truck"/> 
+                        <DeleteButton data={ft}
+                                      dataType="food truck"
                                       removeUser = {removeUser}/>
                     </ButtonGroup>
                 </td>

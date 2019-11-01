@@ -1,0 +1,24 @@
+#image-container {
+    margin: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.info-table {
+    margin: 30px;
+}
+
+#buttons {
+    margin: 20px;
+}
+
+#history-button {
+    display: inline;
+    float: left;
+}
+
+#back-button {
+    display: inline;
+    float: right;
+    margin-right: 30px;
+}

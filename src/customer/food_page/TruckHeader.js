@@ -5,13 +5,15 @@ import Button from "@material-ui/core/Button";
 
 /* The Header Component */
 class TruckHeader extends React.Component {
-  state = {
-    cartFoodNum: 0,
-    cartFoodList: []
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      cartFoodList: []
+    }
+  }
 
   render() {
-    const { truckName, rate, location, foodType, serveTime } = this.props;
+    const { truckName, rate, location, foodType, serveTime, cartFoodNum } = this.props;
     return (
       <div className="truck-header">
         <div className="truck-name-cart">
@@ -22,16 +24,16 @@ class TruckHeader extends React.Component {
               type="shopping-cart"
               style={{
                 fontSize: "25px",
-                color: this.state.cartFoodNum > 0 ? "#1790FF" : "$1F1F1F"
+                color: cartFoodNum > 0 ? "#1790FF" : "$1F1F1F"
               }}
             />
             <span
               className="cart-num"
               style={{
-                color: this.state.cartFoodNum > 0 ? "#1790FF" : "$1F1F1F"
+                color: cartFoodNum > 0 ? "#1790FF" : "$1F1F1F"
               }}
             >
-              {this.state.cartFoodNum}
+              {cartFoodNum}
             </span>
           </Button>
         </div>

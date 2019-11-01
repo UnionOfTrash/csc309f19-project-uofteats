@@ -72,8 +72,15 @@ class FoodPage extends React.Component {
           { name: "Water", price: "$1.00", img: water }
         ]
       }
-    ]
+    ],
+    cartFoodNum: 0
   };
+
+  addCartFood() {
+    this.setState({
+      cartFoodNum: this.state.cartFoodNum + 1
+    })
+  }
 
   render() {
     return (
@@ -81,6 +88,7 @@ class FoodPage extends React.Component {
         <HeaderBar title="UofT Eats" username={this.state.userName} />
 
         <TruckHeader
+          cartFoodNum={this.state.cartFoodNum}
           truckName={this.state.truck.name}
           rate={this.state.truck.rate}
           location={this.state.truck.location}
@@ -88,7 +96,9 @@ class FoodPage extends React.Component {
           serveTime={this.state.truck.serveTime}
         />
 
-        <FoodList foodList={this.state.foodList} />
+        <FoodList foodList={this.state.foodList} onAddCartFood={() => {
+          this.addCartFood()
+        }} />
       </div>
     );
   }

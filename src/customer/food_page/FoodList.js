@@ -5,17 +5,19 @@ import FoodCategoryTitle from "./FoodCategoryTitle";
 /* The Header Component */
 class FoodList extends React.Component {
   render() {
-    const { foodList } = this.props;
+    const { foodList, onAddCartFood } = this.props;
     return (
       <ul>
         {foodList.map(eachCategory => {
           return (
-            <div>
+            <div key={eachCategory.category}>
               <FoodCategoryTitle categoryName={eachCategory.category} />
               <ul>
                 {eachCategory.foods.map(food => {
                   return (
                     <Food
+                      key={food.name}
+                      onAddCartFood={onAddCartFood}
                       foodName={food.name}
                       price={food.price}
                       foodImage={food.img}

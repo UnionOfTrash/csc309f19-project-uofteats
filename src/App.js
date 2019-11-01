@@ -14,6 +14,7 @@ import Register from "./commons/Register";
 import Reset from "./commons/Reset";
 import FoodPage from "./customer/food_page/FoodPage";
 import CustomerMain from "./customer/main_page/CustomerMain";
+import TruckView from "./trucks/TruckView";
 import Admin from './admin/Admin'
 import UserProfileMain from "./customer/profile_page/UserProfileMain";
 
@@ -29,6 +30,7 @@ class App extends React.Component {
             <Route exact path='/reset' component={Reset} />
             <Route exact path="/customer/food_page/FoodPage" component={FoodPage} />
             <Route exact path="/customer/main_page/CustomerMain" component={CustomerMain}/>
+            <Route exact path='/t' component={TruckView} />
             <Route exact path="/admin" component={Admin} />
             <Route exact path="/customer/profile_page/UserProfileMain" component={UserProfileMain}/>
           </Switch>

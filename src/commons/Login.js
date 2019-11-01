@@ -41,6 +41,23 @@ const styles = theme => ({
 
 class Login extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            role: 'Student',
+        };
+        this.jumpLinks = {
+            'Student': '/customer/main_page/CustomerMain',
+            'Truck': '/t',
+        };
+    }
+
+    selectRole = (e) => {
+        this.setState({
+            role: e.target.value,
+        });
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -56,14 +73,14 @@ class Login extends React.Component {
                                 <FormLabel required>Role</FormLabel>
                             </Grid>
                             <Grid item xs>
-                                <RadioGroup row>
+                                <RadioGroup value={ this.state.role } onChange={ this.selectRole } row>
                                     <FormControlLabel name='loginAsStudent' value='Student' control= { <Radio color='primary' /> } label='Student' />
                                     <FormControlLabel name='loginAsTruck' value='Truck' control= { <Radio color='primary' /> } label='Truck Manager' />
                                 </RadioGroup>
                             </Grid>
                         </Grid>
                         <FormControlLabel className={ classes.loginComponent } control={ <Checkbox value='Remember' color='primary' /> } label='Remember me?' />
-                        <Button className={ classes.loginComponent } variant='contained' color='primary' fullWidth href='/customer/main_page/CustomerMain'>Log me in</Button>
+                        <Button className={ classes.loginComponent } variant='contained' color='primary' href={ this.jumpLinks[this.state.role] } fullWidth>Log me in</Button>
                         <Grid className={ classes.loginComponent } container>
                             <Grid className={ classes.gridComponent } item xs={ 6 }>
                                 <Link variant='body2' href='/reset'>Forget Password?</Link>

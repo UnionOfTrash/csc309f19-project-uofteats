@@ -1,0 +1,31 @@
+.commonLayout {
+    background-color: inherit;
+}
+
+.commonContainer {
+    margin-top: 64px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.commonForm {
+    margin-top: 24px;
+    width: 100%;
+}
+
+.commonItem {
+    margin-top: 8px;
+}
+
+.commonGridComponent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.commonButton {
+    width: 100%;
+}

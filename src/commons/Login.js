@@ -1,83 +1,90 @@
 import React from "react";
 
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import Container from "@material-ui/core/Container";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import "antd/dist/antd.css";
+import "./commons.css";
 
-import { withStyles } from "@material-ui/core/styles";
+import { Layout } from "antd";
+import { Row, Col } from "antd";
+import { Typography } from "antd";
+import { Form, Input, Icon, Radio, Checkbox, Button } from "antd";
 
-
-const styles = theme => ({
-    loginContainer: {
-        margin: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    loginForm: {
-        marginTop: theme.spacing(3),
-        width: '100%',
-    },
-    loginComponent: {
-        marginTop: theme.spacing(2),
-    },
-    gridComponent: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+const { Content } = Layout;
+const { Title, Text } = Typography;
 
 
 class Login extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            role: 'Student',
+        };
+        this.jumpLinks = {
+            'Student': '/customer/main_page/CustomerMain',
+            'Truck': '/t',
+        };
+    }
+
+    selectRole = (e) => {
+        this.setState({
+            role: e.target.value,
+        });
+    }
+
     render() {
-        const { classes } = this.props;
 
         return (
-            <Container component='main' maxWidth='sm'>
-                <div className={ classes.loginContainer } >
-                    <Typography component='h1' variant='h5'>Sign In</Typography>
-                    <FormControl className={ classes.loginForm } component='form'>
-                        <TextField className={ classes.loginComponent } label='Email Address' type='email' variant='outlined' required fullWidth autoFocus />
-                        <TextField className={ classes.loginComponent } label='Password' type='password' variant='outlined' required fullWidth />
-                        <Grid className={ classes.loginComponent } container>
-                            <Grid className={ classes.gridComponent } item xs={ 3 }>
-                                <FormLabel required>Role</FormLabel>
-                            </Grid>
-                            <Grid item xs>
-                                <RadioGroup row>
-                                    <FormControlLabel name='loginAsStudent' value='Student' control= { <Radio color='primary' /> } label='Student' />
-                                    <FormControlLabel name='loginAsTruck' value='Truck' control= { <Radio color='primary' /> } label='Truck Manager' />
-                                </RadioGroup>
-                            </Grid>
-                        </Grid>
-                        <FormControlLabel className={ classes.loginComponent } control={ <Checkbox value='Remember' color='primary' /> } label='Remember me?' />
-                        <Button className={ classes.loginComponent } variant='contained' color='primary' fullWidth href='/customer/main_page/CustomerMain'>Log me in</Button>
-                        <Grid className={ classes.loginComponent } container>
-                            <Grid className={ classes.gridComponent } item xs={ 6 }>
-                                <Link variant='body2' href='/reset'>Forget Password?</Link>
-                            </Grid>
-                            <Grid className={ classes.gridComponent } item xs={ 6 }>
-                                <Link variant='body2' href='/register'>Register Here!</Link>
-                            </Grid>
-                        </Grid>
-                    </FormControl>
-                </div>
-            </Container>
+            <Layout className='commonLayout'>
+                <Content>
+                    <Row>
+                        <Col xs={ 2 } sm={ 3 } md={ 6 } lg={ 7 } xl={ 8 } xxl={ 8 } />
+                        <Col xs={ 20 } sm={ 18 } md={ 12 } lg={ 10 } xl={ 8 } xxl={ 8 } className='commonContainer'>
+                            <Title level={ 4 }> Sign In </Title>
+                            <Form className='commonForm'>
+                                <Form.Item className='commonItem'>
+                                    <Input prefix={ <Icon type='user' /> } type='email' placeholder='Email Address' autoFocus />
+                                </Form.Item>
+                                <Form.Item className='commonItem'>
+                                    <Input.Password prefix={ <Icon type='lock' /> } type='password' placeholder='Password' />
+                                </Form.Item>
+                                <Form.Item className='commonItem'>
+                                    <Row>
+                                        <Col span={ 8 } className='commonGridComponent'>
+                                            <Text strong> Role? </Text>
+                                        </Col>
+                                        <Col span={ 16 } className='commonGridComponent'>
+                                            <Radio.Group value={ this.state.role } onChange={ this.selectRole }>
+                                                <Radio value='Student'> Student </Radio>
+                                                <Radio value='Truck'> Truck Manager </Radio>
+                                            </Radio.Group>
+                                        </Col>
+                                    </Row>
+                                </Form.Item>
+                                <Form.Item className='commonItem'>
+                                    <Checkbox defaultChecked> Remember me? </Checkbox>
+                                </Form.Item>
+                                <Form.Item className='commonItem'>
+                                    <Button type='primary' href={ this.jumpLinks[this.state.role] } className='commonButton'> Log me in </Button>
+                                </Form.Item>
+                                <Form.Item className='commonItem'>
+                                    <Row>
+                                        <Col span={ 12 } className='commonGridComponent'>
+                                            <Button type='link' href='/reset'> Forget Password? </Button>
+                                        </Col>
+                                        <Col span={ 12 } className='commonGridComponent'>
+                                            <Button type='link' href='/register'> Register Here! </Button>
+                                        </Col>
+                                    </Row>
+                                </Form.Item>
+                            </Form>
+                        </Col>
+                        <Col xs={ 2 } sm={ 3 } md={ 6 } lg={ 7 } xl={ 8 } xxl={ 8 } />
+                    </Row>
+                </Content>
+            </Layout>
         );
     }
 }
 
 
-export default withStyles(styles, {withTheme: true})(Login);
+export default Login;

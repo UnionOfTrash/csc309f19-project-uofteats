@@ -1,67 +1,61 @@
 import React from 'react';
-
 import HeaderBar from "../../commons/HeaderBar";
 import './CustomerMain.css'
 import SearchTruck from "./SearchTruck";
 import TruckInfo from "./TruckInfo"
+import trackData from "../../Data/TrackData";
 
-import TruckImg from "../images/truck1.png"
-
-class Track {
-    constructor(name, location, type, rate, image, alternative, link){
-        this.name = name;
-        this.location = location;
-        this.type = type;
-        this.rate = rate;
-        this.image = image;
-        this.alternative = alternative;
-        this.link = link
-    }
-}
-let track1 = new Track("track 1",
-    "10 st George street",
-    "Asian",
-    4.0,
-    TruckImg,
-    "truck 1",
-    "../food_page/FoodPage");
-
-let track2 = new Track("track 1",
-    "10 st George street",
-    "Asian",
-    4.0,
-    TruckImg,
-    "truck 1",
-    "../food_page/FoodPage");
-
-let testTracks = [track1, track2, track2, track2, track2, track1, track2, track2, track2, track2];
-
+import 'antd/dist/antd.css';
 
 class CustomerMain extends React.Component {
 
-    state = {
-        tracks: testTracks
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            shown: trackData
+        };
+        this.searchTruck = this.searchTruck.bind(this);
+    }
+
+    searchTruck(inputStr) {
+        if (inputStr === ''){
+            this.setState({shown: trackData});
+            return
+        }
+        let matchedTrucks = [];
+        const searchStr = inputStr.replace(" ", "");
+        let trackName;
+        for (let i=0; i<trackData.length; i++) {
+            trackName = trackData[i].name.replace(" ", "");
+            if (trackName.includes(searchStr)) {
+                matchedTrucks.push(trackData[i])
+            }
+        }
+        this.setState({shown: matchedTrucks})
+    }
 
     render() {
+        const trackComponents = this.state.shown.map((truck) =>
+            <TruckInfo
+                key={truck.id}
+                name={truck.name}
+                location={truck.location}
+                type={truck.type}
+                rate={truck.rate}
+                image={truck.image}
+                alternative={truck.alternative}
+                foodPage={truck.foodPage}
+            />
+        );
+
         return (
             <div>
-                <HeaderBar title="UofT Eats" username="David Liu" />
-                <SearchTruck placeholder="truck name"/>
-
+                <HeaderBar title="UofT Eats" username="User name" />
+                <div id='search-field'>
+                    <SearchTruck placeholder='Input truck name' onSearch={this.searchTruck}/>
+                </div>
                 <div>
-                    { this.state.tracks.map((track) => {
-                        return (
-                             <TruckInfo name = {track.name}
-                                       location = {track.location}
-                                       type = {track.type}
-                                       rate = {track.rate}
-                                       image = {track.image}
-                                       alternative = {track.alternative}
-                                       link = {track.link}
-                            />
-                        )
-                    })  }
+                    {trackComponents}
                 </div>
             </div>
         );
@@ -69,4 +63,3 @@ class CustomerMain extends React.Component {
 }
 
 export default CustomerMain
-export {testTracks}

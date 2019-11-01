@@ -1,22 +1,6 @@
-#search-truck {
+#search-field {
+    margin: 10px;
     text-align: center;
-    width: 100%;
-    height: 50px;
-    margin-right: auto;
-    margin-left: auto;
-    /*border: 3px solid darkgreen;*/
-    background: lightgray;
-}
-
-
-#searchField {
-    margin: auto;
-}
-
-#inputField {
-    margin-top: 10px;
-    font-size: 20px;
-    border: 1px solid black;
 }
 
 .buttons {

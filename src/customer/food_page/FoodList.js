@@ -1,7 +1,6 @@
 import React from "react";
 import Food from "./Food";
 import FoodCategoryTitle from "./FoodCategoryTitle";
-
 /* The Header Component */
 class FoodList extends React.Component {
   render() {

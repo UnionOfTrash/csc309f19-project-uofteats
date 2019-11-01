@@ -18,6 +18,8 @@ import canadaDry from "../images/CanadaDry.jpg";
 import greenTea from "../images/GreenTea.jpg";
 import water from "../images/Water.jpeg";
 
+import { Drawer } from 'antd';
+
 class FoodPage extends React.Component {
   // some initial data
   state = {
@@ -73,12 +75,25 @@ class FoodPage extends React.Component {
         ]
       }
     ],
-    cartFoodNum: 0
+    cartFoodNum: 0,
+    drawerVisible: false
   };
 
   addCartFood() {
     this.setState({
       cartFoodNum: this.state.cartFoodNum + 1
+    })
+  }
+
+  showCartDrawer() {
+    this.setState({
+      drawerVisible: true
+    })
+  }
+
+  onCloseDrawer() {
+    this.setState({
+      drawerVisible: false
     })
   }
 
@@ -94,11 +109,26 @@ class FoodPage extends React.Component {
           location={this.state.truck.location}
           foodType={this.state.truck.foodType}
           serveTime={this.state.truck.serveTime}
+          showCartDrawer={() => this.showCartDrawer()}
         />
 
         <FoodList foodList={this.state.foodList} onAddCartFood={() => {
           this.addCartFood()
         }} />
+
+        <Drawer
+          title="Basic Drawer"
+          placement='right'
+          height='=200'
+          width='500'
+          closable={true}
+          onClose={() => this.onCloseDrawer()}
+          visible={this.state.drawerVisible}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Drawer>
       </div>
     );
   }

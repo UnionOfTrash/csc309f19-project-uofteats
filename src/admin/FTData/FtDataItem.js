@@ -1,8 +1,8 @@
 import React from "react"
 import {ButtonGroup} from "react-bootstrap"
 
-import EditButton from "./Buttons/EditButton"
-import DeleteButton from "./Buttons/DeleteButton"
+import EditButton from "../EditButton/EditButton"
+import DeleteButton from "../DeleteButton/DeleteButton"
 
 class FtDataItem extends React.Component{
 

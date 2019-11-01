@@ -19,26 +19,26 @@ class TruckHeader extends React.Component {
         <div className="truck-name-cart">
           <h2 className="truck-name"> {truckName} </h2>
           {
-            showCart && 
-            <Button className="cart-butto" onClick={() => showCartDrawer()}>
-            <Icon
-              className="cart-icon"
-              type="shopping-cart"
-              style={{
-                fontSize: "25px",
-                color: cartFoodNum > 0 ? "#1790FF" : "$1F1F1F"
-              }}
-            />
-            <span
-              className="cart-num"
-              style={{
-                color: cartFoodNum > 0 ? "#1790FF" : "$1F1F1F"
-              }}
-            >
-              {cartFoodNum}
-            </span>
-          </Button>
-        }
+            showCart &&
+            <Button className="cart-button" onClick={() => showCartDrawer()}>
+              <Icon
+                className="cart-icon"
+                type="shopping-cart"
+                style={{
+                  fontSize: "25px",
+                  color: cartFoodNum > 0 ? "#1790FF" : "$1F1F1F"
+                }}
+              />
+              <span
+                className="cart-num"
+                style={{
+                  color: cartFoodNum > 0 ? "#1790FF" : "$1F1F1F"
+                }}
+              >
+                {cartFoodNum}
+              </span>
+            </Button>
+          }
         </div>
         <p className="truck-rate"> {rate} </p>
         <img className="rate-star" src={star} alt="" />

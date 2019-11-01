@@ -115,11 +115,11 @@ textarea {
   padding-bottom: 20px;
   font-weight: bold;
   display: inline-block;
-  width: 95%;
+  width: 50%;
 }
 
 .cart-button {
-  display: inline;
+  float: right;
 }
 
 .cart-icon {
@@ -168,7 +168,6 @@ textarea {
 
 .food {
   display: inline-block;
-  width: 25%;
   padding: 10px;
 }
 
@@ -176,6 +175,7 @@ textarea {
   border: #e2e2e2 1px solid;
   width: 95%;
   margin: auto;
+  padding: 20px;
   overflow: hidden;
 }
 
@@ -198,9 +198,10 @@ textarea {
 
 .food-price {
   padding-left: 10px;
+  padding-top: 5px;
   padding-bottom: 5px;
 }
 
 .add-cart-button {
-  display: inline;
+  float: right;
 }

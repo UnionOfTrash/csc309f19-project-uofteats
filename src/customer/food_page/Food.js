@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 import { InputNumber } from 'antd';
+import { Row, Col } from 'antd'
 /* The Header Component */
 class Food extends React.Component {
   constructor(props) {
@@ -10,25 +11,27 @@ class Food extends React.Component {
     }
   }
 
-  changeFoodNum({foodId, num}) {
+  changeFoodNum({ foodId, num }) {
     this.setState({
       foodNumber: num
     })
-    this.props.changeFoodNum({foodId, num})
+    this.props.changeFoodNum({ foodId, num })
   }
 
   render() {
     const { foodId, foodName, price, foodImage } = this.props;
     return (
-      <div className="food">
-        <div className="food-container">
-          <img src={foodImage} alt="food image" />
-          <p className="food-name">{foodName}</p>
-          {this.state.foodNumber > 0 && <InputNumber min={0} max={100} value={this.state.foodNumber} onChange={value => this.changeFoodNum({ foodId, num: value })} />}
-          {this.state.foodNumber === 0 && <Button className="add-cart-button" onClick={() => this.changeFoodNum({ foodId, num: 1 })}> Add to Cart </Button>}
-          <p className="food-price">{price}</p>
+      <Col span={6}>
+        <div className="food">
+          <div className="food-container">
+            <img src={foodImage} alt="food image" />
+            <p className="food-name">{foodName}</p>
+            {this.state.foodNumber > 0 && <InputNumber min={0} max={100} value={this.state.foodNumber} onChange={value => this.changeFoodNum({ foodId, num: value })} />}
+            {this.state.foodNumber === 0 && <Button className="add-cart-button" onClick={() => this.changeFoodNum({ foodId, num: 1 })}> Add to Cart </Button>}
+            <p className="food-price">{price}</p>
+          </div>
         </div>
-      </div>
+      </Col>
     );
   }
 }

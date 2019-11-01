@@ -1,17 +1,18 @@
 import React from "react";
 import Food from "./Food";
 import FoodCategoryTitle from "./FoodCategoryTitle";
+import { Row, Col } from 'antd'
 /* The Header Component */
 class FoodList extends React.Component {
   render() {
     const { foodList, changeFoodNum } = this.props;
     return (
-      <ul>
+      <>
         {foodList.map(eachCategory => {
           return (
             <div key={eachCategory.category}>
               <FoodCategoryTitle categoryName={eachCategory.category} />
-              <ul>
+              <Row>
                 {eachCategory.foods.map(food => {
                   return (
                     <Food
@@ -24,11 +25,11 @@ class FoodList extends React.Component {
                     />
                   );
                 })}
-              </ul>
+              </Row>
             </div>
           );
         })}
-      </ul>
+      </>
     );
   }
 }

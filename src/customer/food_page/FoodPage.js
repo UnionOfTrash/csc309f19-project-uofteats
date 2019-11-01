@@ -1,5 +1,4 @@
 import React from "react";
-import "antd/dist/antd.css";
 
 import HeaderBar from "../../commons/HeaderBar";
 import TruckHeader from "./TruckHeader";
@@ -66,25 +65,25 @@ class FoodPage extends React.Component {
       {
         category: "Sides",
         foods: [
-          { id: '5',name: "French Fries", price: "$2.50", img: frenchFries },
-          { id: '6',name: "Poutine", price: "$3.75", img: poutine },
-          { id: '7',name: "Chicken Nuggets", price: "$4.50", img: chickenNuggets },
-          { id: '8',name: "Onion Rings", price: "$3.50", img: onionRings }
+          { id: '5', name: "French Fries", price: "$2.50", img: frenchFries },
+          { id: '6', name: "Poutine", price: "$3.75", img: poutine },
+          { id: '7', name: "Chicken Nuggets", price: "$4.50", img: chickenNuggets },
+          { id: '8', name: "Onion Rings", price: "$3.50", img: onionRings }
         ]
       },
       {
         category: "Beverages",
         foods: [
-          { id: '9',name: "Canada Dry", price: "$1.25", img: canadaDry },
-          { id: '10',name: "Green Tea", price: "$1.25", img: greenTea },
-          { id: '11',name: "Water", price: "$1.00", img: water }
+          { id: '9', name: "Canada Dry", price: "$1.25", img: canadaDry },
+          { id: '10', name: "Green Tea", price: "$1.25", img: greenTea },
+          { id: '11', name: "Water", price: "$1.00", img: water }
         ]
       }
     ],
     drawerVisible: false
   };
 
-  changeFoodNum({foodId, num}) {
+  changeFoodNum({ foodId, num }) {
     this.state.foodList.forEach(category => {
       category.foods.forEach(food => {
         if (food.id === foodId) {
@@ -133,6 +132,10 @@ class FoodPage extends React.Component {
     })
   }
 
+  jumpToSchedulePage() {
+    this.props.history.push({ pathname: `/customer/schedule_page/SchedulePage`, state: { foodList: this.state.foodList } })
+  }
+
   render() {
     return (
       <div>
@@ -146,10 +149,11 @@ class FoodPage extends React.Component {
           foodType={this.state.truck.foodType}
           serveTime={this.state.truck.serveTime}
           showCartDrawer={() => this.showCartDrawer()}
+          showCart='true'
         />
 
-        <FoodList foodList={this.state.foodList} changeFoodNum={({foodId, num}) => {
-          this.changeFoodNum({foodId, num})
+        <FoodList foodList={this.state.foodList} changeFoodNum={({ foodId, num }) => {
+          this.changeFoodNum({ foodId, num })
         }} />
 
         <Drawer
@@ -166,7 +170,7 @@ class FoodPage extends React.Component {
             })) {
               return (
                 <>
-                  <Card title={category.category} key={category.category}>
+                  <Card title={category.category} key={category.category}  hoverable>
                     {category.foods.map(food => {
                       if (food.num) {
                         return <p key={food.id}>{food.name} * {food.num}</p>
@@ -183,7 +187,7 @@ class FoodPage extends React.Component {
             }
           })}
           <hr></hr>
-          <Button type="primary" style={{width: "100%"}}>Schedule Pickup (${this.cartFoodPrice.toFixed(2)})</Button>
+          {this.cartFoodPrice ? <Button type="primary" style={{ width: "100%" }} onClick={() => this.jumpToSchedulePage()}>Schedule Pickup (${this.cartFoodPrice.toFixed(2)})</Button> : ''}
         </Drawer>
       </div>
     );

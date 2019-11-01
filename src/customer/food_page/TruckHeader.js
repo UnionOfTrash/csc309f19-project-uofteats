@@ -13,12 +13,14 @@ class TruckHeader extends React.Component {
   }
 
   render() {
-    const { truckName, rate, location, foodType, serveTime, cartFoodNum, showCartDrawer } = this.props;
+    const { truckName, rate, location, foodType, serveTime, cartFoodNum, showCartDrawer, showCart } = this.props;
     return (
       <div className="truck-header">
         <div className="truck-name-cart">
           <h2 className="truck-name"> {truckName} </h2>
-          <Button className="cart-butto" onClick={() => showCartDrawer()}>
+          {
+            showCart && 
+            <Button className="cart-butto" onClick={() => showCartDrawer()}>
             <Icon
               className="cart-icon"
               type="shopping-cart"
@@ -36,6 +38,7 @@ class TruckHeader extends React.Component {
               {cartFoodNum}
             </span>
           </Button>
+        }
         </div>
         <p className="truck-rate"> {rate} </p>
         <img className="rate-star" src={star} alt="" />

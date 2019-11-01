@@ -18,12 +18,12 @@ class UserDataItem extends React.Component{
                 <td>
                     <ButtonGroup>
                         <EditButton
-                                    userdata={user}
-                                    dataname="user data"
+                                    data={user}
+                                    dataType="user"
                         />
                         <DeleteButton
-                                     userdata={user}
-                                     dataname="user"
+                                     data={user}
+                                     dataType="user"
                                      removeUser = {removeUser}
                         />
                     </ButtonGroup>

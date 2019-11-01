@@ -1,5 +1,26 @@
 import React from "react"
-import {Modal, Button, Card} from "react-bootstrap"
+import {Modal, Button} from "react-bootstrap"
+import UserEditCard from "./UserEditCard"
+import FtEditCard from "./FtEditCard"
+
+function EditCard(props){
+    if (props.dataType === "user"){
+        return(
+            <UserEditCard 
+                        data={props.data}
+                        dataType={props.dataType}
+            />
+        )
+    }else{
+        return(
+            <FtEditCard 
+                    data={props.data}
+                    dataType={props.dataType}
+            />
+        )
+    }
+}
+
 
 class EditPopUpModal extends React.Component{
     
@@ -8,26 +29,18 @@ class EditPopUpModal extends React.Component{
             <Modal
               show={this.props.show}
               onHide={this.props.onHide}
-              size="lg"
+              size="ls"
               aria-labelledby="contained-modal-title-vcenter"
               centered
             >
               <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                  Edit {this.props.dataname}
+                  Edit {this.props.dataType}
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                    <Card className="text-center">
-                        <Card.Header>User ID # {this.props.userdata.id}</Card.Header>
-                            <Card.Body>
-                                {/* <Card.Title>EDIT USER</Card.Title> */}
-                                <Card.Text>
-                                With supporting text below as a natural lead-in to additional content.
-                                </Card.Text>
-                            </Card.Body>
-                        {/* <Card.Footer className="text-muted">User Id: {user.id}</Card.Footer> */}
-                    </Card>
+                    <EditCard data={this.props.data}
+                              dataType={this.props.dataType}/>
               </Modal.Body>
               <Modal.Footer>
                 <Button onClick={this.props.onHide} variant="success">Save</Button>

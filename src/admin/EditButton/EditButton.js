@@ -6,9 +6,9 @@ class EditButton extends React.Component{
     render() {
         return (
         <Edit 
-            userdata={this.props.userdata}
-            dataname={this.props.dataname}
-            
+            data={this.props.data}
+            dataType={this.props.dataType}
+
           />)
     }
 }

@@ -7,12 +7,12 @@ class DeleteButton extends React.Component{
 
 
   render() {
-    const {userdata, dataname,removeUser} = this.props
+    const {data, dataType,removeUser} = this.props
 
-    return (<Delete userdata={userdata}
-                    dataname={dataname}
+    return (<Delete data={data}
+                    dataType={dataType}
                     onDelete={()=>{
-                      removeUser(userdata)}
+                      removeUser(data)}
                     }
             />
     )

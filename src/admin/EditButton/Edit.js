@@ -28,8 +28,8 @@ class Edit extends React.Component{
                 Edit Data
               </Button>
               <EditPopUpModal
-                userdata={this.props.userdata}
-                dataname={this.props.dataname}
+                data={this.props.data}
+                dataType={this.props.dataType}
                 show={this.state.modalShow}
                 onHide={() => this.hideModlaShow()}
               />

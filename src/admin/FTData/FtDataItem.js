@@ -17,10 +17,10 @@ class FtDataItem extends React.Component{
                 <td>{ft.img}</td>
                 <td>
                     <ButtonGroup>
-                        <EditButton userdata={ft}
-                                    dataname="food truck data"/> 
-                        <DeleteButton userdata={ft}
-                                      dataname="food truck"
+                        <EditButton data={ft}
+                                    dataType="food truck"/> 
+                        <DeleteButton data={ft}
+                                      dataType="food truck"
                                       removeUser = {removeUser}/>
                     </ButtonGroup>
                 </td>

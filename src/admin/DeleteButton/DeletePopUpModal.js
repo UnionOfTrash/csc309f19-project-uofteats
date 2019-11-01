@@ -13,17 +13,17 @@ class DeletePopUpModal extends React.Component{
             <Modal
               show={this.props.show}
               onHide={this.props.onHide}
-              size="sm"
+              size="lg"
               aria-labelledby="contained-modal-title-vcenter"
               centered
             >
               <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                  Delete a {this.props.dataname}
+                  Delete a {this.props.dataType}
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                Do you want to remove the {this.props.dataname} : {this.props.userdata.name} ?
+                Do you want to remove the {this.props.dataType} : {this.props.data.name} ?
               </Modal.Body>
       
               <Modal.Footer>

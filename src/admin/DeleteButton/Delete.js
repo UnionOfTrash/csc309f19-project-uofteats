@@ -28,8 +28,8 @@ import {Button} from "react-bootstrap"
                   Delete
               </Button>
               <DeletePopUpModal
-                  dataname={this.props.dataname}
-                  userdata={this.props.userdata}
+                  dataType={this.props.dataType}
+                  data={this.props.data}
                   show={this.state.modalShow}
                   onHide={() => this.hideModlaShow()}
                   onDelete={this.props.onDelete}

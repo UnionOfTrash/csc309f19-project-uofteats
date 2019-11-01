@@ -20,7 +20,7 @@ class TruckHeader extends React.Component {
           <h2 className="truck-name"> {truckName} </h2>
           {
             showCart &&
-            <Button className="cart-button" onClick={() => showCartDrawer()}>
+            <Button className="cart-button" onClick={() => showCartDrawer()} style={{margin: 20}}>
               <Icon
                 className="cart-icon"
                 type="shopping-cart"

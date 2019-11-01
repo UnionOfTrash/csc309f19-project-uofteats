@@ -26,7 +26,7 @@ class Food extends React.Component {
           <div className="food-container">
             <img src={foodImage} alt="food image" />
             <p className="food-name">{foodName}</p>
-            {this.state.foodNumber > 0 && <InputNumber min={0} max={100} value={this.state.foodNumber} onChange={value => this.changeFoodNum({ foodId, num: value })} />}
+            {this.state.foodNumber > 0 && <InputNumber className="add-cart-button" min={0} max={100} value={this.state.foodNumber} onChange={value => this.changeFoodNum({ foodId, num: value })} />}
             {this.state.foodNumber === 0 && <Button className="add-cart-button" onClick={() => this.changeFoodNum({ foodId, num: 1 })}> Add to Cart </Button>}
             <p className="food-price">{price}</p>
           </div>

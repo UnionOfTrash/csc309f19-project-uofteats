@@ -15,7 +15,7 @@
     width: 100%;
 }
 
-.commonItem {
+.commonFormItem {
     margin-top: 8px;
 }
 
@@ -27,12 +27,8 @@
 }
 
 .commonHeader {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.45);
     background-color: #F5F5F5;
-}
-
-#userBtn .ant-dropdown-button {
-    margin: 0 8px 8px 0;
 }
 
 .ant-dropdown-menu-item a {

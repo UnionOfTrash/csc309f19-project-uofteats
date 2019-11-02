@@ -1,5 +1,4 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 
 import "antd/dist/antd.css";
 import "./commons.css";
@@ -7,6 +6,9 @@ import "./commons.css";
 import { Affix } from "antd";
 import { PageHeader, Dropdown, Menu } from "antd";
 import { Button } from "antd";
+import { Typography } from "antd";
+
+const { Text } = Typography;
 
 
 class HeaderBar extends React.Component {
@@ -20,34 +22,31 @@ class HeaderBar extends React.Component {
         };
     }
 
-    handleMenuClick = (e) => {
-        if (e.key === 'Profile') {
-            console.log(e.key);
-            return <Redirect to='/customer/profile_page/UserProfileMain' />
-        }
-    }
-
     userMenu = () => (
         <Menu>
             <Menu.Item key='Profile'>
-                <Button type='link' href='/customer/profile_page/UserProfileMain' block> Profile </Button>
+                <Button type='link' href='/customer/profile_page/UserProfileMain' block>
+                    <Text strong> Profile </Text>
+                </Button>
             </Menu.Item>
             <Menu.Item key='Logout'>
-                <Button type='link' href='' block> Logout </Button>
+                <Button type='link' href='' block>
+                    <Text strong> Logout </Text>
+                </Button>
             </Menu.Item>
         </Menu>
     );
 
     userBtn = () => (
-        <Dropdown id='userBtn' overlay={ this.userMenu() } trigger={ ['click'] } >
-            <Button type='link' size='large'> { this.state.username } </Button>
+        <Dropdown overlay={ this.userMenu() } trigger={ ['click'] }>
+            <Button type='ghost' size='large'> { this.state.username } </Button>
         </Dropdown>
     );
 
     render() {
 
         return (
-            <Affix offsetTop={ this.state.top } >
+            <Affix offsetTop={ this.state.top }>
                 <PageHeader ghost={ false } title={ this.state.title } extra={ this.userBtn() } className='commonHeader' />
             </Affix>
         );

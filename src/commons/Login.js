@@ -41,13 +41,13 @@ class Login extends React.Component {
                         <Col xs={ 20 } sm={ 18 } md={ 12 } lg={ 10 } xl={ 8 } xxl={ 8 } className='commonContainer'>
                             <Title level={ 4 }> Sign In </Title>
                             <Form className='commonForm'>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Input prefix={ <Icon type='user' /> } type='email' placeholder='Email Address' autoFocus />
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Input.Password prefix={ <Icon type='lock' /> } type='password' placeholder='Password' />
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Row>
                                         <Col span={ 8 } className='commonGridComponent'>
                                             <Text strong> Role? </Text>
@@ -60,13 +60,13 @@ class Login extends React.Component {
                                         </Col>
                                     </Row>
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Checkbox defaultChecked> Remember me? </Checkbox>
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Button type='primary' href={ this.jumpLinks[this.state.role] } block> Log me in </Button>
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Row>
                                         <Col span={ 12 } className='commonGridComponent'>
                                             <Button type='link' href='/reset'> Forget Password? </Button>

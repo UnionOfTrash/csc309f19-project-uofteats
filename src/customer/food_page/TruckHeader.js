@@ -1,7 +1,7 @@
 import React from "react";
 import star from "../images/star.png";
 import { Icon } from "antd";
-import Button from "@material-ui/core/Button";
+import { Button } from "antd";
 
 /* The Header Component */
 class TruckHeader extends React.Component {

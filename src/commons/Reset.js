@@ -9,7 +9,7 @@ import { Typography } from "antd";
 import { Form, Input, Icon, Button } from "antd";
 
 const { Content } = Layout;
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 
 class Reset extends React.Component {
@@ -24,8 +24,8 @@ class Reset extends React.Component {
                         <Col xs={ 20 } sm={ 18 } md={ 12 } lg={ 10 } xl={ 8 } xxl={ 8 } className='commonContainer'>
                             <Title level={ 4 }> Reset your password </Title>
                             <Form className='commonForm'>
-                                <Form.Item className='commonItem'>
-                                    <Row gutter={ 1 }>
+                                <Form.Item className='commonFormItem'>
+                                    <Row gutter={ 8 }>
                                         <Col span={ 16 }>
                                             <Input prefix={ <Icon type='user' /> } type='email' placeholder='Email Address' autoFocus />
                                         </Col>
@@ -34,19 +34,19 @@ class Reset extends React.Component {
                                         </Col>
                                     </Row>
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Input prefix={ <Icon type='number' /> } type='text' placeholder='Code' />
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Input.Password prefix={ <Icon type='lock' /> } type='password' placeholder='New Password' />
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Input.Password prefix={ <Icon type='unlock' /> } type='password' placeholder='Confirm New Password' />
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Button type='danger' block> Reset </Button>
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Row>
                                         <Col span={ 12 } className='commonGridComponent'>
                                             <Button type='link' href='/login'> Login Here! </Button>

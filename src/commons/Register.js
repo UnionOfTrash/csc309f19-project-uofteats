@@ -37,19 +37,19 @@ class Register extends React.Component {
                         <Col xs={ 20 } sm={ 18 } md={ 12 } lg={ 10 } xl={ 8 } xxl={ 8 } className='commonContainer'>
                             <Title level={ 4 }> Get U a ticket to UofTEats </Title>
                             <Form className='commonForm'>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Input prefix={ <Icon type='user' /> } type='text' placeholder='Username' autoFocus />
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Input prefix={ <Icon type='mail' /> } type='email' placeholder='Email Address' />
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Input.Password prefix={ <Icon type='lock' /> } type='password' placeholder='Password' />
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Input.Password prefix={ <Icon type='unlock' /> } type='password' placeholder='Confirm Password' />
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Row>
                                         <Col span={ 8 } className='commonGridComponent'>
                                             <Text strong> Role? </Text>
@@ -62,10 +62,10 @@ class Register extends React.Component {
                                         </Col>
                                     </Row>
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Button type='danger' block> Sign Up </Button>
                                 </Form.Item>
-                                <Form.Item className='commonItem'>
+                                <Form.Item className='commonFormItem'>
                                     <Row>
                                         <Col span={ 24 } className='commonGridComponent'>
                                             <Button type='link' href='/login'> Already have an account? Login Here! </Button>

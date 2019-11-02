@@ -1,29 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
+
 import "./App.css";
+
+import { Button } from "antd";
+
 
 class Home extends React.Component {
     render() {
         return (
             <div>
-                {/*<Link to={"./customer/food_page/FoodPage"}>*/}
-                {/*    {" "}*/}
-                {/*    /!* This element will link the URL path to /queue *!/*/}
-                {/*    <button>Go to the Food Page</button>*/}
-                {/*</Link>*/}
-                <Link to={"./customer/main_page/CustomerMain"}>
-                    <button>Go to Main Page</button>
-                </Link>
-                <Link to="/login">
-                    <Button color='primary'> Please login Here</Button>
-                </Link>
-                <Link to="/admin">
-                    <Button color='primary'> AdminPage</Button>
-                </Link>
+                <Button type='primary' href='/login'> Login Here </Button>
+                <Button type='primary' href='/admin'> Admin Page</Button>
             </div>
         );
     }
 }
+
 
 export default Home;

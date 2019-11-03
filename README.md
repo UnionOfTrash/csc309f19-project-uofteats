@@ -24,7 +24,7 @@ After finishing adding food into cart, user can choose a pick-up time by selecti
 
 #### Basic utilities
 
-<img src="./public/adminviews.gif">
+<img src="./public/AdminViews.gif">
 
 After login to the admin dashboard, the admin will have the access to the information of all users and food trucks by switching between "User Management" and "Food Truck Management" tabs.
 

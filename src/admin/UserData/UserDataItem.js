@@ -7,7 +7,7 @@ import DeleteButton from "../DeleteButton/DeleteButton"
 class UserDataItem extends React.Component{
 
     render() {
-        const {user, removeUser} = this.props
+        const {user, removeUser, handleInputChange, initData, editData} = this.props
         return(
             <tr>
                 <td>{user.id}</td>
@@ -20,6 +20,9 @@ class UserDataItem extends React.Component{
                         <EditButton
                                     data={user}
                                     dataType="user"
+                                    handleInputChange={handleInputChange}
+                                    initData={initData}
+                                    editData={editData}
                         />
                         <DeleteButton
                                      data={user}

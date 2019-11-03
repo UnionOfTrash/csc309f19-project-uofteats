@@ -8,7 +8,9 @@ class EditButton extends React.Component{
         <Edit 
             data={this.props.data}
             dataType={this.props.dataType}
-
+            handleInputChange={this.props.handleInputChange}
+            initData={this.props.initData}
+            editData={this.props.editData}
           />)
     }
 }

@@ -6,13 +6,14 @@ import {uid} from "react-uid"
 
 class FtDataList extends React.Component{
     render(){
-        const {Fts, removeUser, admin} = this.props
+        const {Fts, removeUser, admin, handleInputChange, initData, editData} = this.props
 
         removeUser.bind(admin)
 
         function rmUser(u){
             removeUser(u)
         }
+
 
         return(
         <>
@@ -41,6 +42,9 @@ class FtDataList extends React.Component{
                                 key = {uid(ft)}
                                 ft = {ft}
                                 removeUser = {rmUser}
+                                handleInputChange={handleInputChange}
+                                initData={initData}
+                                editData={editData}
                             />
                         )
                     })}

@@ -7,7 +7,7 @@ import DeleteButton from "../DeleteButton/DeleteButton"
 class FtDataItem extends React.Component{
 
     render() {
-        const {ft, removeUser} = this.props
+        const {ft, removeUser, handleInputChange, initData, editData} = this.props
         return(
             <tr>
                 <td>{ft.id}</td>
@@ -18,7 +18,11 @@ class FtDataItem extends React.Component{
                 <td>
                     <ButtonGroup>
                         <EditButton data={ft}
-                                    dataType="food truck"/> 
+                                    dataType="food truck"
+                                    handleInputChange={handleInputChange}
+                                    initData={initData}
+                                    editData={editData}
+                                    /> 
                         <DeleteButton data={ft}
                                       dataType="food truck"
                                       removeUser = {removeUser}/>

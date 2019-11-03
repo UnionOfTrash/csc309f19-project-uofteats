@@ -16,7 +16,7 @@ class UserDataList extends React.Component{
         }
 
         return (
-        <>
+        <div id="userlist-container">
             <div>
                 <br></br>
             </div>
@@ -54,7 +54,7 @@ class UserDataList extends React.Component{
                     })}
                 </tbody>
             </Table>
-        </>
+        </div>
         )
     }
 }

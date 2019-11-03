@@ -16,7 +16,7 @@ class FtDataList extends React.Component{
 
 
         return(
-        <>
+        <div id="ftlist-container">
             <div>
                 <br></br>
             </div>
@@ -54,7 +54,7 @@ class FtDataList extends React.Component{
                     })}
                 </tbody>
             </Table>
-        </>
+        </div>
         )
     }
 }

@@ -44,5 +44,32 @@
 }
 
 #search-container {
-  height: 800px;
+  min-height: 600px;
+}
+
+#userlist-container, #ftlist-container{
+  min-height: 800px;
+}
+
+.container{
+  margin:auto;
+  align-content: center;
+  margin-top: 30px;
+  border: 1px solid #dee2e6;
+  border-radius: 2%;
+  min-height: 400px;
+}
+
+.search-title{
+  color:#ffffff;
+
+  margin:80px;
+}
+
+.select-form{
+  margin-right:7px;
+}
+
+.info-item{
+  color:#ffffff;
 }

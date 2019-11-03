@@ -3,6 +3,7 @@ import './admin.css'
 import UserDataList from "./UserData/UserDataList"
 import FtDataList from "./FTData/FtDataList"
 import {Tab, Tabs} from 'react-bootstrap'
+import Search from "./Search/Search"
 
 class Control extends React.Component{
     render() {
@@ -35,9 +36,10 @@ class Control extends React.Component{
                         />
                     </Tab>
                     <Tab eventKey="Search" title="Search">
-                        <div id="search-container">
-                            this is for search use
-                        </div>
+                        <Search 
+                            Fts={Fts}
+                            Users={Users}
+                        />
                     </Tab>
                 </Tabs>
             </>

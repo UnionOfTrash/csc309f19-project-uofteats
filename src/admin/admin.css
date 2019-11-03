@@ -73,3 +73,7 @@
 .info-item{
   color:#ffffff;
 }
+
+.image-container{
+  justify-content: center;
+}

@@ -11,30 +11,30 @@ class Admin extends React.Component{
     // some hard coded data for test use, this will be get from the server at phase 2
     state = {
         Users:[
-            {id:"0", type:"u", name:"User1", email:"User1@csgo.com", phone:"8888-8888", img:"../../public/truck1.png"},
-            {id:"1", type:"u", name:"User2", email:"User2@csgo.com", phone:"8888-8888", img:"www"},
-            {id:"2", type:"u", name:"User3", email:"User3@csgo.com", phone:"8888-8888", img:"www"},
-            {id:"3", type:"u", name:"User4", email:"User4@csgo.com", phone:"8888-8888", img:"www"},
-            {id:"4", type:"u", name:"User5", email:"User5@csgo.com", phone:"8888-8888", img:"www"},
-            {id:"5", type:"u", name:"User6", email:"User6@csgo.com", phone:"8888-8888", img:"www"},
-            {id:"6", type:"u", name:"User7", email:"User7@csgo.com", phone:"8888-8888", img:"www"},
-            {id:"7", type:"u", name:"User8", email:"User8@csgo.com", phone:"8888-8888", img:"www"},
-            {id:"8", type:"u", name:"User9", email:"User9@csgo.com", phone:"8888-8888", img:"www"},
-            {id:"9", type:"u", name:"User10", email:"User10@csgo.com", phone:"8888-8888", img:"www"},
-            {id:"10", type:"u", name:"User11", email:"User11@csgo.com", phone:"8888-8888", img:"www"}
+            {id:"0", type:"u", name:"User1", email:"User1@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"1", type:"u", name:"User2", email:"User2@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"2", type:"u", name:"User3", email:"User3@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"3", type:"u", name:"User4", email:"User4@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"4", type:"u", name:"User5", email:"User5@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"5", type:"u", name:"User6", email:"User6@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"6", type:"u", name:"User7", email:"User7@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"7", type:"u", name:"User8", email:"User8@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"8", type:"u", name:"User9", email:"User9@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"9", type:"u", name:"User10", email:"User10@csgo.com", phone:"8888-8888", img:"./user.png"},
+            {id:"10", type:"u", name:"User11", email:"User11@csgo.com", phone:"8888-8888", img:"./user.png"}
         ],
         Fts:[
-            {id:"0", type:"ft", name:"Ft", email:"Ft@lol.com", phone:"8888-8888", img:"../../public/truck1.png"},
-            {id:"1", type:"ft", name:"Ft1", email:"Ft1@lol.com", phone:"8888-8888", img:"www"},
-            {id:"2", type:"ft", name:"Ft2", email:"Ft2@lol.com", phone:"8888-8888", img:"www"},
-            {id:"3", type:"ft", name:"Ft3", email:"Ft3@lol.com", phone:"8888-8888", img:"www"},
-            {id:"4", type:"ft", name:"Ft4", email:"Ft4@lol.com", phone:"8888-8888", img:"www"},
-            {id:"5", type:"ft", name:"Ft5", email:"Ft5@lol.com", phone:"8888-8888", img:"www"},
-            {id:"6", type:"ft", name:"Ft6", email:"Ft6@lol.com", phone:"8888-8888", img:"www"},
-            {id:"7", type:"ft", name:"Ft7", email:"Ft7@lol.com", phone:"8888-8888", img:"www"},
-            {id:"8", type:"ft", name:"Ft8", email:"Ft8@lol.com", phone:"8888-8888", img:"www"},
-            {id:"9", type:"ft", name:"Ft9", email:"Ft9@lol.com", phone:"8888-8888", img:"www"},
-            {id:"10",type:"ft", name:"Ft10", email:"Ft10@lol.com", phone:"8888-8888", img:"www"}
+            {id:"0", type:"ft", name:"Ft", email:"Ft@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"1", type:"ft", name:"Ft1", email:"Ft1@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"2", type:"ft", name:"Ft2", email:"Ft2@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"3", type:"ft", name:"Ft3", email:"Ft3@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"4", type:"ft", name:"Ft4", email:"Ft4@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"5", type:"ft", name:"Ft5", email:"Ft5@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"6", type:"ft", name:"Ft6", email:"Ft6@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"7", type:"ft", name:"Ft7", email:"Ft7@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"8", type:"ft", name:"Ft8", email:"Ft8@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"9", type:"ft", name:"Ft9", email:"Ft9@lol.com", phone:"8888-8888", img:"./truck1.png"},
+            {id:"10",type:"ft", name:"Ft10", email:"Ft10@lol.com", phone:"8888-8888", img:"./truck1.png"}
         ],
         nextUid:11,
         nextFtid:11,
@@ -124,7 +124,7 @@ class Admin extends React.Component{
             Username:"",
             Useremail:"",
             Userphone:"",
-            Userimg:""
+            Userimg:"./user.png"
         })
 
         console.log(this.state)
@@ -137,7 +137,7 @@ class Admin extends React.Component{
             Ftname:"",
             Ftemail:"",
             Ftphone:"",
-            Ftimg:""
+            Ftimg:"./truck1.png"
         })
     }
 

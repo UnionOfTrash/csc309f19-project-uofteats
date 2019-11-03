@@ -33,7 +33,12 @@ class AddFtCard extends React.Component{
               </Modal.Header>
               <Modal.Body>
                         <Card className="text-center">
-                            <Card.Header>Add New Food Truck</Card.Header>
+                            <Card.Header>
+                                <div className="image-container">
+                                    <img src="./truck1.png" alt="FT" width="50" height="50" />
+                                </div>
+                                Add New Food Truck
+                            </Card.Header>
                                 <Card.Body>
                                     <Form>
                                     <Form.Group as={Row} controlId="exampleForm.ControlInput1">

@@ -14,7 +14,9 @@ class UserDataItem extends React.Component{
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
-                <td>{user.img}</td>
+                <td>
+                    <img src={user.img} alt="User" width="50" height="50" />
+                </td>
                 <td>
                     <ButtonGroup>
                         <EditButton

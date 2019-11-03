@@ -34,7 +34,12 @@ class FtEditCard extends React.Component{
               </Modal.Header>
               <Modal.Body>
                         <Card className="text-center">
-                            <Card.Header>Food Truck ID # {data.id}</Card.Header>
+                            <Card.Header>
+                              <div className="image-container">
+                                <img src={data.img} alt="FT" width="50" height="50" />
+                              </div>
+                                Food Truck ID # {data.id}
+                            </Card.Header>
                                 <Card.Body>
                                     <Form>
                                     <Form.Group as={Row} controlId="exampleForm.ControlInput1">

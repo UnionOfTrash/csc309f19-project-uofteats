@@ -33,7 +33,12 @@ class AddUserCard extends React.Component{
               </Modal.Header>
               <Modal.Body>
                         <Card className="text-center">
-                            <Card.Header>Add New {(this.props.dataType==="u")? "User":"Food Truck"}</Card.Header>
+                            <Card.Header>
+                                <div className="image-container">
+                                    <img src="./user.png" alt="FT" width="50" height="50" />
+                                </div>
+                                Add New User
+                            </Card.Header>
                                 <Card.Body>
                                     <Form>
                                     <Form.Group as={Row} controlId="exampleForm.ControlInput1">

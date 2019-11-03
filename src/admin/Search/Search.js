@@ -10,14 +10,18 @@ function InfoCard(props){
         return(
             <UserInfoCard 
                         {...props}
+                        editData={props.editUser}
                         data={props.data}
+                        handleInputChange={props.handleEditUserInputChange}
             />
         )
     }else{
         return(
             <FtInfoCard 
                     {...props}
+                    editData={props.editFt}
                     data={props.data}
+                    handleInputChange={props.handleEditFtInputChange}
             />
         )
     }
@@ -30,8 +34,6 @@ class Search extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            Fts:this.props.Fts,
-            Users:this.props.Users,
             choice:"User",
             id:-1,
             result:{},
@@ -87,6 +89,7 @@ class Search extends React.Component{
     }
 
     searchId=()=>{
+
         if(this.state.id < 0){
             this.setShow("invalidInputShow", true)
             return;
@@ -94,7 +97,7 @@ class Search extends React.Component{
 
         let result=-1;
         if (this.state.choice === "User"){
-            const users = this.state.Users
+            const users = this.props.Users
             for (let i = 0; i < users.length; i++){
                 if (users[i].id === this.state.id){
                     result = users[i]
@@ -102,7 +105,7 @@ class Search extends React.Component{
                 }
             }
         }else{
-            const fts = this.state.Fts
+            const fts = this.props.Fts
             for (let i = 0; i < fts.length; i++){
                 if (fts[i].id === this.state.id){
                     result = fts[i]
@@ -117,6 +120,12 @@ class Search extends React.Component{
             this.setState({
                 result:result
             })
+
+            if(this.state.choice === "User"){
+                this.props.initUser(result)
+            }else{
+                this.props.initFt(result)
+            }
             this.setShow("resultShow", true)
         }
 
@@ -140,9 +149,9 @@ class Search extends React.Component{
                             </Form.Control>
                         </Form>
                         <Form inline>
-                            <FormControl onChange={this.handleInput} name="id" type="number" placeholder={(this.state.choice==="User")? "User id":"Food Truck Id"} className=" mr-sm-2" />
+                            <FormControl id="search-input" onChange={this.handleInput} name="id" type="number" placeholder={(this.state.choice==="User")? "User id":"Food Truck Id"} className=" mr-sm-2" />
                             <>
-                                <Button onClick={this.searchId}>
+                                <Button id="search-btn" onClick={this.searchId}>
                                     Search
                                 </Button>
 
@@ -151,6 +160,11 @@ class Search extends React.Component{
                                     choice={this.state.choice}
                                     show={this.state.resultShow}
                                     onHide={this.hideResultShow}
+                                    editUser={this.props.editUser}
+                                    editFt={this.props.editFt}
+                                    handleEditUserInputChange={this.props.handleEditUserInputChange}
+                                    handleEditFtInputChange={this.props.handleEditFtInputChange}
+                                    removeUser = {this.props.removeUser}
                                 />
                             </>
                         </Form>

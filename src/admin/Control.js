@@ -39,6 +39,13 @@ class Control extends React.Component{
                         <Search 
                             Fts={Fts}
                             Users={Users}
+                            initUser={this.props.initUser}
+                            editUser={this.props.EditUser}
+                            initFt={this.props.initFt}
+                            editFt={this.props.EditFt}
+                            handleEditFtInputChange={this.props.handleEditFtInputChange}
+                            handleEditUserInputChange={this.props.handleEditUserInputChange}
+                            removeUser = {this.props.removeUser}
                         />
                     </Tab>
                 </Tabs>

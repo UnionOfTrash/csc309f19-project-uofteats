@@ -14,7 +14,7 @@ class FtDataItem extends React.Component{
                 <td>{ft.name}</td>
                 <td>{ft.email}</td>
                 <td>{ft.phone}</td>
-                <td>{ft.img}</td>
+                <td><img src={ft.img} alt="Food Truck" width="50" height="50" /></td>
                 <td>
                     <ButtonGroup>
                         <EditButton data={ft}

@@ -1,6 +1,27 @@
 import React from "react"
-import EditPopUpModal from "./EditPopUpModal"
 import {Button} from "react-bootstrap"
+import UserEditCard from "./UserEditCard"
+import FtEditCard from "./FtEditCard"
+
+function EditCard(props){
+    if (props.dataType === "user"){
+        return(
+            <UserEditCard 
+                        {...props}
+                        data={props.data}
+                        dataType={props.dataType}
+            />
+        )
+    }else{
+        return(
+            <FtEditCard 
+                    {...props}
+                    data={props.data}
+                    dataType={props.dataType}
+            />
+        )
+    }
+}
 
 
 class Edit extends React.Component{
@@ -13,6 +34,7 @@ class Edit extends React.Component{
     }
 
     showModalShow(){
+        this.props.initData(this.props.data)
         this.setState({modalShow:true})
     }
 
@@ -27,11 +49,14 @@ class Edit extends React.Component{
               <Button variant="success" onClick={() => this.showModalShow()}>
                 Edit Data
               </Button>
-              <EditPopUpModal
+
+              <EditCard
                 data={this.props.data}
                 dataType={this.props.dataType}
                 show={this.state.modalShow}
                 onHide={() => this.hideModlaShow()}
+                handleInputChange={this.props.handleInputChange}
+                editData={this.props.editData}
               />
             </>
         );

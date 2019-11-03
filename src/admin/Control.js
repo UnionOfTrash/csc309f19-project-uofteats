@@ -15,6 +15,9 @@ class Control extends React.Component{
                             Users = {Users}
                             removeUser = {this.props.removeUser}
                             admin={admin}
+                            handleInputChange={this.props.handleEditUserInputChange}
+                            initData={this.props.initUser}
+                            editData={this.props.EditUser}
                         />
                     </Tab>
                     <Tab eventKey="FtDataList" title="Food Truck Management">
@@ -22,6 +25,9 @@ class Control extends React.Component{
                             Fts = {Fts}
                             removeUser = {this.props.removeUser}
                             admin={admin}
+                            handleInputChange={this.props.handleEditFtInputChange}
+                            initData={this.props.initFt}
+                            editData={this.props.EditFt}
                         />
                     </Tab>
                     <Tab eventKey="Search" title="Search">

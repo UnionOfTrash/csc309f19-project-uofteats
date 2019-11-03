@@ -6,7 +6,7 @@ import UserDataItem from "./UserDataItem"
 
 class UserDataList extends React.Component{
     render() {
-        const {Users,removeUser, admin} = this.props
+        const {Users,removeUser, admin, handleInputChange, initData, editData} = this.props
 
         removeUser.bind(admin)
 
@@ -41,6 +41,9 @@ class UserDataList extends React.Component{
                                 key= {uid(u)}
                                 user={u}
                                 removeUser = {rmUser}
+                                handleInputChange={handleInputChange}
+                                initData={initData}
+                                editData={editData}
                             />
                         )
                     })}

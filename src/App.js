@@ -16,7 +16,7 @@ import Reset from "./commons/Reset";
 import FoodPage from "./customer/food_page/FoodPage";
 import SchedulePage from "./customer/schedule_page/SchedulePage";
 import CustomerMain from "./customer/main_page/CustomerMain";
-// import TruckView from "./trucks/TruckView";
+import TruckView from "./Trucks/TruckView";
 import Admin from './admin/Admin'
 import UserProfileMain from "./customer/profile_page/UserProfileMain";
 
@@ -33,7 +33,7 @@ class App extends React.Component {
             <Route exact path="/customer/food_page/FoodPage" component={FoodPage} />
             <Route exact path="/customer/schedule_page/SchedulePage" component={SchedulePage} />
             <Route exact path="/customer/main_page/CustomerMain" component={CustomerMain}/>
-            {/* <Route exact path='/t' component={TruckView} /> */}
+            <Route exact path='/t' component={TruckView} />
             <Route exact path="/admin" component={Admin} />
             <Route exact path="/customer/profile_page/UserProfileMain" component={UserProfileMain}/>
           </Switch>

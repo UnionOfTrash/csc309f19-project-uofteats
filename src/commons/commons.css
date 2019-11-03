@@ -2,6 +2,23 @@
     background-color: inherit;
 }
 
+.commonHeaderLayout {
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background-color: inherit;
+}
+
+.commonContentLayout {
+    height: auto;
+    margin: 20px;
+    padding: 20px;
+}
+
+.commonContentComponentLayout {
+    margin-bottom: 20px;
+}
+
 .commonContainer {
     margin-top: 64px;
     padding: 24px;
@@ -27,8 +44,8 @@
 }
 
 .commonHeader {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.45);
-    background-color: #F5F5F5;
+    border-bottom: 1px solid rgb(235, 237, 240);
+    background-color: white;
 }
 
 .ant-dropdown-menu-item a {

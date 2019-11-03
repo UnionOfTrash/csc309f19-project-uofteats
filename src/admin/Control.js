@@ -18,6 +18,8 @@ class Control extends React.Component{
                             handleInputChange={this.props.handleEditUserInputChange}
                             initData={this.props.initUser}
                             editData={this.props.EditUser}
+                            createData={this.props.createUser}
+                            addData={this.props.addUser}
                         />
                     </Tab>
                     <Tab eventKey="FtDataList" title="Food Truck Management">
@@ -28,6 +30,8 @@ class Control extends React.Component{
                             handleInputChange={this.props.handleEditFtInputChange}
                             initData={this.props.initFt}
                             editData={this.props.EditFt}
+                            createData={this.props.createFt}
+                            addData={this.props.addFt}
                         />
                     </Tab>
                     <Tab eventKey="Search" title="Search">

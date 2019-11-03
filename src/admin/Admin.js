@@ -36,6 +36,8 @@ class Admin extends React.Component{
             {id:"9", type:"ft", name:"Ft9", email:"Ft9@lol.com", phone:"8888-8888", img:"www"},
             {id:"10",type:"ft", name:"Ft10", email:"Ft10@lol.com", phone:"8888-8888", img:"www"}
         ],
+        nextUid:11,
+        nextFtid:11,
         EditUser:{},
         EditFt:{}
 
@@ -113,13 +115,76 @@ class Admin extends React.Component{
         })
     }
 
+    // initializing data when we add a new user
+    createUser=()=>{
+        
+        this.setState({
+            Userid:this.state.nextFtid,
+            Usertype:"ft",
+            Username:"",
+            Useremail:"",
+            Userphone:"",
+            Userimg:""
+        })
+
+        console.log(this.state)
+    }
+
+    createFt=()=>{
+        this.setState({
+            Ftid:this.state.nextFtid,
+            Fttype:"ft",
+            Ftname:"",
+            Ftemail:"",
+            Ftphone:"",
+            Ftimg:""
+        })
+    }
+
+
     // method to add a new user
     addUser = () => {
         
+        const user = {
+            id:this.state.nextUid,
+            type:this.state.Usertype,
+            name:this.state.Username,
+            email:this.state.Useremail,
+            phone:this.state.Userphone,
+            img:this.state.Userimg
+        }
+
+        const users = this.state.Users
+
+        users.push(user)
+
+        const nextUid = this.state.nextUid + 1
+        this.setState({
+            Users:users,
+            nextUid:nextUid
+        })
     }
 
     addFt = () => {
         
+        const ft = {
+            id:this.state.nextFtid,
+            type:this.state.Fttype,
+            name:this.state.Ftname,
+            email:this.state.Ftemail,
+            phone:this.state.Ftphone,
+            img:this.state.Ftimg
+        }
+
+        const fts = this.state.Fts
+
+        fts.push(ft)
+
+        const nextFid = this.state.nextFtid + 1
+        this.setState({
+            Fts:fts,
+            nextUid:nextFid
+        })
     }
 
     // method to edit a user
@@ -218,6 +283,10 @@ class Admin extends React.Component{
                     initFt={this.initFt}
                     EditUser={this.EditUser}
                     EditFt={this.EditFt}
+                    createUser={this.createUser}
+                    createFt={this.createFt}
+                    addUser={this.addUser}
+                    addFt={this.addFt}
                 />
             </div>
         )

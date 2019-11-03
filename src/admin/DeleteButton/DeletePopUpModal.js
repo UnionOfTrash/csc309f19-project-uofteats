@@ -8,6 +8,14 @@ class DeletePopUpModal extends React.Component{
         super(props)
         this.state={}
     }
+
+    deleteClick=()=>{
+      this.props.onHide()
+      setTimeout(() => {
+        this.props.onDelete()
+      }, 300);
+    }
+
     render(){
         return (
             <Modal
@@ -27,7 +35,7 @@ class DeletePopUpModal extends React.Component{
               </Modal.Body>
       
               <Modal.Footer>
-                  <Button onClick={this.props.onDelete} 
+                  <Button onClick={this.deleteClick} 
                           variant="danger">
                       Delete
                   </Button>

@@ -10,6 +10,13 @@ class UserEditCard extends React.Component{
         }
     }
 
+    saveClick=() => {
+        this.props.onHide()
+        setTimeout(() => {
+            this.props.editData()
+        }, 300);
+    }
+
     render(){
         const {data} = this.props
         return(
@@ -48,7 +55,7 @@ class UserEditCard extends React.Component{
                     </Card>
               </Modal.Body>
               <Modal.Footer>
-                <Button onClick={this.props.editData} variant="success">Save</Button>
+                <Button onClick={this.saveClick} variant="success">Save</Button>
                 <Button onClick={this.props.onHide}>Close</Button>
               </Modal.Footer>
             </Modal>  

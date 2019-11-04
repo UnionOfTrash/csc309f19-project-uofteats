@@ -1,10 +1,10 @@
 import React from "react"
 import "../admin.css"
 import {Alert, Container, Col, Row, Form, FormControl, Button} from "react-bootstrap"
-
 import UserInfoCard from "./UserInfoCard"
 import FtInfoCard from "./FtInfoCard"
 
+// this will generate a popup modal for showing the info from the searching result
 function InfoCard(props){
     if (props.choice === "User"){
         return(
@@ -28,9 +28,10 @@ function InfoCard(props){
 }
 
 
-
+// The Search layout for the Search tab
 class Search extends React.Component{
 
+    // initialize states
     constructor(props){
         super(props)
         this.state={
@@ -43,30 +44,35 @@ class Search extends React.Component{
         }
     }
 
+    // this will set a content to show or unshow
     setShow=(name, value)=>{
         this.setState({
             [name]:value
         })
     }
     
+    // hide the No Result Alert
     hideNoResultShow=()=>{
         this.setState({
             noResultShow:false
         })
     }
 
+    // hide the Invalid Input Alert
     hideInvalidInputShow=()=>{
         this.setState({
             invalidInputShow:false
         })
     }
 
+    // unshow the result
     hideResultShow=()=>{
         this.setState({
             resultShow:false
         })
     }
 
+    // handle the input
     handleInput=(e)=>{
         const target = e.target
         const name = target.name
@@ -88,6 +94,7 @@ class Search extends React.Component{
         }, 200);
     }
 
+    // handle the onClick for the search button
     searchId=()=>{
 
         if(this.state.id < 0){
@@ -131,7 +138,6 @@ class Search extends React.Component{
 
     }
 
-
     render(){
         return(
             <div id="search-container">
@@ -154,7 +160,8 @@ class Search extends React.Component{
                                 <Button id="search-btn" onClick={this.searchId}>
                                     Search
                                 </Button>
-
+                                
+                                {/* the pop up modal to show the result */}
                                 <InfoCard
                                     data={this.state.result}
                                     choice={this.state.choice}
@@ -170,6 +177,8 @@ class Search extends React.Component{
                         </Form>
                     </Row>
                     <br></br>
+
+                    {/* Some Alerts for invalid inputs */}
                     <Row className="justify-content-md-center">
                         <Col xs={12}>
                             <Alert show={this.state.noResultShow} variant="danger" onClose={this.hideNoResultShow} dismissible>

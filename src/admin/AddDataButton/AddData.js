@@ -3,6 +3,7 @@ import {Button} from "react-bootstrap"
 import AddUserCard from "./AddUserCard"
 import AddFtCard from "./AddFtCard"
 
+// this will generate a card contains a form for add user/food truck
 function AddDataCard(props){
 
     if (props.dataType === "u"){
@@ -21,7 +22,7 @@ function AddDataCard(props){
 
 }
 
-
+// The AddData button and the pop up modal
 class AddData extends React.Component{
 
     constructor(props){
@@ -31,11 +32,13 @@ class AddData extends React.Component{
         }
     }
 
+    // show the pop up modal
     showModalShow(){
         this.props.createData()
         this.setState({modalShow:true})
     }
 
+    // hide the pop up modal
     hideModlaShow(){
         this.setState({modalShow:false})
     }

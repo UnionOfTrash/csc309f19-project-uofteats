@@ -1,10 +1,10 @@
 import React from "react"
 import {Table} from "react-bootstrap"
-
 import {uid} from "react-uid"
 import UserDataItem from "./UserDataItem"
 import AddDataButton from "../AddDataButton/AddDataButton"
 
+// A table contains all users
 class UserDataList extends React.Component{
     render() {
         const {Users,removeUser, admin, handleInputChange, initData, editData} = this.props
@@ -20,6 +20,7 @@ class UserDataList extends React.Component{
             <div>
                 <br></br>
             </div>
+            {/* The head of the table */}
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
@@ -39,6 +40,8 @@ class UserDataList extends React.Component{
                         </th>
                     </tr>
                 </thead>
+
+                {/* the users of the table */}
                 <tbody>
                     {Users.map((u) =>{
                         return(

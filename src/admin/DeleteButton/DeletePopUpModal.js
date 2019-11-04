@@ -1,7 +1,7 @@
 import React from "react"
 import {Modal, Button} from "react-bootstrap"
 
-
+// The pop up modal for double check to delete a user 
 class DeletePopUpModal extends React.Component{
 
     constructor(props){

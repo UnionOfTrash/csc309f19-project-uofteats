@@ -1,7 +1,7 @@
 import React from "react"
 import {Card, Form, Row, Modal, Button} from "react-bootstrap"
 
-
+// The pop up modal for add new food truck
 class AddFtCard extends React.Component{
 
     constructor(props){

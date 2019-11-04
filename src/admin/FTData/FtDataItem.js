@@ -1,9 +1,9 @@
 import React from "react"
 import {ButtonGroup} from "react-bootstrap"
-
 import EditButton from "../EditButton/EditButton"
 import DeleteButton from "../DeleteButton/DeleteButton"
 
+// A entry for showing info of one user
 class FtDataItem extends React.Component{
 
     render() {
@@ -17,6 +17,7 @@ class FtDataItem extends React.Component{
                 <td><img src={ft.img} alt="Food Truck" width="50" height="50" /></td>
                 <td>
                     <ButtonGroup>
+                        {/* Edit button and Delete button */}
                         <EditButton data={ft}
                                     dataType="food truck"
                                     handleInputChange={handleInputChange}

@@ -11,12 +11,17 @@
 
 .commonContentLayout {
     height: auto;
-    margin: 20px;
-    padding: 20px;
 }
 
 .commonContentComponentLayout {
-    margin-bottom: 20px;
+    margin: 10px 20px;
+    padding: 20px;
+    background-color: white;
+}
+
+.commonHeader {
+    border-bottom: 1px solid rgb(235, 237, 240);
+    background-color: white;
 }
 
 .commonContainer {
@@ -36,6 +41,10 @@
     margin-top: 8px;
 }
 
+.commonTab {
+    background-color: white;
+}
+
 .commonGridComponent {
     display: flex;
     flex-direction: column;
@@ -43,12 +52,11 @@
     justify-content: center;
 }
 
-.commonHeader {
-    border-bottom: 1px solid rgb(235, 237, 240);
-    background-color: white;
-}
-
 .ant-dropdown-menu-item a {
     margin: 0;
     padding: 0;
+}
+
+.anticon {
+    vertical-align: 0;
 }

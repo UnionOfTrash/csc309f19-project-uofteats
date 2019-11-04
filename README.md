@@ -1,6 +1,6 @@
 # team49
 
-## Project Overview
+## Project Overview : UofT Eats
 
 UofTEats is a website for university students to order their food served by food trucks online. Similar to the interface of UberEats, each food truck has its own spot on UofTEats where students can get an intuitive view to all available food trucks. By clicking each truck’s view, students can order any food they want from the menu of the specific food truck and set a time to take the order from the truck.
 
@@ -8,17 +8,17 @@ This website is intended not only to solve the issue that students have to suffe
 
 ## Login Users
 
-#### Student:
+#### - Student:
 username: user
 
 password: user
 
-#### Truck Manager:
+#### - Truck Manager:
 username: user2
 
 password: user2
 
-#### Admin:
+#### - Admin:
 username: admin
 
 password: admin
@@ -43,6 +43,26 @@ User can add food items into cart by clicking "Add to Cart" button, and increase
 
 After finishing adding food into cart, user can choose a pick-up time by selecting date and time. Also, user can leave a note to the food truck by entering into an input box.
 
+## Food Truck Owner Side
+
+#### Incoming Orders
+
+<img src="./public/FtOrders.gif">
+
+The Food Truck Owner is eligible to decide whether to accept the incoming food order or not. All accepted food orders will be listed below
+
+#### Done for Cook
+
+<img src="./public/DoneOrder.gif">
+
+After the food is prepared, the truck owner can click "done" button to notify the user that his/her order is ready to pick up.
+
+#### Edit Serving Foods
+
+<img src="./public/EditFood.gif">
+
+The Food Truck owner can add new food items or delete food items as they want.
+
 ## Admin Side
 
 #### Basic utilities
@@ -60,3 +80,8 @@ For each entry listed blow, the admin can either edit the info or delete a user/
 <img src="./public/SearchView.gif">
 
 When entering the Search tab, the admin can search for a paticular user or food truck by providing its Id number. On the display card of the particular user, the admin will have the ability to edit or delete.
+
+
+## NOTE:
+
+In phase 1, the user side, food truck side and admin side are seperated among each other. However, all three sides will be combined as a whole in phase 2 when we can fetch data from the server and database.

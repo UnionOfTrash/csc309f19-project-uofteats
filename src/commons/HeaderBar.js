@@ -3,7 +3,6 @@ import React from "react";
 import "antd/dist/antd.css";
 import "./commons.css";
 
-import { Affix } from "antd";
 import { PageHeader, Dropdown, Menu } from "antd";
 import { Button } from "antd";
 import { Typography } from "antd";
@@ -18,7 +17,6 @@ class HeaderBar extends React.Component {
         this.state = {
             title: this.props.title,
             username: this.props.username,
-            top: 0,
         };
     }
 
@@ -46,9 +44,7 @@ class HeaderBar extends React.Component {
     render() {
 
         return (
-            <Affix offsetTop={ this.state.top }>
-                <PageHeader ghost={ false } title={ this.state.title } extra={ this.userBtn() } className='commonHeader' />
-            </Affix>
+            <PageHeader ghost={ false } title={ this.state.title } extra={ this.userBtn() } className='commonHeader' />
         );
     }
 }

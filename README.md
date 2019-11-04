@@ -6,6 +6,23 @@ UofTEats is a website for university students to order their food served by food
 
 This website is intended not only to solve the issue that students have to suffer from the extremely hot/cold weather while waiting for the order to be ready, but also save their time by ordering their lunch/dinner before the lecture is finished.
 
+## Login Users
+
+#### Student:
+username: user
+
+password: user
+
+#### Truck Manager:
+username: user2
+
+password: user2
+
+#### Admin:
+username: admin
+
+password: admin
+
 ## User Side
 
 #### Search for food truck

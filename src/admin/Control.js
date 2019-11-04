@@ -5,11 +5,13 @@ import FtDataList from "./FTData/FtDataList"
 import {Tab, Tabs} from 'react-bootstrap'
 import Search from "./Search/Search"
 
+// the main conponent for the admin dashboard, contains 3 tabs: manage Users, manage Food Trucks, and Search
 class Control extends React.Component{
     render() {
         const {Users, Fts, admin} = this.props
         return(
             <>
+                {/* The tab for User management */}
                 <Tabs defaultActiveKey="UserDataList" id="tabs">
                     <Tab eventKey="UserDataList" title="User Management">
                         <UserDataList 
@@ -23,6 +25,8 @@ class Control extends React.Component{
                             addData={this.props.addUser}
                         />
                     </Tab>
+
+                    {/* The tab for Food Truck Management */}
                     <Tab eventKey="FtDataList" title="Food Truck Management">
                         <FtDataList
                             Fts = {Fts}
@@ -35,6 +39,8 @@ class Control extends React.Component{
                             addData={this.props.addFt}
                         />
                     </Tab>
+
+                    {/* The tab for Search a User/FoodTruck */}
                     <Tab eventKey="Search" title="Search">
                         <Search 
                             Fts={Fts}

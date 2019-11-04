@@ -1,7 +1,7 @@
 import React from "react"
 import {Modal, Card, Button, Form, Col, Row} from "react-bootstrap"
-import DeleteButton from "../DeleteButton/DeleteButton"
 
+// The pop up modal for showing the result of searching a User
 class UserInfoCard extends React.Component{
 
     constructor(props){
@@ -13,6 +13,7 @@ class UserInfoCard extends React.Component{
         }
     }
 
+    // handle the click for Edit button
     handleEdit=()=>{
         this.setState({
             inEdit:true,
@@ -20,12 +21,13 @@ class UserInfoCard extends React.Component{
             plaintext:false
         })
     }
-
+    // handle the click for save button
     handleSave=()=>{
         this.props.editData()
         this.handleClose()
     }
 
+    // handle the click for close button
     handleClose=()=>{
         this.setState({
             readOnly:true,
@@ -36,6 +38,7 @@ class UserInfoCard extends React.Component{
         this.props.onHide()
     }
 
+    // handle the click for delete button
     handleRemoveUser=()=>{
         this.props.removeUser(this.props.data)
         this.handleClose()
@@ -64,7 +67,6 @@ class UserInfoCard extends React.Component{
                             <div className="image-container">
                                 <img src={data.img} alt="FT" width="50" height="50" />
                             </div>
-                              
                             User ID # {data.id}
                         </Card.Header>
                             <Card.Body>

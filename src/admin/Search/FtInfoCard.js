@@ -1,6 +1,7 @@
 import React from "react"
 import {Modal, Card, Button, Form, Col, Row} from "react-bootstrap"
 
+// The pop up modal to show the searching result for the Food truck
 class FtInfoCard extends React.Component{
 
     constructor(props){
@@ -12,6 +13,7 @@ class FtInfoCard extends React.Component{
         }
     }
 
+    // handle the click for edit button
     handleEdit=()=>{
         this.setState({
             inEdit:true,
@@ -20,11 +22,13 @@ class FtInfoCard extends React.Component{
         })
     }
 
+    // handle the click for save button
     handleSave=()=>{
         this.props.editData()
         this.handleClose()
     }
 
+    // handle the click for close button
     handleClose=()=>{
         this.setState({
             readOnly:true,
@@ -33,6 +37,12 @@ class FtInfoCard extends React.Component{
         })
 
         this.props.onHide()
+    }
+
+    // handle the click for delete button
+    handleRemoveUser=()=>{
+        this.props.removeUser(this.props.data)
+        this.handleClose()
     }
 
     
@@ -108,6 +118,11 @@ class FtInfoCard extends React.Component{
                 <Button onClick={(this.state.inEdit)? this.handleSave:this.handleEdit} variant="success">
                     {(this.state.inEdit)? "Save":"Edit"}
                 </Button>
+
+                <Button onClick={this.handleRemoveUser} variant="danger">
+                    Delete
+                </Button>
+
                 <Button onClick={this.handleClose}>Close</Button>
               </Modal.Footer>
             </Modal>  

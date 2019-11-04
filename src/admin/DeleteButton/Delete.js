@@ -1,10 +1,9 @@
 import React from "react"
 import DeletePopUpModal from "./DeletePopUpModal"
-
 import {Button} from "react-bootstrap"
 
-
-  class Delete extends React.Component{
+// The delete button and the pop up modal for double check
+class Delete extends React.Component{
 
     constructor(props){
         super(props)
@@ -37,6 +36,6 @@ import {Button} from "react-bootstrap"
             </>
           );
     }
-  }
+}
 
-  export default Delete
+export default Delete

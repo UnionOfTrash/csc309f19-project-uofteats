@@ -4,6 +4,7 @@ import {ButtonGroup} from "react-bootstrap"
 import EditButton from "../EditButton/EditButton"
 import DeleteButton from "../DeleteButton/DeleteButton"
 
+// A entry for showing info of one user
 class UserDataItem extends React.Component{
 
     render() {
@@ -18,6 +19,7 @@ class UserDataItem extends React.Component{
                     <img src={user.img} alt="User" width="50" height="50" />
                 </td>
                 <td>
+                    {/* The Edit button and Delete button */}
                     <ButtonGroup>
                         <EditButton
                                     data={user}

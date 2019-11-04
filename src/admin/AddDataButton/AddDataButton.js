@@ -1,6 +1,7 @@
 import React from "react"
 import AddData from "./AddData"
 
+// the Add Data button 
 class AddDataButton extends React.Component{
     render(){
         return(

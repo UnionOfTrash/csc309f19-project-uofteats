@@ -4,6 +4,7 @@ import FtDataItem from "./FtDataItem"
 import {uid} from "react-uid"
 import AddDataButton from "../AddDataButton/AddDataButton"
 
+// A table contains all food trucks
 class FtDataList extends React.Component{
     render(){
         const {Fts, removeUser, admin, handleInputChange, initData, editData} = this.props
@@ -21,6 +22,7 @@ class FtDataList extends React.Component{
                 <br></br>
             </div>
             <Table striped bordered hover variant="dark">
+                {/* the head of the table */}
                 <thead>
                     <tr>
                     <th>Truck ID #</th>
@@ -40,6 +42,7 @@ class FtDataList extends React.Component{
                     </tr>
                 </thead>
                 <tbody>
+                    {/* each food truck */}
                     {Fts.map((ft)=>{
                         return(
                             <FtDataItem 

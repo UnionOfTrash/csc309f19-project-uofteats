@@ -1,14 +1,14 @@
 import React from "react";
-
 import HeaderBar from "../commons/HeaderBar";
-
 import "./admin.css";
 import Control from './Control';
 
+
+// This is the main entrance when the user login to the Admin dashboard
+
 class Admin extends React.Component{
 
-
-    // some hard coded data for test use, this will be get from the server at phase 2
+    // some hard coded data for test use, these will be get from the server at phase 2
     state = {
         Users:[
             {id:"0", type:"u", name:"User1", email:"User1@csgo.com", phone:"8888-8888", img:"./user.png"},
@@ -36,15 +36,17 @@ class Admin extends React.Component{
             {id:"9", type:"ft", name:"Ft9", email:"Ft9@lol.com", phone:"8888-8888", img:"./truck1.png"},
             {id:"10",type:"ft", name:"Ft10", email:"Ft10@lol.com", phone:"8888-8888", img:"./truck1.png"}
         ],
+        // next user id and food truck id for add new users/trucks to use
         nextUid:11,
         nextFtid:11,
+        // these two objects saves the initial state for the user/foodtruck that is being edited
         EditUser:{},
         EditFt:{}
 
     }
 
 
-    // a generic event handler whenever we type into a input box for the user
+    // a event handler whenever we type into a input box for the user
     handleEditUserInputChange=(event)=>{
 
         const target = event.target
@@ -67,6 +69,7 @@ class Admin extends React.Component{
 
     }
 
+    // a event handler whenever we type into a input box for the food truck
     handleEditFtInputChange=(event)=>{
 
         const target = event.target
@@ -88,7 +91,6 @@ class Admin extends React.Component{
     }
 
     //for initialize the user we want to edit
-
     initUser=(user) => {
         this.setState({
             EditUser:user,
@@ -102,7 +104,6 @@ class Admin extends React.Component{
     }
 
     //for initialize the food truck user we want to edit
-
     initFt=(ft) => {
         this.setState({
             EditFt:ft,
@@ -130,6 +131,7 @@ class Admin extends React.Component{
         console.log(this.state)
     }
 
+    // initializing data when we add a new foodtruck
     createFt=()=>{
         this.setState({
             Ftid:this.state.nextFtid,
@@ -165,6 +167,7 @@ class Admin extends React.Component{
         })
     }
 
+    // method to add a new food truck
     addFt = () => {
         
         const ft = {
@@ -216,6 +219,7 @@ class Admin extends React.Component{
     }
 
 
+    // method to edit a food truck
     EditFt= () => {
 
         const ft = {
@@ -245,6 +249,7 @@ class Admin extends React.Component{
     }
 
 
+    // method to remove a user/truck from the datalist
     removeUser = (user) => {
         if (user.type === "u"){
             const filteredUsers = this.state.Users.filter((u) => {
@@ -265,13 +270,12 @@ class Admin extends React.Component{
         }
     }
 
-
     render() {
-
         return (
             <div id="admin-app">
                 <HeaderBar title='UofT Eats Admin' username='admin1'/>
                 <br/>
+                {/* the Control contians 3 tabs for manage users, manage trucks, and search */}
                 <Control 
                     Users = {this.state.Users}
                     Fts = {this.state.Fts}

@@ -10,13 +10,19 @@ This website is intended not only to solve the issue that students have to suffe
 
 #### Search for food truck
 
+<img src="./public/SearchTruck.gif">
+
 User can search food truck by name on the main page of user side. After clicking the search icon, only trucks that match up the search key will be filtered out.
 
 #### Add food into cart
 
+<img src="./public/OrderFood.gif">
+
 User can add food items into cart by clicking "Add to Cart" button, and increase or decrease number of items to order. 
 
 #### Schedule pick-up
+
+<img src="./public/SchedualFood.gif">
 
 After finishing adding food into cart, user can choose a pick-up time by selecting date and time. Also, user can leave a note to the food truck by entering into an input box.
 

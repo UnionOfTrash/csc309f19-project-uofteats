@@ -24,7 +24,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <a href="/api/getList">Test</a>
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />

@@ -42,8 +42,9 @@ class Admin extends React.Component{
         // these two objects saves the initial state for the user/foodtruck that is being edited
         EditUser:{},
         EditFt:{}
-
     }
+
+
 
 
     // a event handler whenever we type into a input box for the user

@@ -2,6 +2,7 @@
 const mongoose = require('mongoose')
 
 const FoodtruckSchema = new mongoose.Schema({
+    id: Number,
     name: String,
     phone: Number,
     email: String,

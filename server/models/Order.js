@@ -8,6 +8,7 @@ const FoodSchema = new mongoose.Schema({
 
 
 const OrderSchema = new mongoose.Schema({
+    id: Number,
     customerId: Number,
     truckId: Number,
     food: [FoodSchema],

@@ -49,3 +49,27 @@ app.use(session({
 // };
 
 
+/*
+    APIs for admin to get all users and foodtrucks
+*/
+
+// TODO: Check session for Admin
+app.get('/users', (req, res) => {
+
+    User.find().then((result) => {
+		res.send(result)
+	}, (error) => {
+		res.status(500).send(error)
+    })
+})
+// TODO: Check session for Admin
+app.get('/fts', (req, res) => {
+
+    FoodTruck.find().then((result) => {
+		res.send(result)
+	}, (error) => {
+		res.status(500).send(error)
+	})
+})
+
+

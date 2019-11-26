@@ -3,6 +3,9 @@ import HeaderBar from "../commons/HeaderBar";
 import "./admin.css";
 import Control from './Control';
 
+const log = console.log
+
+
 
 // This is the main entrance when the user login to the Admin dashboard
 
@@ -44,6 +47,28 @@ class Admin extends React.Component{
         EditFt:{}
     }
 
+    // fetch data from the server 
+
+    getAllData = () => {
+
+        // the url to fetch all data
+        const url = ""
+
+        fetch(url)
+        .then((res) => {
+            if (res.status === 200){
+                return res.json()
+            }else{
+                alert("Could not get the data from server")
+            }
+        })
+        .then((json) => {
+            this.setState({
+                Users:json.users,
+                Fts: json.fts
+            })
+        }).catch(error => log(error))
+    }
 
 
 
@@ -170,7 +195,7 @@ class Admin extends React.Component{
 
     // method to add a new food truck
     addFt = () => {
-        
+
         const ft = {
             id:this.state.nextFtid,
             type:this.state.Fttype,

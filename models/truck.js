@@ -11,6 +11,6 @@ const TruckSchema = new mongoose.Schema({
   profileImg: String
 });
 
-const Truck = mongoose.model("Foodtruck", TruckSchema);
+const Truck = mongoose.model("Truck", TruckSchema);
 
 module.exports = { Truck };

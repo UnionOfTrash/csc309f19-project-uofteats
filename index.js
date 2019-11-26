@@ -13,6 +13,10 @@ const { UserAuth } = require("./models/userAuth");
 const { Order } = require("./models/order");
 const { Food } = require("./models/food");
 
+// initialize some data
+require("./initial_data/dropExisted");
+require("./initial_data/initUserAuth");
+
 // to validate object IDs
 const { ObjectID } = require("mongodb");
 
@@ -72,7 +76,7 @@ app.get("/api/logout", (req, res) => {
     if (error) {
       res.status(500).send(error);
     } else {
-      res.redirect("/");
+      res.redirect("/login");
     }
   });
 });
@@ -86,25 +90,6 @@ app.get("/api/check-session", (req, res) => {
     res.redirect("/login");
   }
 });
-
-// Add some initial accounts for testing purposes
-// new UserAuth({
-//   username: "admin",
-//   password: "admin",
-//   type: 0
-// }).save();
-
-// new UserAuth({
-//   username: "user",
-//   password: "user",
-//   type: 1
-// }).save();
-
-// new UserAuth({
-//   username: "user2",
-//   password: "user2",
-//   type: 2
-// }).save();
 
 // Middleware for authentication of resources
 const authenticate = (req, res, next) => {
@@ -129,9 +114,7 @@ const authenticate = (req, res, next) => {
 /*********************************************************/
 
 /*** API Routes below ************************************/
-
 /** Order resource routes **/
-// a POST route to create an new order
 app.post("/api/orders", authenticate, (req, res) => {
   // log(req.body)
 
@@ -197,7 +180,7 @@ app.get("/api/orders/:id", authenticate, (req, res) => {
 });
 
 /** User routes below **/
-// Set up a POST route to *create* a user of your web app (*not* a student).
+// Set up a POST route to *create* a user of your web app.
 app.post("/api/users", (req, res) => {
   log(req.body);
 
@@ -215,6 +198,33 @@ app.post("/api/users", (req, res) => {
     },
     error => {
       res.status(400).send(error); // 400 for bad request
+    }
+  );
+});
+
+/*
+    APIs for admin to get all users and foodtrucks
+*/
+
+// TODO: Check session for Admin
+app.get("/users", (req, res) => {
+  User.find().then(
+    result => {
+      res.send(result);
+    },
+    error => {
+      res.status(500).send(error);
+    }
+  );
+});
+// TODO: Check session for Admin
+app.get("/fts", (req, res) => {
+  FoodTruck.find().then(
+    result => {
+      res.send(result);
+    },
+    error => {
+      res.status(500).send(error);
     }
   );
 });

@@ -1,24 +1,236 @@
-const express = require("express");
-const path = require("path");
+"use strict";
+const log = console.log;
 
+const express = require("express");
+// starting the express server
 const app = express();
 
-// Serve the static files from the React app
-app.use(express.static(path.join(__dirname, "client/public")));
+// mongoose and mongo connection
+const { mongoose } = require("./db/mongoose");
 
-// An api endpoint that returns a short list of items
-app.get("/api/getList", (req, res) => {
-  var list = ["item1", "item2", "item3"];
-  res.json(list);
-  console.log("Sent list of items");
+// import the mongoose models
+const { UserAuth } = require("./models/userAuth");
+const { Order } = require("./models/order");
+const { Food } = require("./models/food");
+
+// to validate object IDs
+const { ObjectID } = require("mongodb");
+
+// body-parser: middleware for parsing HTTP JSON body into a usable object
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+
+// express-session for managing user sessions
+const session = require("express-session");
+app.use(bodyParser.urlencoded({ extended: true }));
+
+/*** Session handling **************************************/
+// Create a session cookie
+app.use(
+  session({
+    secret: "uofteats",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60000,
+      httpOnly: true
+    }
+  })
+);
+
+// A route to login and create a session
+app.post("/api/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  log(username, password);
+  // Use the static method on the User model to find a user
+  // by their email and password
+  UserAuth.findByUsernamePassword(username, password)
+    .then(user => {
+      if (!user) {
+        log("User not found");
+        // res.redirect('/');
+      } else {
+        // Add the user's id to the session cookie.
+        // We can check later if this exists to ensure we are logged in.
+        log("SESSION!");
+        req.session.user = user._id;
+        res.send({ screen: "logged in" });
+      }
+    })
+    .catch(error => {
+      log(400);
+      // res.status(400).redirect('/');
+    });
 });
 
-// Handles any requests that don't match the ones above
+// A route to logout a user
+app.get("/api/logout", (req, res) => {
+  // Remove the session
+  req.session.destroy(error => {
+    if (error) {
+      res.status(500).send(error);
+    } else {
+      res.redirect("/");
+    }
+  });
+});
+
+// A route to check if a use is logged in on the session cookie
+app.get("/api/check-session", (req, res) => {
+  // Remove the session
+  if (req.session.user) {
+    res.send({ screen: "auth" });
+  } else {
+    res.redirect("/login");
+  }
+});
+
+// Add some initial accounts for testing purposes
+// new UserAuth({
+//   username: "admin",
+//   password: "admin",
+//   type: 0
+// }).save();
+
+// new UserAuth({
+//   username: "user",
+//   password: "user",
+//   type: 1
+// }).save();
+
+// new UserAuth({
+//   username: "user2",
+//   password: "user2",
+//   type: 2
+// }).save();
+
+// Middleware for authentication of resources
+const authenticate = (req, res, next) => {
+  if (req.session.user) {
+    UserAuth.findById(req.session.user)
+      .then(user => {
+        if (!user) {
+          return Promise.reject();
+        } else {
+          req.user = user;
+          next();
+        }
+      })
+      .catch(error => {
+        res.status(401).send("Unauthorized");
+      });
+  } else {
+    res.status(401).send("Unauthorized");
+  }
+};
+
+/*********************************************************/
+
+/*** API Routes below ************************************/
+
+/** Order resource routes **/
+// a POST route to create an new order
+app.post("/api/orders", authenticate, (req, res) => {
+  // log(req.body)
+
+  // Create a new order using the Order mongoose model
+  const order = new Order({
+    customerId: req.user._id,
+    truckId: req.body.truckId,
+    food: req.body.food,
+    price: req.body.price,
+    pickDate: req.body.pickDate,
+    pickTime: req.body.pickTime,
+    noteContent: req.body.noteContent
+  });
+
+  // Save student to the database
+  order.save().then(
+    result => {
+      res.send(result);
+    },
+    error => {
+      res.status(400).send(error); // 400 for bad request
+    }
+  );
+});
+
+// a GET route to get all orders
+app.get("/api/orders", authenticate, (req, res) => {
+  Order.find({
+    customerId: req.user._id // from authenticate middleware
+  }).then(
+    orders => {
+      res.send({ orders }); // can wrap in object if want to add more properties
+    },
+    error => {
+      res.status(500).send(error); // server error
+    }
+  );
+});
+
+/// a GET route to get orders by customer id.
+// id is treated as a wildcard parameter, which is why there is a colon : beside it.
+app.get("/api/orders/:id", authenticate, (req, res) => {
+  /// req.params has the wildcard parameters in the url, in this case, id.
+  // log(req.params.id)
+  const id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    res.status(404).send(); // if invalid id, definitely can't find resource, 404.
+  }
+
+  // Otherwise, find by the id and creator
+  Orders.findOne({ _id: id, creator: req.user._id })
+    .then(order => {
+      if (!order) {
+        res.status(404).send(); // could not find this student
+      } else {
+        res.send(order);
+      }
+    })
+    .catch(error => {
+      res.status(500).send(); // server error
+    });
+});
+
+/** User routes below **/
+// Set up a POST route to *create* a user of your web app (*not* a student).
+app.post("/api/users", (req, res) => {
+  log(req.body);
+
+  // Create a new user
+  const user = new UserAuth({
+    username: req.body.username,
+    password: req.body.password,
+    type: req.body.type
+  });
+
+  // Save the user
+  user.save().then(
+    user => {
+      res.send(user);
+    },
+    error => {
+      res.status(400).send(error); // 400 for bad request
+    }
+  );
+});
+
+/*** Webpage routes below **********************************/
+// Serve the build
+app.use(express.static(__dirname + "/client/build"));
+
+// All routes other than above will go to index.html
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/public/index.html"));
+  res.sendFile(__dirname + "/client/build/index.html");
 });
 
+/*************************************************/
+// Express server listening...
 const port = process.env.PORT || 5000;
-app.listen(port);
-
-// console.log("App is listening on port " + port);
+app.listen(port, () => {
+  log(`Listening on port ${port}...`);
+});

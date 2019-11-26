@@ -1,7 +1,7 @@
 import React from "react";
 import Food from "./Food";
 import FoodCategoryTitle from "./FoodCategoryTitle";
-import { Row, Col } from 'antd'
+import { Row } from "antd";
 /* The Header Component */
 class FoodList extends React.Component {
   render() {

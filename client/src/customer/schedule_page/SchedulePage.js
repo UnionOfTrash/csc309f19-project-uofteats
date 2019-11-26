@@ -10,8 +10,6 @@ import {
   Card,
   Input,
   Button,
-  Modal,
-  Alert,
   notification,
   Result
 } from "antd";

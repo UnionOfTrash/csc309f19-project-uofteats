@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const OrderFood = new mongoose.Schema({
-  foodId: mongoose.Schema.Types.ObjectId,
+  foodId: { type: Schema.Types.ObjectId, ref: "Food" },
   quantity: Number
 });
 
 const Order = mongoose.model("Order", {
-  customerId: mongoose.Schema.Types.ObjectId,
-  truckId: mongoose.Schema.Types.ObjectId,
+  _id: Schema.Types.ObjectId,
+  customerId: { type: Schema.Types.ObjectId, ref: "Customer" },
+  truckId: { type: Schema.Types.ObjectId, ref: "Truck" },
   food: [OrderFood],
   price: Number,
   pickDate: String,

@@ -1,35 +1,33 @@
 #search-field {
-    margin: 10px;
-    text-align: center;
+  margin: 10px;
+  text-align: center;
 }
 
 .buttons {
-    margin-top: 10px;
-    font-size: 20px;
-    background: wheat;
-    border: 1px solid black;
+  margin-top: 10px;
+  font-size: 20px;
+  background: wheat;
+  border: 1px solid black;
 }
 
 .truck-info {
-    box-sizing: border-box;
-    width: 33%;
-    border: 1px solid black;
-    display: inline-block;
-    margin-left: 4px;
-    margin-top: 2px;
-    padding: 1%;
+  box-sizing: border-box;
+  width: 33%;
+  border: 1px solid #e2e2e2;
+  display: inline-block;
+  margin-left: 4px;
+  margin-top: 2px;
+  padding: 1%;
 }
-
 
 .truck-img {
-    /*border: 2px solid chocolate;*/
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+  /*border: 2px solid chocolate;*/
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
-
 .truck-description {
-    text-align: center;
+  text-align: center;
 }

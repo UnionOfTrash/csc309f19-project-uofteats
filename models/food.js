@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const Food = mongoose.model("Food", {
-  truckId: mongoose.Schema.Types.ObjectId,
+  _id: Schema.Types.ObjectId,
+  truckId: { type: Schema.Types.ObjectId, ref: "Truck" },
   category: String,
-  price: Number,
   name: String,
   price: Number,
   img: String

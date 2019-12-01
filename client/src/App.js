@@ -32,7 +32,7 @@ class App extends React.Component {
             <Route exact path="/reset" component={Reset} />
             <Route
               exact
-              path="/customer/food_page/FoodPage"
+              path="/customer/food_page/FoodPage/:truckId"
               component={FoodPage}
             />
             <Route

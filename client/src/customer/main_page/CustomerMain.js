@@ -37,6 +37,7 @@ class CustomerMain extends React.Component {
     const trackComponents = this.state.shown.map(truck => (
       <TruckInfo
         key={truck.id}
+        id={truck.id}
         name={truck.name}
         location={truck.location}
         type={truck.type}

@@ -1,8 +1,9 @@
 /* Admin mongoose model */
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const AdminSchema = new mongoose.Schema({
-  userId: mongoose.Schema.Types.ObjectId,
+  _id: { type: Schema.Types.ObjectId, ref: "UserAuth" },
   name: String,
   phone: Number,
   email: String,

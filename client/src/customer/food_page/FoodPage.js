@@ -16,17 +16,17 @@ import onionRings from "../images/OnionRings.jpg";
 import canadaDry from "../images/CanadaDry.jpg";
 import greenTea from "../images/GreenTea.jpg";
 import water from "../images/Water.jpeg";
-import { Card } from 'antd'
-import { Button } from 'antd';
-
-import { Drawer } from 'antd';
+import { Card } from "antd";
+import { Button } from "antd";
+import { Drawer } from "antd";
 
 class FoodPage extends React.Component {
   // some initial data
+
   state = {
     userName: "David Liu",
     truck: {
-      name: "Ideal Catering",
+      name: this.props.match.params.truckId,
       rate: "5.0",
       location: "Bahen Centre for Information Technology",
       foodType: "• American • Fast Food • Hot Dogs",
@@ -37,25 +37,25 @@ class FoodPage extends React.Component {
         category: "HotDogs",
         foods: [
           {
-            id: '1',
+            id: "1",
             name: "All Beef Hotdog",
             price: "$4.00",
             img: beefHotDog
           },
           {
-            id: '2',
+            id: "2",
             name: "Chicken Hotdog",
             price: "$4.00",
             img: chickenHotDog
           },
           {
-            id: '3',
+            id: "3",
             name: "Italian Spicy Sausage",
             price: "$5.00",
             img: italianSpicySausage
           },
           {
-            id: '4',
+            id: "4",
             name: "German Sausage",
             price: "$5.00",
             img: germanSausage
@@ -65,18 +65,23 @@ class FoodPage extends React.Component {
       {
         category: "Sides",
         foods: [
-          { id: '5', name: "French Fries", price: "$2.50", img: frenchFries },
-          { id: '6', name: "Poutine", price: "$3.75", img: poutine },
-          { id: '7', name: "Chicken Nuggets", price: "$4.50", img: chickenNuggets },
-          { id: '8', name: "Onion Rings", price: "$3.50", img: onionRings }
+          { id: "5", name: "French Fries", price: "$2.50", img: frenchFries },
+          { id: "6", name: "Poutine", price: "$3.75", img: poutine },
+          {
+            id: "7",
+            name: "Chicken Nuggets",
+            price: "$4.50",
+            img: chickenNuggets
+          },
+          { id: "8", name: "Onion Rings", price: "$3.50", img: onionRings }
         ]
       },
       {
         category: "Beverages",
         foods: [
-          { id: '9', name: "Canada Dry", price: "$1.25", img: canadaDry },
-          { id: '10', name: "Green Tea", price: "$1.25", img: greenTea },
-          { id: '11', name: "Water", price: "$1.00", img: water }
+          { id: "9", name: "Canada Dry", price: "$1.25", img: canadaDry },
+          { id: "10", name: "Green Tea", price: "$1.25", img: greenTea },
+          { id: "11", name: "Water", price: "$1.00", img: water }
         ]
       }
     ],
@@ -87,53 +92,56 @@ class FoodPage extends React.Component {
     this.state.foodList.forEach(category => {
       category.foods.forEach(food => {
         if (food.id === foodId) {
-          food.num = num
+          food.num = num;
         }
-      })
-    })
+      });
+    });
     this.setState({
       foodList: [].concat(this.state.foodList)
-    })
+    });
   }
 
   get cartFoodPrice() {
-    let foodPrice = 0
+    let foodPrice = 0;
     this.state.foodList.forEach(category => {
       category.foods.forEach(food => {
         if (food.num) {
-          foodPrice = foodPrice + food.num * food.price.slice(1)
+          foodPrice = foodPrice + food.num * food.price.slice(1);
         }
-      })
-    })
-    return foodPrice
+      });
+    });
+    return foodPrice;
   }
 
   get cartFoodNum() {
-    let foodNum = 0
+    let foodNum = 0;
     this.state.foodList.forEach(category => {
       category.foods.forEach(food => {
         if (food.num) {
-          foodNum = foodNum + food.num
+          foodNum = foodNum + food.num;
         }
-      })
-    })
-    return foodNum
+      });
+    });
+    return foodNum;
   }
 
   showCartDrawer() {
     this.setState({
       drawerVisible: true
-    })
+    });
   }
 
   onCloseDrawer() {
     this.setState({
       drawerVisible: false
-    })
+    });
   }
 
   jumpToSchedulePage() {
-    this.props.history.push({ pathname: `/customer/schedule_page/SchedulePage`, state: { foodList: this.state.foodList } })
+    this.props.history.push({
+      pathname: `/customer/schedule_page/SchedulePage`,
+      state: { foodList: this.state.foodList }
+    });
   }
 
   render() {
@@ -149,45 +157,68 @@ class FoodPage extends React.Component {
           foodType={this.state.truck.foodType}
           serveTime={this.state.truck.serveTime}
           showCartDrawer={() => this.showCartDrawer()}
-          showCart='true'
+          showCart="true"
         />
 
-        <FoodList foodList={this.state.foodList} changeFoodNum={({ foodId, num }) => {
-          this.changeFoodNum({ foodId, num })
-        }} />
+        <FoodList
+          foodList={this.state.foodList}
+          changeFoodNum={({ foodId, num }) => {
+            this.changeFoodNum({ foodId, num });
+          }}
+        />
 
         <Drawer
           title={`Your Order (${this.cartFoodNum})`}
-          placement='right'
-          width='500'
+          placement="right"
+          width="500"
           closable={true}
           onClose={() => this.onCloseDrawer()}
           visible={this.state.drawerVisible}
         >
           {this.state.foodList.map(category => {
-            if (category.foods.find(food => {
-              return food.num
-            })) {
+            if (
+              category.foods.find(food => {
+                return food.num;
+              })
+            ) {
               return (
                 <>
-                  <Card title={category.category} key={category.category}  hoverable>
+                  <Card
+                    title={category.category}
+                    key={category.category}
+                    hoverable
+                  >
                     {category.foods.map(food => {
                       if (food.num) {
-                        return <p key={food.id}>{food.name} * {food.num}</p>
+                        return (
+                          <p key={food.id}>
+                            {food.name} * {food.num}
+                          </p>
+                        );
                       } else {
-                        return null
+                        return null;
                       }
                     })}
                   </Card>
                   <br></br>
                 </>
-              )
+              );
             } else {
-              return null
+              return null;
             }
           })}
           <hr></hr>
-          {this.cartFoodPrice ? <Button type="primary" style={{ width: "100%" }} onClick={() => this.jumpToSchedulePage()}>Schedule Pickup (${this.cartFoodPrice.toFixed(2)})</Button> : ''}
+          {this.cartFoodPrice ? (
+            <Button
+              type="primary"
+              style={{ width: "100%" }}
+              onClick={() => this.jumpToSchedulePage()}
+            >
+              Schedule Pickup (${this.cartFoodPrice.toFixed(2)})
+            </Button>
+          ) : (
+            ""
+          )}
         </Drawer>
       </div>
     );

@@ -6,16 +6,16 @@ const express = require("express");
 const app = express();
 
 // mongoose and mongo connection
-const { mongoose } = require("./db/mongoose");
+const { mongoose, conn } = require("./db/mongoose");
 
 // import the mongoose models
 const { UserAuth } = require("./models/userAuth");
 const { Order } = require("./models/order");
 const { Food } = require("./models/food");
 
-// initialize some data
-require("./initial_data/dropExisted");
-require("./initial_data/initUserAuth");
+// empty database and initialize some data
+mongoose.connection.dropDatabase();
+require("./initial_data/initData");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");

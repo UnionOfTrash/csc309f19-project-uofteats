@@ -12,10 +12,11 @@ const { mongoose, conn } = require("./db/mongoose");
 const { UserAuth } = require("./models/userAuth");
 const { Order } = require("./models/order");
 const { Food } = require("./models/food");
+const { Truck } = require("./models/truck");
 
 // empty database and initialize some data
-mongoose.connection.dropDatabase();
-require("./initial_data/initData");
+// mongoose.connection.dropDatabase();
+// require("./initial_data/initData");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
@@ -36,7 +37,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 60000,
+      expires: 600000,
       httpOnly: true
     }
   })
@@ -85,7 +86,7 @@ app.get("/api/logout", (req, res) => {
 app.get("/api/check-session", (req, res) => {
   // Remove the session
   if (req.session.user) {
-    res.send({ screen: "auth" });
+    res.send(req.session.user);
   } else {
     res.redirect("/login");
   }
@@ -114,39 +115,11 @@ const authenticate = (req, res, next) => {
 /*********************************************************/
 
 /*** API Routes below ************************************/
-/** Order resource routes **/
-app.post("/api/orders", authenticate, (req, res) => {
-  // log(req.body)
-
-  // Create a new order using the Order mongoose model
-  const order = new Order({
-    customerId: req.user._id,
-    truckId: req.body.truckId,
-    food: req.body.food,
-    price: req.body.price,
-    pickDate: req.body.pickDate,
-    pickTime: req.body.pickTime,
-    noteContent: req.body.noteContent
-  });
-
-  // Save student to the database
-  order.save().then(
-    result => {
-      res.send(result);
-    },
-    error => {
-      res.status(400).send(error); // 400 for bad request
-    }
-  );
-});
-
-// a GET route to get all orders
-app.get("/api/orders", authenticate, (req, res) => {
-  Order.find({
-    customerId: req.user._id // from authenticate middleware
-  }).then(
-    orders => {
-      res.send({ orders }); // can wrap in object if want to add more properties
+/** Truck resource routes**/
+app.get("/api/trucks", authenticate, (req, res) => {
+  Truck.find().then(
+    trucks => {
+      res.send({ trucks });
     },
     error => {
       res.status(500).send(error); // server error
@@ -154,9 +127,7 @@ app.get("/api/orders", authenticate, (req, res) => {
   );
 });
 
-/// a GET route to get orders by customer id.
-// id is treated as a wildcard parameter, which is why there is a colon : beside it.
-app.get("/api/orders/:id", authenticate, (req, res) => {
+app.get("/api/trucks/:id", authenticate, (req, res) => {
   /// req.params has the wildcard parameters in the url, in this case, id.
   // log(req.params.id)
   const id = req.params.id;
@@ -166,18 +137,118 @@ app.get("/api/orders/:id", authenticate, (req, res) => {
   }
 
   // Otherwise, find by the id and creator
-  Orders.findOne({ _id: id, creator: req.user._id })
-    .then(order => {
-      if (!order) {
+  Truck.findOne({ _id: id })
+    .then(truck => {
+      if (!truck) {
         res.status(404).send(); // could not find this student
       } else {
-        res.send(order);
+        res.send(truck);
       }
     })
     .catch(error => {
       res.status(500).send(); // server error
     });
 });
+
+/** Food resource routes **/
+app.get("/api/foods", authenticate, (req, res) => {
+  Food.find().then(
+    foods => {
+      res.send({ foods });
+    },
+    error => {
+      res.status(500).send(error); // server error
+    }
+  );
+});
+
+app.get("/api/foods/:truckId", authenticate, (req, res) => {
+  /// req.params has the wildcard parameters in the url, in this case, id.
+  // log(req.params.id)
+  const truckId = req.params.truckId;
+
+  if (!ObjectID.isValid(truckId)) {
+    res.status(404).send(); // if invalid id, definitely can't find resource, 404.
+  }
+
+  // Otherwise, find by the id and creator
+  Food.find({ truckId: truckId })
+    .then(foods => {
+      if (!foods) {
+        res.status(404).send(); // could not find this student
+      } else {
+        res.send({ foods });
+      }
+    })
+    .catch(error => {
+      res.status(500).send(error); // server error
+    });
+});
+
+// /** Order resource routes **/
+// app.post("/api/orders", authenticate, (req, res) => {
+//   // log(req.body)
+
+//   // Create a new order using the Order mongoose model
+//   const order = new Order({
+//     customerId: req.user._id,
+//     truckId: req.body.truckId,
+//     food: req.body.food,
+//     price: req.body.price,
+//     pickDate: req.body.pickDate,
+//     pickTime: req.body.pickTime,
+//     noteContent: req.body.noteContent
+//   });
+
+//   // Save student to the database
+//   order.save().then(
+//     result => {
+//       res.send(result);
+//     },
+//     error => {
+//       res.status(400).send(error); // 400 for bad request
+//     }
+//   );
+// });
+
+// // a GET route to get all orders
+// app.get("/api/orders", authenticate, (req, res) => {
+//   Order.find({
+//     customerId: req.user._id // from authenticate middleware
+//   }).then(
+//     orders => {
+//       res.send({ orders }); // can wrap in object if want to add more properties
+//     },
+//     error => {
+//       res.status(500).send(error); // server error
+//     }
+//   );
+// });
+
+// /// a GET route to get orders by customer id.
+// // id is treated as a wildcard parameter, which is why there is a colon : beside it.
+// app.get("/api/orders/:id", authenticate, (req, res) => {
+//   /// req.params has the wildcard parameters in the url, in this case, id.
+//   // log(req.params.id)
+//   const id = req.params.id;
+
+//   if (!ObjectID.isValid(id)) {
+//     res.status(404).send(); // if invalid id, definitely can't find resource, 404.
+//   }
+
+//   // Otherwise, find by the id and creator
+//   Orders.findOne({ _id: id, creator: req.user._id })
+//     .then(order => {
+//       if (!order) {
+//         res.status(404).send(); // could not find this student
+//       } else {
+//         res.send(order);
+//       }
+//     })
+//     .catch(error => {
+//       res.status(500).send(); // server error
+//     });
+// });
 
 /** User routes below **/
 // Set up a POST route to *create* a user of your web app.

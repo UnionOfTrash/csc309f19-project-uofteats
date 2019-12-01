@@ -5,17 +5,16 @@ class TruckInfo extends React.Component {
   render() {
     return (
       <div className="truck-info">
-        <div className="truck-img">
-          <a href={`../food_page/FoodPage/${this.props.id + ""}`}>
+        <a href={`../food_page/FoodPage/${this.props.id + ""}`}>
+          <div className="truck-img">
             <img src={this.props.image} alt={this.props.alternative} />
-          </a>
-        </div>
-        <div className="truck-description">
-          <p>{this.props.name}</p>
-          <p>{this.props.location}</p>
-          <p>{this.props.type}</p>
-          <p>{this.props.rate}</p>
-        </div>
+          </div>
+          <div className="truck-description">
+            <p>{this.props.name}</p>
+            <p>{this.props.location}</p>
+            <p>{this.props.type}</p>
+          </div>
+        </a>
       </div>
     );
   }

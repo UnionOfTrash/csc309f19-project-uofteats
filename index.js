@@ -117,7 +117,7 @@ const authenticate = (req, res, next) => {
 
 /*** API Routes below ************************************/
 /** Truck resource routes**/
-app.get("/api/trucks", authenticate, (req, res) => {
+app.get("/api/trucks", (req, res) => {
   Truck.find().then(
     trucks => {
       res.send({ trucks });
@@ -128,7 +128,7 @@ app.get("/api/trucks", authenticate, (req, res) => {
   );
 });
 
-app.get("/api/trucks/:id", authenticate, (req, res) => {
+app.get("/api/trucks/:id", (req, res) => {
   /// req.params has the wildcard parameters in the url, in this case, id.
   // log(req.params.id)
   const id = req.params.id;
@@ -152,7 +152,7 @@ app.get("/api/trucks/:id", authenticate, (req, res) => {
 });
 
 /** Food resource routes **/
-app.get("/api/foods", authenticate, (req, res) => {
+app.get("/api/foods", (req, res) => {
   Food.find().then(
     foods => {
       res.send({ foods });
@@ -163,7 +163,7 @@ app.get("/api/foods", authenticate, (req, res) => {
   );
 });
 
-app.get("/api/foods/:truckId", authenticate, (req, res) => {
+app.get("/api/foods/:truckId", (req, res) => {
   /// req.params has the wildcard parameters in the url, in this case, id.
   // log(req.params.id)
   const truckId = req.params.truckId;

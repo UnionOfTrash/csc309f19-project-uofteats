@@ -24,69 +24,112 @@ class FoodPage extends React.Component {
   // some initial data
 
   state = {
-    userName: "David Liu",
+    truckId: this.props.match.params.truckId,
+    userName: "",
     truck: {
-      name: this.props.match.params.truckId,
-      rate: "5.0",
-      location: "Bahen Centre for Information Technology",
-      foodType: "• American • Fast Food • Hot Dogs",
-      serveTime: "9:00 AM - 9:00 PM"
+      name: "",
+      location: "",
+      type: "",
+      time: ""
     },
     foodList: [
-      {
-        category: "HotDogs",
-        foods: [
-          {
-            id: "1",
-            name: "All Beef Hotdog",
-            price: "$4.00",
-            img: beefHotDog
-          },
-          {
-            id: "2",
-            name: "Chicken Hotdog",
-            price: "$4.00",
-            img: chickenHotDog
-          },
-          {
-            id: "3",
-            name: "Italian Spicy Sausage",
-            price: "$5.00",
-            img: italianSpicySausage
-          },
-          {
-            id: "4",
-            name: "German Sausage",
-            price: "$5.00",
-            img: germanSausage
-          }
-        ]
-      },
-      {
-        category: "Sides",
-        foods: [
-          { id: "5", name: "French Fries", price: "$2.50", img: frenchFries },
-          { id: "6", name: "Poutine", price: "$3.75", img: poutine },
-          {
-            id: "7",
-            name: "Chicken Nuggets",
-            price: "$4.50",
-            img: chickenNuggets
-          },
-          { id: "8", name: "Onion Rings", price: "$3.50", img: onionRings }
-        ]
-      },
-      {
-        category: "Beverages",
-        foods: [
-          { id: "9", name: "Canada Dry", price: "$1.25", img: canadaDry },
-          { id: "10", name: "Green Tea", price: "$1.25", img: greenTea },
-          { id: "11", name: "Water", price: "$1.00", img: water }
-        ]
-      }
+      // {
+      //   category: "HotDogs",
+      //   foods: [
+      //     {
+      //       id: "1",
+      //       name: "All Beef Hotdog",
+      //       price: "$4.00",
+      //       img: beefHotDog
+      //     },
+      //     {
+      //       id: "2",
+      //       name: "Chicken Hotdog",
+      //       price: "$4.00",
+      //       img: chickenHotDog
+      //     },
+      //     {
+      //       id: "3",
+      //       name: "Italian Spicy Sausage",
+      //       price: "$5.00",
+      //       img: italianSpicySausage
+      //     },
+      //     {
+      //       id: "4",
+      //       name: "German Sausage",
+      //       price: "$5.00",
+      //       img: germanSausage
+      //     }
+      //   ]
+      // },
+      // {
+      //   category: "Sides",
+      //   foods: [
+      //     { id: "5", name: "French Fries", price: "$2.50", img: frenchFries },
+      //     { id: "6", name: "Poutine", price: "$3.75", img: poutine },
+      //     {
+      //       id: "7",
+      //       name: "Chicken Nuggets",
+      //       price: "$4.50",
+      //       img: chickenNuggets
+      //     },
+      //     { id: "8", name: "Onion Rings", price: "$3.50", img: onionRings }
+      //   ]
+      // },
+      // {
+      //   category: "Beverages",
+      //   foods: [
+      //     { id: "9", name: "Canada Dry", price: "$1.25", img: canadaDry },
+      //     { id: "10", name: "Green Tea", price: "$1.25", img: greenTea },
+      //     { id: "11", name: "Water", price: "$1.00", img: water }
+      //   ]
+      // }
     ],
     drawerVisible: false
   };
+
+  componentDidMount() {
+    const truckUrl = `/api/trucks/${this.state.truckId}`;
+    const foodUrl = `/api/foods/${this.state.truckId}`;
+
+    Promise.all([fetch(truckUrl), fetch(foodUrl)])
+      .then(([truckRes, foodRes]) => {
+        return Promise.all([truckRes.json(), foodRes.json()]);
+      })
+      .then(([truckRes, foodRes]) => {
+        // set state in here
+        this.setState({ truck: truckRes });
+
+        // restructure the food list
+        const foodList = [];
+        const resFoodList = foodRes.foods;
+        for (let i = 0; i < resFoodList.length; i++) {
+          let food = resFoodList[i];
+          let added = false;
+
+          for (let j = 0; j < foodList.length; j++) {
+            let categoryObj = foodList[j];
+            if (categoryObj.category === food.category) {
+              categoryObj.foods.push(food);
+              added = true;
+            }
+          }
+
+          if (!added) {
+            foodList.push({
+              category: food.category,
+              foods: [food]
+            });
+          }
+        }
+        console.log(foodList);
+
+        this.setState({ foodList: foodList });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   changeFoodNum({ foodId, num }) {
     this.state.foodList.forEach(category => {
@@ -106,7 +149,7 @@ class FoodPage extends React.Component {
     this.state.foodList.forEach(category => {
       category.foods.forEach(food => {
         if (food.num) {
-          foodPrice = foodPrice + food.num * food.price.slice(1);
+          foodPrice = foodPrice + food.num * food.price;
         }
       });
     });
@@ -152,10 +195,9 @@ class FoodPage extends React.Component {
         <TruckHeader
           cartFoodNum={this.cartFoodNum}
           truckName={this.state.truck.name}
-          rate={this.state.truck.rate}
           location={this.state.truck.location}
-          foodType={this.state.truck.foodType}
-          serveTime={this.state.truck.serveTime}
+          foodType={this.state.truck.type}
+          serveTime={this.state.truck.time}
           showCartDrawer={() => this.showCartDrawer()}
           showCart="true"
         />
@@ -191,7 +233,7 @@ class FoodPage extends React.Component {
                     {category.foods.map(food => {
                       if (food.num) {
                         return (
-                          <p key={food.id}>
+                          <p key={food._id}>
                             {food.name} * {food.num}
                           </p>
                         );

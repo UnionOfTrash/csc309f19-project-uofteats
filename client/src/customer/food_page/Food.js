@@ -45,7 +45,7 @@ class Food extends React.Component {
                   Add to Cart{" "}
                 </Button>
               )}
-              <p className="food-price">{price}</p>
+              <p className="food-price">{`$${price}`}</p>
             </div>
           </div>
         </div>

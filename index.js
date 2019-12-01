@@ -12,6 +12,8 @@ const { mongoose, conn } = require("./db/mongoose");
 const { UserAuth } = require("./models/userAuth");
 const { Order } = require("./models/order");
 const { Food } = require("./models/food");
+const { Customer } = require("./models/customer")
+const { Truck } = require("./models/truck")
 
 // empty database and initialize some data
 mongoose.connection.dropDatabase();
@@ -36,7 +38,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 60000,
+      expires: 600000000,
       httpOnly: true
     }
   })
@@ -186,29 +188,45 @@ app.post("/api/users", (req, res) => {
 
   // Create a new user
   const user = new UserAuth({
+    _id: new mongoose.Types.ObjectId(),
     username: req.body.username,
     password: req.body.password,
     type: req.body.type
   });
 
   // Save the user
-  user.save().then(
-    user => {
-      res.send(user);
-    },
-    error => {
-      res.status(400).send(error); // 400 for bad request
+  user.save().then(result => {
+      const newUser = new Customer({
+        _id: result._id,
+        name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email,
+        profileImg: "/client/public/user.png"
+      })
+
+      newUser.save().then(result => {
+        res.send(result)
+      })
     }
-  );
+  ).catch(e => res.status(500).send(e))
 });
+
 
 /*
-    APIs for admin to get all users and foodtrucks
+    APIs for admin use:
 */
 
-// TODO: Check session for Admin
-app.get("/users", (req, res) => {
-  User.find().then(
+
+// get all UserAuth
+app.get("/api/admin/userAuth", authenticate, (req, res) => {
+  UserAuth.find().then(result => {
+    res.send(result)
+  }).catch(e => res.status(400).send(e))
+})
+
+// get all users
+app.get("/api/admin/users", authenticate, (req, res) => {
+  Customer.find().then(
     result => {
       res.send(result);
     },
@@ -217,9 +235,10 @@ app.get("/users", (req, res) => {
     }
   );
 });
-// TODO: Check session for Admin
-app.get("/fts", (req, res) => {
-  FoodTruck.find().then(
+
+// get all foodtrucks
+app.get("/api/admin/fts", authenticate, (req, res) => {
+  Truck.find().then(
     result => {
       res.send(result);
     },
@@ -228,6 +247,122 @@ app.get("/fts", (req, res) => {
     }
   );
 });
+
+// add a food truck
+app.post("/api/admin/fts", authenticate, (req, res) => {
+
+  const user = new UserAuth({
+    _id: new mongoose.Types.ObjectId(),
+    username: req.body.username,
+    password: req.body.password,
+    type: req.body.type
+  });
+
+  user.save().then((u) => {
+    const truck = new Truck({
+      _id: u._id,
+      name: req.body.name,
+      phone: req.body.phone,
+      email: req.body.email,
+      profileImg: "/client/public/truck1.png"
+    })
+
+    truck.save().then(result => res.send(result))
+  }).catch(e => res.status(500).send(e))
+})
+
+// delete a customer
+app.delete("/api/admin/users/:id", authenticate, (req, res) => {
+  const id = req.params.id
+  if (!ObjectID.isValid(id)){
+    res.status(500).send("invalid id")
+  }
+  Customer.findByIdAndDelete(id).then(result => {
+    if(!result){
+      res.status(404).send("could not find the user")
+    }else{
+      UserAuth.findByIdAndDelete(id).then(result => {
+        if(!result){
+          res.status(404).send("could not find the user")
+        }else{
+          res.send(result)
+        }
+      })
+    }
+  }).catch(e => res.status(500).send(e))
+})
+
+// delete a food truck
+app.delete("/api/admin/fts/:id", authenticate, (req, res) =>{
+  const id = req.params.id
+  if (!ObjectID.isValid(id)){
+    res.status(500).send("invalid ft id")
+  }
+  
+  FoodTruck.findByIdAndDelete(id).then((result) => {
+    if (!result){
+      res.status(404).send("could not find the foodtruck")
+    }else{
+      UserAuth.findByIdAndDelete(id).then(result => {
+        if(!result){
+          res.status(500).send("could not find the user")
+        }else{
+          res.send(result)
+        }
+      })
+    }
+  }).catch(error => res.status(500).send(error))
+})
+
+// change some properties of a user
+app.patch("/api/admin/users/:id", authenticate, (req, res) => {
+  const id = req.params.id
+  if (!ObjectID.isValid(id)){
+    res.status(500).send("invalid user id")
+  }
+
+  const customer = {
+    _id: req.body.id,
+    name: req.body.name,
+    phone: req.body.phone,
+    email: req.body.email,
+    profileImg: "/client/public/user.png"
+  }
+
+  Customer.findByIdAndUpdate(id, {$set: customer}, {new: true}).then((result) => {
+    if(!result){
+      res.status(404).send("could not find the customer")
+    }else{
+      res.send(result)
+    }
+  }).catch(e => res.status(400).send(error))
+
+})
+
+// change the properties of a food truck
+app.patch("/api/admin/fts/:id", authenticate, (req, res) => {
+  const id = req.params.id
+  if (!ObjectID.isValid(id)){
+    res.status(500).send("invalid user id")
+  }
+
+  const truck = {
+    _id: req.body.id,
+    name: req.body.name,
+    phone: req.body.phone,
+    email: req.body.email,
+    profileImg: "/client/public/user.png"
+  }
+
+  Truck.findByIdAndUpdate(id, {$set: truck}, {new: true}).then((result) => {
+    if(!result){
+      res.status(404).send("could not find the truck")
+    }else{
+      res.send(result)
+    }
+  }).catch(e => res.status(400).send(error))
+
+})
 
 /*** Webpage routes below **********************************/
 // Serve the build
@@ -243,4 +378,4 @@ app.get("*", (req, res) => {
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   log(`Listening on port ${port}...`);
-});
+})

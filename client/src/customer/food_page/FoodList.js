@@ -16,8 +16,8 @@ class FoodList extends React.Component {
                 {eachCategory.foods.map(food => {
                   return (
                     <Food
-                      key={food.id}
-                      foodId={food.id}
+                      key={food._id}
+                      foodId={food._id}
                       changeFoodNum={changeFoodNum}
                       foodName={food.name}
                       price={food.price}

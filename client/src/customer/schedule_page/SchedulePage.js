@@ -18,7 +18,7 @@ import moment from "moment";
 const { Title } = Typography;
 class Schedule extends React.Component {
   state = {
-    userName: "David Liu",
+    userName: "",
     truck: {
       name: "Ideal Catering",
       rate: "5.0",
@@ -45,7 +45,7 @@ class Schedule extends React.Component {
     this.state.foodList.forEach(category => {
       category.foods.forEach(food => {
         if (food.num) {
-          foodPrice = foodPrice + food.num * food.price.slice(1);
+          foodPrice = foodPrice + food.num * food.price;
         }
       });
     });

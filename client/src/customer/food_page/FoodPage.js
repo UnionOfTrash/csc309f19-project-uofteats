@@ -134,7 +134,7 @@ class FoodPage extends React.Component {
   changeFoodNum({ foodId, num }) {
     this.state.foodList.forEach(category => {
       category.foods.forEach(food => {
-        if (food.id === foodId) {
+        if (food._id === foodId) {
           food.num = num;
         }
       });

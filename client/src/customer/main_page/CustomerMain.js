@@ -9,13 +9,14 @@ class CustomerMain extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      allTrucks: [],
       shown: []
     };
     this.searchTruck = this.searchTruck.bind(this);
   }
 
   searchTruck(inputStr) {
-    const truckData = this.state.shown;
+    const truckData = this.state.allTrucks;
     if (inputStr === "") {
       this.setState({ shown: truckData });
       return;
@@ -43,7 +44,7 @@ class CustomerMain extends React.Component {
         }
       })
       .then(json => {
-        this.setState({ shown: json.trucks });
+        this.setState({ allTrucks: json.trucks, shown: json.trucks });
       })
       .catch(error => {
         console.log(error);

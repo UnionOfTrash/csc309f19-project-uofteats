@@ -7,33 +7,53 @@ class HistoryButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            history: [],
             visible: false,
-        }
+        };
+        this.loadData = this.loadData.bind(this);
     }
 
     showModal = () => {
-        this.setState({
-            visible: true,
-        });
+        this.loadData();
     };
 
     handleOk = e => {
-        console.log(e);
+        const history = this.state.history;
         this.setState({
             visible: false,
         });
     };
 
     handleCancel = e => {
-        console.log(e);
+        const history = this.state.history;
         this.setState({
             visible: false,
         });
     };
 
+    async loadData() {
+        const visible = true;
+        const { customerId } = this.props;
+        const data = await fetch(`/api/orders/${customerId}`);
+        let history;
+        if (!data) {
+            history = [];
+            this.setState({ history, visible });
+            return;
+        }
+        history = await data.json();
+        this.setState({ history, visible });
+    }
+
     render() {
-        const historyComponent = this.props.history.map((item) => {
-            return (<p>{item.date}: {item.order}</p>)
+        console.log(this.state.history[0]);
+        const historyComponent = this.state.history.map((item) => {
+            return (
+                <p key={item._id}>
+                    {`Time: ${item.pickDate} ${item.pickTime}\n
+                      Food: ${item.food}`}
+                </p>
+            )
         });
         return (
             <div id='history-button'>
@@ -41,7 +61,7 @@ class HistoryButton extends React.Component {
                     Show History
                 </Button>
                 <Modal
-                    title="Basic Modal"
+                    title="Order History"
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
@@ -49,7 +69,7 @@ class HistoryButton extends React.Component {
                     {historyComponent}
                 </Modal>
             </div>
-        )
+        );
     }
 }
 

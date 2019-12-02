@@ -6,11 +6,11 @@ import BackButton from "./BackButton.js";
 import HistoryButton from "./HistoryButton.js";
 
 class UserProfileMain extends React.Component {
-  constructor() {
-    super();
-    this.loadData = this.loadData.bind(this);
-    this.state = { user: {} };
-  }
+    constructor() {
+        super();
+        this.loadData = this.loadData.bind(this);
+        this.state = { user: {} };
+    }
 
     async loadData() {
         const url = '/api/check-session';

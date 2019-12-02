@@ -58,7 +58,7 @@ class CustomerMain extends React.Component {
         name={truck.name}
         location={truck.location}
         type={truck.type}
-        image={truck.image}
+        image={truck.profileImg}
       />
     ));
 

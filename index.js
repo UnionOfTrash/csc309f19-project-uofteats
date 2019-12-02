@@ -16,8 +16,8 @@ const { Customer } = require("./models/customer");
 const { Truck } = require("./models/truck");
 
 // empty database and initialize some data
-// mongoose.connection.dropDatabase();
-// require("./initial_data/initData");
+mongoose.connection.dropDatabase();
+require("./initial_data/initData");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
@@ -254,19 +254,20 @@ app.get("/api/foods/:truckId", (req, res) => {
 /** User routes below **/
 // Set up a POST route to *create* a user of your web app.
 
-app.get('/api/users/:id', authenticate, (req, res) => {
+app.get("/api/users/:id", authenticate, (req, res) => {
   const id = req.params.id;
   console.log(id);
   if (!ObjectID.isValid(id)) {
     res.status(404).send("Invalid Id");
   } else {
-    Customer.find({_id: id}).then(
-        (user) => {
-          res.send(user);
-        }, (err) => {
-          res.status(500).send(err);
-        }
-    )
+    Customer.find({ _id: id }).then(
+      user => {
+        res.send(user);
+      },
+      err => {
+        res.status(500).send(err);
+      }
+    );
   }
 });
 

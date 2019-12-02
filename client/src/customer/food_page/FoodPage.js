@@ -5,17 +5,17 @@ import TruckHeader from "./TruckHeader";
 import FoodList from "./FoodList";
 import "./FoodPage.css";
 
-import beefHotDog from "../images/BeefHotDog.jpeg";
-import chickenHotDog from "../images/ChickenHotDog.jpeg";
-import italianSpicySausage from "../images/ItalianSpicySausage.jpeg";
-import germanSausage from "../images/GermanSausage.jpeg";
-import frenchFries from "../images/FrenchFries.jpeg";
-import poutine from "../images/Poutine.jpg";
-import chickenNuggets from "../images/ChickenNuggets.jpg";
-import onionRings from "../images/OnionRings.jpg";
-import canadaDry from "../images/CanadaDry.jpg";
-import greenTea from "../images/GreenTea.jpg";
-import water from "../images/Water.jpeg";
+// import beefHotDog from "../images/BeefHotDog.jpeg";
+// import chickenHotDog from "../images/ChickenHotDog.jpeg";
+// import italianSpicySausage from "../images/ItalianSpicySausage.jpeg";
+// import germanSausage from "../images/GermanSausage.jpeg";
+// import frenchFries from "../images/FrenchFries.jpeg";
+// import poutine from "../images/Poutine.jpg";
+// import chickenNuggets from "../images/ChickenNuggets.jpg";
+// import onionRings from "../images/OnionRings.jpg";
+// import canadaDry from "../images/CanadaDry.jpg";
+// import greenTea from "../images/GreenTea.jpg";
+// import water from "../images/Water.jpeg";
 import { Card } from "antd";
 import { Button } from "antd";
 import { Drawer } from "antd";
@@ -122,7 +122,6 @@ class FoodPage extends React.Component {
             });
           }
         }
-        console.log(foodList);
 
         this.setState({ foodList: foodList });
       })
@@ -183,7 +182,7 @@ class FoodPage extends React.Component {
   jumpToSchedulePage() {
     this.props.history.push({
       pathname: `/customer/schedule_page/SchedulePage`,
-      state: { foodList: this.state.foodList }
+      state: { truck: this.state.truck, foodList: this.state.foodList }
     });
   }
 

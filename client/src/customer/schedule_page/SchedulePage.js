@@ -19,13 +19,10 @@ const { Title } = Typography;
 class Schedule extends React.Component {
   state = {
     userName: "",
-    truck: {
-      name: "Ideal Catering",
-      rate: "5.0",
-      location: "Bahen Centre for Information Technology",
-      foodType: "• American • Fast Food • Hot Dogs",
-      serveTime: "9:00 AM - 9:00 PM"
-    },
+    truck:
+      (this.props.history.location.state &&
+        this.props.history.location.state.truck) ||
+      {},
     drawerVisible: false,
     foodList:
       (this.props.history.location.state &&
@@ -35,10 +32,6 @@ class Schedule extends React.Component {
     pickupDate: null,
     result: false
   };
-
-  componentDidMount() {
-    console.log(this.props.history);
-  }
 
   get cartFoodPrice() {
     let foodPrice = 0;
@@ -101,10 +94,9 @@ class Schedule extends React.Component {
             <TruckHeader
               cartFoodNum={this.cartFoodNum}
               truckName={this.state.truck.name}
-              rate={this.state.truck.rate}
               location={this.state.truck.location}
-              foodType={this.state.truck.foodType}
-              serveTime={this.state.truck.serveTime}
+              foodType={this.state.truck.type}
+              serveTime={this.state.truck.time}
               showCartDrawer={() => this.showCartDrawer()}
             />
             <br></br>
@@ -175,26 +167,31 @@ class Schedule extends React.Component {
             </Card>
           </>
         )}
-        {this.state.result && (
-          <Result
-            status="success"
-            title="Your pickup was successfully scheduled!"
-            subTitle={`Date:${moment(this.state.pickupDate).format(
-              "YYYY/MM/DD"
-            )} Time:${moment(this.state.pickupTime, "HH:mm").format("HH:mm")}`}
-            extra={[
-              <Button
-                type="primary"
-                key="console"
-                onClick={() => {
-                  this.props.history.push("/");
-                }}
-              >
-                Back to Home Page
-              </Button>
-            ]}
-          />
-        )}
+        {this.state.result &&
+          function() {
+            console.log("test");
+          } && (
+            <Result
+              status="success"
+              title="Your pickup was successfully scheduled!"
+              subTitle={`Date:${moment(this.state.pickupDate).format(
+                "YYYY/MM/DD"
+              )} Time:${moment(this.state.pickupTime, "HH:mm").format(
+                "HH:mm"
+              )}`}
+              extra={[
+                <Button
+                  type="primary"
+                  key="console"
+                  onClick={() => {
+                    this.props.history.push("/customer/main_page/CustomerMain");
+                  }}
+                >
+                  Back to Home Page
+                </Button>
+              ]}
+            />
+          )}
       </div>
     );
   }

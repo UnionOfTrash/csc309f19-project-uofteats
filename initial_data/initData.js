@@ -70,7 +70,7 @@ truck.save(function(err) {
     location: "Bahen Centre for Information Technology",
     type: "• American • Fast Food • Hot Dogs",
     time: "9:00 AM - 9:00 PM",
-    profileImg: "2"
+    profileImg: "./truck1.png"
   }).save(function(err) {
     if (err) console.log(err);
   });
@@ -83,7 +83,7 @@ const beefHotdog = new Food({
   category: "Hot Dogs",
   name: "All Beef Hotdog",
   price: 4.0,
-  img: "100"
+  img: "./BeefHotDog.jpeg"
 });
 beefHotdog.save(function(err) {
   if (err) console.log(err);
@@ -95,7 +95,7 @@ const italianSpicySausage = new Food({
   category: "Hot Dogs",
   name: "Italian Spicy Sausage",
   price: 4.0,
-  img: "101"
+  img: "./ItalianSpicySausage.jpeg"
 });
 italianSpicySausage.save(function(err) {
   if (err) console.log(err);
@@ -107,7 +107,7 @@ const frenchFries = new Food({
   category: "Sides",
   name: "French Fries",
   price: 2.5,
-  img: "200"
+  img: "./FrenchFries.jpeg"
 });
 frenchFries.save(function(err) {
   if (err) console.log(err);
@@ -119,7 +119,7 @@ const chickenNuggets = new Food({
   category: "Sides",
   name: "Chicken Nuggets",
   price: 4.5,
-  img: "201"
+  img: "./ChickenNuggets.jpg"
 });
 chickenNuggets.save(function(err) {
   if (err) console.log(err);
@@ -131,7 +131,7 @@ const canadaDry = new Food({
   category: "Beverages",
   name: "Canada Dry",
   price: 1.25,
-  img: "300"
+  img: "./CanadaDry.jpg"
 });
 canadaDry.save(function(err) {
   if (err) console.log(err);
@@ -143,7 +143,7 @@ const greenTea = new Food({
   category: "Beverages",
   name: "Green Tea",
   price: 1.25,
-  img: "301"
+  img: "./GreenTea.jpg"
 });
 greenTea.save(function(err) {
   if (err) console.log(err);

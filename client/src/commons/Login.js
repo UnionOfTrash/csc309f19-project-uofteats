@@ -56,10 +56,22 @@ class Login extends React.Component {
         const loginUser = this.state.loginUser;
         loginUser[name] = value;
         this.setState({loginUser: loginUser});
-    }
+    };
 
     handleSubmit = e => {
         e.preventDefault();
+        // log on server
+        const loginUser = {
+            username: this.state.loginUser.name,
+            password: this.state.loginUser.password
+        };
+        const response = fetch('/api/login', {
+            method: 'POST',
+            body: JSON.stringify(loginUser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
         const user = this.state.user.filter( user => user.name === this.state.loginUser.name );
         if (user.length === 0) {
@@ -69,10 +81,9 @@ class Login extends React.Component {
         } else {
             this.props.history.push(this.jumpLinks[user[0].role]);
         }
-    }
+    };
 
     render() {
-
         return (
             <Layout className='commonLayout'>
                 <Content>

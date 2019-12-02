@@ -253,6 +253,23 @@ app.get("/api/foods/:truckId", (req, res) => {
 
 /** User routes below **/
 // Set up a POST route to *create* a user of your web app.
+
+app.get('/api/users/:id', authenticate, (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  if (!ObjectID.isValid(id)) {
+    res.status(404).send("Invalid Id");
+  } else {
+    Customer.find({_id: id}).then(
+        (user) => {
+          res.send(user);
+        }, (err) => {
+          res.status(500).send(err);
+        }
+    )
+  }
+});
+
 app.post("/api/users", (req, res) => {
   log(req.body);
 

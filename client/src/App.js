@@ -30,28 +30,12 @@ class App extends React.Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/reset" component={Reset} />
-            <Route
-              exact
-              path="/customer/food_page/FoodPage/:truckId"
-              component={FoodPage}
-            />
-            <Route
-              exact
-              path="/customer/schedule_page/SchedulePage"
-              component={SchedulePage}
-            />
-            <Route
-              exact
-              path="/customer/main_page/CustomerMain"
-              component={CustomerMain}
-            />
+            <Route exact path="/FoodPage/:truckId" component={FoodPage} />
+            <Route exact path="/SchedulePage" component={SchedulePage} />
+            <Route exact path="/CustomerMain" component={CustomerMain} />
             <Route exact path="/t" component={TruckView} />
             <Route exact path="/admin" component={Admin} />
-            <Route
-              exact
-              path="/customer/profile_page/UserProfileMain"
-              component={UserProfileMain}
-            />
+            <Route exact path="/UserProfileMain" component={UserProfileMain} />
           </Switch>
         </BrowserRouter>
       </div>

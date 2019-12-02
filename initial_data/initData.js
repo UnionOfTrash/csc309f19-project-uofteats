@@ -101,6 +101,30 @@ italianSpicySausage.save(function(err) {
   if (err) console.log(err);
 });
 
+const germanSausage = new Food({
+  _id: new mongoose.Types.ObjectId(),
+  truckId: truck._id,
+  category: "Hot Dogs",
+  name: "German Sausage",
+  price: 4.0,
+  img: "./GermanSausage.jpeg"
+});
+germanSausage.save(function(err) {
+  if (err) console.log(err);
+});
+
+const chickenHotdog = new Food({
+  _id: new mongoose.Types.ObjectId(),
+  truckId: truck._id,
+  category: "Hot Dogs",
+  name: "Chicken Hotdog",
+  price: 4.0,
+  img: "./ChickenHotDog.jpeg"
+});
+chickenHotdog.save(function(err) {
+  if (err) console.log(err);
+});
+
 const frenchFries = new Food({
   _id: new mongoose.Types.ObjectId(),
   truckId: truck._id,
@@ -122,6 +146,18 @@ const chickenNuggets = new Food({
   img: "./ChickenNuggets.jpg"
 });
 chickenNuggets.save(function(err) {
+  if (err) console.log(err);
+});
+
+const onionRings = new Food({
+  _id: new mongoose.Types.ObjectId(),
+  truckId: truck._id,
+  category: "Sides",
+  name: "Onion Rings",
+  price: 4.5,
+  img: "./OnionRings.jpg"
+});
+onionRings.save(function(err) {
   if (err) console.log(err);
 });
 

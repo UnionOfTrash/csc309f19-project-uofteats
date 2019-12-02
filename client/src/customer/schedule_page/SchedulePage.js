@@ -30,7 +30,8 @@ class Schedule extends React.Component {
       [],
     pickupTime: null,
     pickupDate: null,
-    result: false
+    result: false,
+    currentTime: null
   };
 
   get cartFoodPrice() {
@@ -84,6 +85,24 @@ class Schedule extends React.Component {
       });
     }
   }
+
+  disabledEndDate = endValue => {
+    let me = this;
+    const startValue = this.state.currentTime;
+    if (!endValue || !startValue) {
+      return false;
+    }
+    return endValue.valueOf() <= startValue.valueOf();
+  };
+
+  handleEndOpenChange = open => {
+    let me = this;
+    if (open) {
+      me.currentTime = moment();
+    }
+    this.setState({ currentTime: moment() });
+  };
+
   render() {
     return (
       <div>
@@ -146,8 +165,12 @@ class Schedule extends React.Component {
               <Form layout="vertical">
                 <Form.Item label="Date">
                   <DatePicker
+                    disabledDate={this.disabledEndDate}
                     value={this.state.pickupDate}
                     onChange={value => this.setDate(value)}
+                    disabledDate={this.disabledEndDate}
+                    format="YYYY-MM-DD"
+                    onOpenChange={this.handleEndOpenChange}
                   />
                 </Form.Item>
                 <Form.Item label="Time">
@@ -175,7 +198,7 @@ class Schedule extends React.Component {
               status="success"
               title="Your pickup was successfully scheduled!"
               subTitle={`Date:${moment(this.state.pickupDate).format(
-                "YYYY/MM/DD"
+                "YYYY-MM-DD"
               )} Time:${moment(this.state.pickupTime, "HH:mm").format(
                 "HH:mm"
               )}`}
@@ -184,7 +207,7 @@ class Schedule extends React.Component {
                   type="primary"
                   key="console"
                   onClick={() => {
-                    this.props.history.push("/customer/main_page/CustomerMain");
+                    this.props.history.push("/CustomerMain");
                   }}
                 >
                   Back to Home Page

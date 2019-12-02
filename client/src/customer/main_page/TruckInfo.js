@@ -5,7 +5,7 @@ class TruckInfo extends React.Component {
   render() {
     return (
       <div className="truck-info">
-        <a href={`../food_page/FoodPage/${this.props.id + ""}`}>
+        <a href={`/FoodPage/${this.props.id + ""}`}>
           <div className="truck-img">
             <img src={this.props.image} alt={this.props.alternative} />
           </div>

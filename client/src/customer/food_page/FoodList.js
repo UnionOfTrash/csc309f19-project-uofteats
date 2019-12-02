@@ -21,7 +21,7 @@ class FoodList extends React.Component {
                       changeFoodNum={changeFoodNum}
                       foodName={food.name}
                       price={food.price}
-                      foodImage={food.img}
+                      foodImage={"." + food.img}
                     />
                   );
                 })}

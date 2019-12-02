@@ -32,7 +32,7 @@ class Schedule extends React.Component {
     pickupDate: null,
     result: false,
     currentTime: null,
-    note: "null"
+    note: ""
   };
 
   get cartFoodPrice() {
@@ -116,6 +116,10 @@ class Schedule extends React.Component {
     this.setState({ currentTime: moment() });
   };
 
+  handleChange = event => {
+    this.setState({ note: event.target.value });
+  };
+
   render() {
     return (
       <div>
@@ -194,7 +198,12 @@ class Schedule extends React.Component {
                   />
                 </Form.Item>
                 <Form.Item onChange={value => this.setDate(value)}>
-                  <Input placeholder="Leave a note for the food truck" />
+                  <Input
+                    type="text"
+                    value={this.state.note}
+                    onChange={this.handleChange}
+                    placeholder="Leave a note for the food truck"
+                  />
                 </Form.Item>
                 <Button type="primary" onClick={() => this.pickup()}>
                   Schedule Pickup

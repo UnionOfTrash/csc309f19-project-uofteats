@@ -12,7 +12,7 @@ const admin = new UserAuth({
   _id: new mongoose.Types.ObjectId(),
   username: "admin",
   password: "admin",
-  type: 0
+  type: "u"
 });
 
 admin.save(function(err) {
@@ -23,7 +23,7 @@ admin.save(function(err) {
     name: "David Liu",
     email: "david@gmail.com",
     phone: "6470000000",
-    profileImg: "0"
+    profileImg: "./user.png"
   }).save(function(err) {
     if (err) console.log(err);
   });
@@ -34,7 +34,7 @@ const customer = new UserAuth({
   _id: new mongoose.Types.ObjectId(),
   username: "user",
   password: "user",
-  type: 1
+  type: "u"
 });
 
 customer.save(function(err) {
@@ -45,7 +45,7 @@ customer.save(function(err) {
     name: "Tom Fairgrieve",
     email: "tom@gmail.com",
     phone: "6470000001",
-    profileImg: "1"
+    profileImg: "./user.png"
   }).save(function(err) {
     if (err) console.log(err);
   });
@@ -56,7 +56,7 @@ const truck = new UserAuth({
   _id: new mongoose.Types.ObjectId(),
   username: "user2",
   password: "user2",
-  type: 2
+  type: "ft"
 });
 
 truck.save(function(err) {
@@ -70,7 +70,7 @@ truck.save(function(err) {
     location: "Bahen Centre for Information Technology",
     type: "• American • Fast Food • Hot Dogs",
     time: "9:00 AM - 9:00 PM",
-    profileImg: "2"
+    profileImg: "./truck1.png"
   }).save(function(err) {
     if (err) console.log(err);
   });

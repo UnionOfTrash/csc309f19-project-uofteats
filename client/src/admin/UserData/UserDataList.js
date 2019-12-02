@@ -2,7 +2,7 @@ import React from "react"
 import {Table} from "react-bootstrap"
 import {uid} from "react-uid"
 import UserDataItem from "./UserDataItem"
-import AddDataButton from "../AddDataButton/AddDataButton"
+// import AddDataButton from "../AddDataButton/AddDataButton"
 
 // A table contains all users
 class UserDataList extends React.Component{
@@ -30,13 +30,14 @@ class UserDataList extends React.Component{
                         <th>Phone #</th>
                         <th>Profile Image</th>
                         <th>
-                            <AddDataButton variant="secondary" 
+                            Control
+                            {/* <AddDataButton variant="secondary" 
                                 dataType = "u"
                                 btname="Add New User"
                                 handleInputChange={handleInputChange}
                                 createData={this.props.createData}
                                 addData={this.props.addData}
-                            />
+                            /> */}
                         </th>
                     </tr>
                 </thead>

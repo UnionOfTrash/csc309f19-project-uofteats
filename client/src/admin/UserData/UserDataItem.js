@@ -11,12 +11,12 @@ class UserDataItem extends React.Component{
         const {user, removeUser, handleInputChange, initData, editData} = this.props
         return(
             <tr>
-                <td>{user.id}</td>
+                <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
                 <td>
-                    <img src={user.img} alt="User" width="50" height="50" />
+                    <img src={user.profileImg} alt="User" width="50" height="50" />
                 </td>
                 <td>
                     {/* The Edit button and Delete button */}

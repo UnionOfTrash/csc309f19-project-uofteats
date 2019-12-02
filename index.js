@@ -14,6 +14,7 @@ const { Order } = require("./models/order");
 const { Food } = require("./models/food");
 const { Customer } = require("./models/customer");
 const { Truck } = require("./models/truck");
+const { Request } = require("./models/request");
 
 // empty database and initialize some data
 mongoose.connection.dropDatabase();
@@ -191,7 +192,6 @@ app.post("/api/orders", authenticate, (req, res) => {
   // log(req.body)
 
   // Create a new order using the Order mongoose model
-
   const order = new Order({
     _id: new mongoose.Types.ObjectId(),
     customerId: req.user._id,
@@ -214,7 +214,7 @@ app.post("/api/orders", authenticate, (req, res) => {
   );
 });
 
-// a GET route to get all orders
+// a GET route to get all orders of a user
 app.get("/api/orders", authenticate, (req, res) => {
   Order.find({
     customerId: req.user._id // from authenticate middleware
@@ -228,30 +228,26 @@ app.get("/api/orders", authenticate, (req, res) => {
   );
 });
 
-// /// a GET route to get orders by customer id.
-// // id is treated as a wildcard parameter, which is why there is a colon : beside it.
-// app.get("/api/orders/:id", authenticate, (req, res) => {
-//   /// req.params has the wildcard parameters in the url, in this case, id.
-//   // log(req.params.id)
-//   const id = req.params.id;
+/** Request routes below **/
+app.post("/api/requests", authenticate, (req, res) => {
+  // log(req.body)
+  // Create a new order using the Order mongoose model
+  const request = new Request({
+    _id: new mongoose.Types.ObjectId(),
+    orderId: req.body.orderId,
+    status: 0
+  });
 
-//   if (!ObjectID.isValid(id)) {
-//     res.status(404).send(); // if invalid id, definitely can't find resource, 404.
-//   }
-
-//   // Otherwise, find by the id and creator
-//   Orders.findOne({ _id: id, creator: req.user._id })
-//     .then(order => {
-//       if (!order) {
-//         res.status(404).send(); // could not find this student
-//       } else {
-//         res.send(order);
-//       }
-//     })
-//     .catch(error => {
-//       res.status(500).send(); // server error
-//     });
-// });
+  // Save order to the database
+  request.save().then(
+    result => {
+      res.send(result);
+    },
+    error => {
+      res.status(400).send(error); // 400 for bad request
+    }
+  );
+});
 
 /** User routes below **/
 // Set up a POST route to *create* a user of your web app.

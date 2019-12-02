@@ -31,7 +31,8 @@ class Schedule extends React.Component {
     pickupTime: null,
     pickupDate: null,
     result: false,
-    currentTime: null
+    currentTime: null,
+    note: "null"
   };
 
   get cartFoodPrice() {
@@ -192,7 +193,7 @@ class Schedule extends React.Component {
                     format="HH:mm"
                   />
                 </Form.Item>
-                <Form.Item label="Note">
+                <Form.Item onChange={value => this.setDate(value)}>
                   <Input placeholder="Leave a note for the food truck" />
                 </Form.Item>
                 <Button type="primary" onClick={() => this.pickup()}>
@@ -214,11 +215,29 @@ class Schedule extends React.Component {
               food: this.getOrderedFood(),
               price: this.cartFoodPrice.toFixed(2),
               pickDate: moment(this.state.pickupDate).format("YYYY-MM-DD"),
-              pickTime: moment(this.state.pickupTime, "HH:mm").format("HH:mm")
+              pickTime: moment(this.state.pickupTime, "HH:mm").format("HH:mm"),
+              noteContent: this.state.note
             })
           })
-            .then(function(res) {
+            .then(res => res.json())
+            .then(res => {
               console.log(res);
+              fetch("/api/requests", {
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({
+                  orderId: res._id
+                })
+              })
+                .then(function(res) {
+                  console.log(res);
+                })
+                .catch(function(res) {
+                  console.log(res);
+                });
             })
             .catch(function(res) {
               console.log(res);

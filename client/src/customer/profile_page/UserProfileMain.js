@@ -1,41 +1,68 @@
 import React from "react";
-import ProfileImage from "./ProfileImage";
-import UserInfo from "./UserInfo";
+import ProfileImage from "./ProfileImage.js";
+import UserInfo from "./UserInfo.js";
 import "./UserProfile.css";
-import userData from "../../data/UserData";
-import CreditInfo from "./CreditInfo";
-import BackButton from "./BackButton";
-import HistoryButton from "./HistoryButton";
+import BackButton from "./BackButton.js";
+import HistoryButton from "./HistoryButton.js";
 
 class UserProfileMain extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: userData[0]
-    };
+  constructor() {
+    super();
+    this.loadData = this.loadData.bind(this);
+    this.state = { user: {} };
   }
 
-  render() {
-    return (
-      <div>
-        <ProfileImage
-          imgUrl={this.state.selected.image}
-          alt={this.state.selected.utorid}
-        />
-        <UserInfo
-          utorid={this.state.selected.utorid}
-          name={this.state.selected.name}
-          phone={this.state.selected.phone}
-          email={this.state.selected.email}
-        />
-        <CreditInfo creditScore={this.state.selected.creditScore} />
-        <div id="buttons">
-          <HistoryButton history={this.state.selected.history} />
-          <BackButton />
-        </div>
-      </div>
-    );
-  }
+    async loadData() {
+        const url = '/api/check-session';
+        const res = await fetch(url);
+        if (!res) {
+            this.setState( {user: {} } );
+            return;
+        }
+        const id = await res.text();
+        if (!id) {
+            this.setState({ user: {} });
+            return;
+        }
+        const data = await fetch(`/api/users/${id}`);
+        if (!data) {
+            this.setState({ user: {} });
+            return;
+        }
+        const json = await data.json();
+        const user = {
+            id: json._id,
+            name: json.name,
+            email: json.email,
+            phone: json.phone,
+            profileImg: json.profileImg
+        };
+        this.setState({ user });
+    }
+
+    componentDidMount() {
+        this.loadData();
+    }
+
+    render() {
+        return (
+            <div>
+                <ProfileImage
+                    imgUrl={this.state.user.image}
+                    alt={this.state.user.name}
+                />
+                <UserInfo
+                    name={this.state.user.name}
+                    phone={this.state.user.phone}
+                    email={this.state.user.email}
+                />
+                <div id="buttons">
+                    <HistoryButton customerId={this.state.user.id} />
+                    <BackButton />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default UserProfileMain;

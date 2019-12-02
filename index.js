@@ -14,6 +14,7 @@ const { Order } = require("./models/order");
 const { Food } = require("./models/food");
 const { Customer } = require("./models/customer");
 const { Truck } = require("./models/truck");
+const { Request } = require("./models/request");
 
 // empty database and initialize some data
 mongoose.connection.dropDatabase();
@@ -214,7 +215,7 @@ app.post("/api/orders", authenticate, (req, res) => {
   );
 });
 
-// a GET route to get all orders
+// a GET route to get all orders of a user
 app.get("/api/orders", authenticate, (req, res) => {
   Order.find({
     customerId: req.user._id // from authenticate middleware
@@ -240,7 +241,7 @@ app.get("/api/orders/:id", authenticate, (req, res) => {
   }
 
   // Otherwise, find by the id and creator
-  Order.find({ customerId: id,})
+  Order.find({ customerId: id })
     .then(orders => {
       if (!orders) {
         res.status(404).send(); // could not find this student
@@ -251,6 +252,27 @@ app.get("/api/orders/:id", authenticate, (req, res) => {
     .catch(error => {
       res.status(500).send(); // server error
     });
+});
+
+/** Request routes below **/
+app.post("/api/requests", authenticate, (req, res) => {
+  // log(req.body)
+  // Create a new order using the Order mongoose model
+  const request = new Request({
+    _id: new mongoose.Types.ObjectId(),
+    orderId: req.body.orderId,
+    status: 0
+  });
+
+  // Save order to the database
+  request.save().then(
+    result => {
+      res.send(result);
+    },
+    error => {
+      res.status(400).send(error); // 400 for bad request
+    }
+  );
 });
 
 /** User routes below **/

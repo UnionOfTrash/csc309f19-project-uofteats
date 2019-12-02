@@ -6,7 +6,7 @@ const express = require("express");
 const app = express();
 
 // mongoose and mongo connection
-const { mongoose, conn } = require("./db/mongoose");
+const { mongoose } = require("./db/mongoose");
 
 // import the mongoose models
 const { UserAuth } = require("./models/userAuth");
@@ -16,8 +16,8 @@ const { Customer } = require("./models/customer");
 const { Truck } = require("./models/truck");
 
 // empty database and initialize some data
-// mongoose.connection.dropDatabase();
-// require("./initial_data/initData");
+mongoose.connection.dropDatabase();
+require("./initial_data/initData");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
@@ -187,44 +187,46 @@ app.get("/api/foods/:truckId", (req, res) => {
 });
 
 // /** Order resource routes **/
-// app.post("/api/orders", authenticate, (req, res) => {
-//   // log(req.body)
+app.post("/api/orders", authenticate, (req, res) => {
+  // log(req.body)
 
-//   // Create a new order using the Order mongoose model
-//   const order = new Order({
-//     customerId: req.user._id,
-//     truckId: req.body.truckId,
-//     food: req.body.food,
-//     price: req.body.price,
-//     pickDate: req.body.pickDate,
-//     pickTime: req.body.pickTime,
-//     noteContent: req.body.noteContent
-//   });
+  // Create a new order using the Order mongoose model
 
-//   // Save student to the database
-//   order.save().then(
-//     result => {
-//       res.send(result);
-//     },
-//     error => {
-//       res.status(400).send(error); // 400 for bad request
-//     }
-//   );
-// });
+  const order = new Order({
+    _id: new mongoose.Types.ObjectId(),
+    customerId: req.user._id,
+    truckId: req.body.truckId,
+    food: req.body.food,
+    price: req.body.price,
+    pickDate: req.body.pickDate,
+    pickTime: req.body.pickTime,
+    noteContent: req.body.noteContent
+  });
 
-// // a GET route to get all orders
-// app.get("/api/orders", authenticate, (req, res) => {
-//   Order.find({
-//     customerId: req.user._id // from authenticate middleware
-//   }).then(
-//     orders => {
-//       res.send({ orders }); // can wrap in object if want to add more properties
-//     },
-//     error => {
-//       res.status(500).send(error); // server error
-//     }
-//   );
-// });
+  // Save order to the database
+  order.save().then(
+    result => {
+      res.send(result);
+    },
+    error => {
+      res.status(400).send(error); // 400 for bad request
+    }
+  );
+});
+
+// a GET route to get all orders
+app.get("/api/orders", authenticate, (req, res) => {
+  Order.find({
+    customerId: req.user._id // from authenticate middleware
+  }).then(
+    orders => {
+      res.send({ orders }); // can wrap in object if want to add more properties
+    },
+    error => {
+      res.status(500).send(error); // server error
+    }
+  );
+});
 
 // /// a GET route to get orders by customer id.
 // // id is treated as a wildcard parameter, which is why there is a colon : beside it.

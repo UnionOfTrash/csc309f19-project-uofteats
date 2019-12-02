@@ -58,6 +58,18 @@ class Schedule extends React.Component {
     return foodNum;
   }
 
+  getOrderedFood = () => {
+    let orderedFood = [];
+    this.state.foodList.forEach(category => {
+      category.foods.forEach(food => {
+        if (food.num) {
+          orderedFood.push({ foodId: food._id, quantity: food.num });
+        }
+      });
+    });
+    return orderedFood;
+  };
+
   setDate(pickupDate) {
     this.setState({
       pickupDate: pickupDate
@@ -180,7 +192,7 @@ class Schedule extends React.Component {
                     format="HH:mm"
                   />
                 </Form.Item>
-                <Form.Item>
+                <Form.Item label="Note">
                   <Input placeholder="Leave a note for the food truck" />
                 </Form.Item>
                 <Button type="primary" onClick={() => this.pickup()}>
@@ -191,14 +203,31 @@ class Schedule extends React.Component {
           </>
         )}
         {this.state.result &&
-          function() {
-            console.log("test");
-          } && (
+          fetch("/api/orders/", {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({
+              truckId: this.state.truck._id,
+              food: this.getOrderedFood(),
+              price: this.cartFoodPrice.toFixed(2),
+              pickDate: moment(this.state.pickupDate).format("YYYY-MM-DD"),
+              pickTime: moment(this.state.pickupTime, "HH:mm").format("HH:mm")
+            })
+          })
+            .then(function(res) {
+              console.log(res);
+            })
+            .catch(function(res) {
+              console.log(res);
+            }) && (
             <Result
               status="success"
               title="Your pickup was successfully scheduled!"
               subTitle={`Date:${moment(this.state.pickupDate).format(
-                "YYYY-MM-DD"
+                "YYYY/MM/DD"
               )} Time:${moment(this.state.pickupTime, "HH:mm").format(
                 "HH:mm"
               )}`}

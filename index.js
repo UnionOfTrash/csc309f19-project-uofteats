@@ -279,7 +279,7 @@ app.post("/api/users", (req, res) => {
     _id: new mongoose.Types.ObjectId(),
     username: req.body.username,
     password: req.body.password,
-    type: req.body.type
+    type: "u"
   });
 
   // Save the user
@@ -291,8 +291,8 @@ app.post("/api/users", (req, res) => {
         name: req.body.name,
         phone: req.body.phone,
         email: req.body.email,
-        profileImg: "/client/public/user.png"
-      });
+        profileImg: "./user.png"
+      })
 
       newUser.save().then(result => {
         res.send(result);
@@ -347,16 +347,14 @@ app.post("/api/admin/fts", authenticate, (req, res) => {
     type: req.body.type
   });
 
-  user
-    .save()
-    .then(u => {
-      const truck = new Truck({
-        _id: u._id,
-        name: req.body.name,
-        phone: req.body.phone,
-        email: req.body.email,
-        profileImg: "/client/public/truck1.png"
-      });
+  user.save().then((u) => {
+    const truck = new Truck({
+      _id: u._id,
+      name: req.body.name,
+      phone: req.body.phone,
+      email: req.body.email,
+      profileImg: "./truck1.png"
+    })
 
       truck.save().then(result => res.send(result));
     })
@@ -422,8 +420,9 @@ app.patch("/api/admin/users/:id", authenticate, (req, res) => {
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,
-    profileImg: "/client/public/user.png"
-  };
+    profileImg: "./user.png"
+  }
+
 
   Customer.findByIdAndUpdate(id, { $set: customer }, { new: true })
     .then(result => {
@@ -448,8 +447,8 @@ app.patch("/api/admin/fts/:id", authenticate, (req, res) => {
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,
-    profileImg: "/client/public/user.png"
-  };
+    profileImg: "./truck1.png"
+  }
 
   Truck.findByIdAndUpdate(id, { $set: truck }, { new: true })
     .then(result => {

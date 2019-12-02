@@ -201,7 +201,7 @@ app.post("/api/users", (req, res) => {
         name: req.body.name,
         phone: req.body.phone,
         email: req.body.email,
-        profileImg: "/client/public/user.png"
+        profileImg: "./user.png"
       })
 
       newUser.save().then(result => {
@@ -215,7 +215,6 @@ app.post("/api/users", (req, res) => {
 /*
     APIs for admin use:
 */
-
 
 // get all UserAuth
 app.get("/api/admin/userAuth", authenticate, (req, res) => {
@@ -264,7 +263,7 @@ app.post("/api/admin/fts", authenticate, (req, res) => {
       name: req.body.name,
       phone: req.body.phone,
       email: req.body.email,
-      profileImg: "/client/public/truck1.png"
+      profileImg: "./truck1.png"
     })
 
     truck.save().then(result => res.send(result))
@@ -326,7 +325,7 @@ app.patch("/api/admin/users/:id", authenticate, (req, res) => {
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,
-    profileImg: "/client/public/user.png"
+    profileImg: "./user.png"
   }
 
   Customer.findByIdAndUpdate(id, {$set: customer}, {new: true}).then((result) => {
@@ -351,7 +350,7 @@ app.patch("/api/admin/fts/:id", authenticate, (req, res) => {
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,
-    profileImg: "/client/public/user.png"
+    profileImg: "./truck1.png"
   }
 
   Truck.findByIdAndUpdate(id, {$set: truck}, {new: true}).then((result) => {

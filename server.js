@@ -1,20 +1,27 @@
 "use strict";
 const log = console.log;
 
-const express = require("express");
-// starting the express server
-const app = express();
-
-// mongoose and mongo connection
+// Loading environment variables based on current running environment
+if (process.env.ENV == "PROD") {
+  require("dotenv").config({ path: process.cwd() + "/.env_prod" });
+  log(process.env.DB_URL); // Should be prod database
+} else {
+  require("dotenv").config({ path: process.cwd() + "/.env_dev" });
+  log(process.env.DB_URL); // Shoule be dev database
+}
 const { mongoose } = require("./db/mongoose");
 
-// import the mongoose models
-const { UserAuth } = require("./models/userAuth");
+// Importing mongoose models
+const { userAuth } = require("./models/UserAuth");
 const { Order } = require("./models/order");
 const { Food } = require("./models/food");
 const { Customer } = require("./models/customer");
 const { Truck } = require("./models/truck");
 const { Request } = require("./models/request");
+
+const express = require("express");
+// starting the express server
+const app = express();
 
 // empty database and initialize some data
 mongoose.connection.dropDatabase();
@@ -53,7 +60,7 @@ app.post("/api/login", (req, res) => {
   log(username, password);
   // Use the static method on the User model to find a user
   // by their email and password
-  UserAuth.findByUsernamePassword(username, password)
+  userAuth.findByUsernamePassword(username, password)
     .then(user => {
       if (!user) {
         log("User not found");
@@ -97,7 +104,7 @@ app.get("/api/check-session", (req, res) => {
 // Middleware for authentication of resources
 const authenticate = (req, res, next) => {
   if (req.session.user) {
-    UserAuth.findById(req.session.user)
+    userAuth.findById(req.session.user)
       .then(user => {
         if (!user) {
           return Promise.reject();
@@ -300,7 +307,7 @@ app.post("/api/users", (req, res) => {
   log(req.body);
 
   // Create a new user
-  const user = new UserAuth({
+  const user = new userAuth({
     _id: new mongoose.Types.ObjectId(),
     username: req.body.username,
     password: req.body.password,
@@ -330,9 +337,9 @@ app.post("/api/users", (req, res) => {
     APIs for admin use:
 */
 
-// get all UserAuth
+// get all userAuth
 app.get("/api/admin/userAuth", authenticate, (req, res) => {
-  UserAuth.find()
+  userAuth.find()
     .then(result => {
       res.send(result);
     })
@@ -365,7 +372,7 @@ app.get("/api/admin/fts", authenticate, (req, res) => {
 
 // add a food truck
 app.post("/api/admin/fts", authenticate, (req, res) => {
-  const user = new UserAuth({
+  const user = new userAuth({
     _id: new mongoose.Types.ObjectId(),
     username: req.body.username,
     password: req.body.password,
@@ -399,7 +406,7 @@ app.delete("/api/admin/users/:id", authenticate, (req, res) => {
       if (!result) {
         res.status(404).send("could not find the user");
       } else {
-        UserAuth.findByIdAndDelete(id).then(result => {
+        userAuth.findByIdAndDelete(id).then(result => {
           if (!result) {
             res.status(404).send("could not find the user");
           } else {
@@ -423,7 +430,7 @@ app.delete("/api/admin/fts/:id", authenticate, (req, res) => {
       if (!result) {
         res.status(404).send("could not find the foodtruck");
       } else {
-        UserAuth.findByIdAndDelete(id).then(result => {
+        userAuth.findByIdAndDelete(id).then(result => {
           if (!result) {
             res.status(500).send("could not find the user");
           } else {

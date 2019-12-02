@@ -13,9 +13,12 @@ const UserAuthSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
-  type: String
+  role: {
+    type: String,
+    required: false,
+  },
 });
 
 // An example of Mongoose middleware.
@@ -63,5 +66,5 @@ UserAuthSchema.statics.findByUsernamePassword = function(username, password) {
 };
 
 // make a model using the User schema
-const UserAuth = mongoose.model("UserAuth", UserAuthSchema);
-module.exports = { UserAuth };
+const userAuth = mongoose.model("UserAuth", UserAuthSchema);
+module.exports = { userAuth };

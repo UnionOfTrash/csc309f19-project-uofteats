@@ -228,30 +228,30 @@ app.get("/api/orders", authenticate, (req, res) => {
   );
 });
 
-// /// a GET route to get orders by customer id.
-// // id is treated as a wildcard parameter, which is why there is a colon : beside it.
-// app.get("/api/orders/:id", authenticate, (req, res) => {
-//   /// req.params has the wildcard parameters in the url, in this case, id.
-//   // log(req.params.id)
-//   const id = req.params.id;
+// a GET route to get orders by customer id.
+// id is treated as a wildcard parameter, which is why there is a colon : beside it.
+app.get("/api/orders/:id", authenticate, (req, res) => {
+  /// req.params has the wildcard parameters in the url, in this case, id.
+  // log(req.params.id)
+  const id = req.params.id;
 
-//   if (!ObjectID.isValid(id)) {
-//     res.status(404).send(); // if invalid id, definitely can't find resource, 404.
-//   }
+  if (!ObjectID.isValid(id)) {
+    res.status(404).send(); // if invalid id, definitely can't find resource, 404.
+  }
 
-//   // Otherwise, find by the id and creator
-//   Orders.findOne({ _id: id, creator: req.user._id })
-//     .then(order => {
-//       if (!order) {
-//         res.status(404).send(); // could not find this student
-//       } else {
-//         res.send(order);
-//       }
-//     })
-//     .catch(error => {
-//       res.status(500).send(); // server error
-//     });
-// });
+  // Otherwise, find by the id and creator
+  Order.find({ customerId: id,})
+    .then(orders => {
+      if (!orders) {
+        res.status(404).send(); // could not find this student
+      } else {
+        res.send(orders);
+      }
+    })
+    .catch(error => {
+      res.status(500).send(); // server error
+    });
+});
 
 /** User routes below **/
 // Set up a POST route to *create* a user of your web app.
@@ -262,8 +262,9 @@ app.get("/api/users/:id", authenticate, (req, res) => {
   if (!ObjectID.isValid(id)) {
     res.status(404).send("Invalid Id");
   } else {
-    Customer.find({ _id: id }).then(
+    Customer.findById(id).then(
       user => {
+        console.log(user);
         res.send(user);
       },
       err => {

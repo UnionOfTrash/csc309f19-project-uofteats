@@ -18,14 +18,12 @@ class HistoryButton extends React.Component {
     };
 
     handleOk = e => {
-        const history = this.state.history;
         this.setState({
             visible: false,
         });
     };
 
     handleCancel = e => {
-        const history = this.state.history;
         this.setState({
             visible: false,
         });
@@ -46,7 +44,6 @@ class HistoryButton extends React.Component {
     }
 
     render() {
-        console.log(this.state.history[0]);
         const historyComponent = this.state.history.map((item) => {
             return (
                 <p key={item._id}>

@@ -16,14 +16,40 @@ class HeaderBar extends React.Component {
         super(props);
         this.state = {
             title: this.props.title,
-            username: this.props.username,
+            username: "",
         };
+    }
+
+    async getName() {
+        const url = '/api/check-session';
+        const res = await fetch(url);
+        if (!res) {
+            this.setState( {user: {} } );
+            return;
+        }
+        const id = await res.text();
+        if (!id) {
+            this.setState({ user: {} });
+            return;
+        }
+        console.log('Hello: ', id);
+        const data = await fetch(`/api/users/${id}`);
+        if (!data) {
+            this.setState({ user: {} });
+            return;
+        }
+        const json = await data.json();
+        this.setState({ username: json.name });
+    }
+
+    componentDidMount() {
+        this.getName()
     }
 
     userMenu = () => (
         <Menu>
             <Menu.Item key='Profile'>
-                <Button type='link' href='/customer/profile_page/UserProfileMain' block>
+                <Button type='link' href='/UserProfileMain' block>
                     <Text strong> Profile </Text>
                 </Button>
             </Menu.Item>

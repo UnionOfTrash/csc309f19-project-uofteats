@@ -1,6 +1,8 @@
 "use strict";
 const log = console.log;
 
+// START INITIALIZING DATABASE
+
 // Loading environment variables based on current running environment
 if (process.env.ENV == "PROD") {
   require("dotenv").config({ path: process.cwd() + "/.env_prod" });
@@ -19,26 +21,30 @@ const { Customer } = require("./models/customer");
 const { Truck } = require("./models/truck");
 const { Request } = require("./models/request");
 
+// For testing purpose only,
+// we will wipe out the dev database and
+// fill in some data.
+if (process.env.ENV != "PROD") {
+  mongoose.connection.dropDatabase();
+  //require("./initial_data/initData");
+  require("./db/initDb");
+}
+
+// END OF INITIALIZING DATABASE
+
+
+// START INITIALIZING EXPRESS SERVER
+
+// Start the express server
 const express = require("express");
-// starting the express server
-const app = express();
-
-// empty database and initialize some data
-mongoose.connection.dropDatabase();
-require("./initial_data/initData");
-
-// to validate object IDs
 const { ObjectID } = require("mongodb");
-
-// body-parser: middleware for parsing HTTP JSON body into a usable object
 const bodyParser = require("body-parser");
-app.use(bodyParser.json());
-
-// express-session for managing user sessions
 const session = require("express-session");
+
+const app = express();
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/*** Session handling **************************************/
 // Create a session cookie
 app.use(
   session({
@@ -47,37 +53,51 @@ app.use(
     saveUninitialized: false,
     cookie: {
       expires: 600000000,
-      httpOnly: true
-    }
+      httpOnly: true,
+    },
   })
 );
 
-// A route to login and create a session
-app.post("/api/login", (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+// END OF INITIALIZING EXPRESS SERVER
 
+
+// DEFINING ROUTES HERE
+
+/* Route(/api/login)
+ * Required body: {
+ *   username: String,
+ *   password: String,
+ * }
+ */
+app.post("/api/login", (req, res) => {
+  const { username, password } = req.body;
   log(username, password);
-  // Use the static method on the User model to find a user
-  // by their email and password
-  userAuth.findByUsernamePassword(username, password)
-    .then(user => {
-      if (!user) {
-        log("User not found");
-        // res.redirect('/');
-      } else {
-        // Add the user's id to the session cookie.
-        // We can check later if this exists to ensure we are logged in.
-        log("SESSION!");
-        req.session.user = user._id;
-        res.send({ screen: "logged in" });
-      }
-    })
-    .catch(error => {
-      log(400);
-      // res.status(400).redirect('/');
-    });
 });
+// app.post("/api/login", (req, res) => {
+//   const username = req.body.username;
+//   const password = req.body.password;
+
+//   log(username, password);
+//   // Use the static method on the User model to find a user
+//   // by their email and password
+//   userAuth.findByUsernamePassword(username, password)
+//     .then(user => {
+//       if (!user) {
+//         log("User not found");
+//         // res.redirect('/');
+//       } else {
+//         // Add the user's id to the session cookie.
+//         // We can check later if this exists to ensure we are logged in.
+//         log("SESSION!");
+//         req.session.user = user._id;
+//         res.send({ screen: "logged in" });
+//       }
+//     })
+//     .catch(error => {
+//       log(400);
+//       // res.status(400).redirect('/');
+//     });
+// });
 
 // A route to logout a user
 app.get("/api/logout", (req, res) => {

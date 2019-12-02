@@ -1,4 +1,4 @@
-const { UserAuth } = require("../models/userAuth");
+const { UserAuth } = require("../models/UserAuth");
 const { Admin } = require("../models/admin");
 const { Customer } = require("../models/customer");
 const { Truck } = require("../models/truck");

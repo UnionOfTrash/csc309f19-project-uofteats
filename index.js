@@ -16,8 +16,8 @@ const { Customer } = require("./models/customer");
 const { Truck } = require("./models/truck");
 
 // empty database and initialize some data
-// mongoose.connection.dropDatabase();
-// require("./initial_data/initData");
+mongoose.connection.dropDatabase();
+require("./initial_data/initData");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
@@ -278,7 +278,7 @@ app.post("/api/users", (req, res) => {
     _id: new mongoose.Types.ObjectId(),
     username: req.body.username,
     password: req.body.password,
-    type: req.body.type
+    type: "u"
   });
 
   // Save the user

@@ -15,7 +15,7 @@ const UserAuthSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  type: { type: Number, min: 0, max: 2 }
+  type: String
 });
 
 // An example of Mongoose middleware.

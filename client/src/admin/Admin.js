@@ -2,6 +2,7 @@ import React from "react";
 import HeaderBar from "../commons/HeaderBar";
 import "./admin.css";
 import Control from './Control';
+import Login from "../commons/Login"
 
 const log = console.log
 
@@ -11,65 +12,71 @@ const log = console.log
 
 class Admin extends React.Component{
 
-    // some hard coded data for test use, these will be get from the server at phase 2
-    state = {
-        Users:[
-            {id:"0", type:"u", name:"User1", email:"User1@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"1", type:"u", name:"User2", email:"User2@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"2", type:"u", name:"User3", email:"User3@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"3", type:"u", name:"User4", email:"User4@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"4", type:"u", name:"User5", email:"User5@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"5", type:"u", name:"User6", email:"User6@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"6", type:"u", name:"User7", email:"User7@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"7", type:"u", name:"User8", email:"User8@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"8", type:"u", name:"User9", email:"User9@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"9", type:"u", name:"User10", email:"User10@csgo.com", phone:"8888-8888", img:"./user.png"},
-            {id:"10", type:"u", name:"User11", email:"User11@csgo.com", phone:"8888-8888", img:"./user.png"}
-        ],
-        Fts:[
-            {id:"0", type:"ft", name:"Ft", email:"Ft@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"1", type:"ft", name:"Ft1", email:"Ft1@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"2", type:"ft", name:"Ft2", email:"Ft2@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"3", type:"ft", name:"Ft3", email:"Ft3@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"4", type:"ft", name:"Ft4", email:"Ft4@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"5", type:"ft", name:"Ft5", email:"Ft5@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"6", type:"ft", name:"Ft6", email:"Ft6@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"7", type:"ft", name:"Ft7", email:"Ft7@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"8", type:"ft", name:"Ft8", email:"Ft8@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"9", type:"ft", name:"Ft9", email:"Ft9@lol.com", phone:"8888-8888", img:"./truck1.png"},
-            {id:"10",type:"ft", name:"Ft10", email:"Ft10@lol.com", phone:"8888-8888", img:"./truck1.png"}
-        ],
-        // next user id and food truck id for add new users/trucks to use
-        nextUid:11,
-        nextFtid:11,
-        // these two objects saves the initial state for the user/foodtruck that is being edited
-        EditUser:{},
-        EditFt:{}
+    constructor(props){
+        super(props)
+        this.state={
+            Users: [],
+            Fts: [],
+            result:{},
+            nextFtid:0,
+            EditFt:{},
+            firstTimeLoad: true
+        }
+    }
+    // 
+        // props -> user:
+        // _id, name, email, phone, profileImg
+        // props -> ft:
+        // _id, name, email, phone, location, profileImg
+    // 
+    
+    componentWillMount(){
+        this.getUsers()
+        this.getFts()
     }
 
-    // fetch data from the server 
+    getUsers = () => {
+        const url = "/api/admin/users"
 
-    getAllData = () => {
-
-        // the url to fetch all data
-        const url = ""
-
-        fetch(url)
-        .then((res) => {
+        fetch(url).then((res) => {
             if (res.status === 200){
                 return res.json()
             }else{
-                alert("Could not get the data from server")
+                return new Promise((resolve, reject) => {
+                    reject("failed to fetch data")
+                })
             }
-        })
-        .then((json) => {
+        }).then((json) => {
             this.setState({
-                Users:json.users,
-                Fts: json.fts
+                Users:json
             })
-        }).catch(error => log(error))
+        }).catch(e => {
+            log(e)
+            alert(e)
+        })
     }
 
+    getFts = () => {
+        const url = "/api/admin/fts"
+
+        fetch(url).then((res) => {
+            if (res.status === 200){
+                return res.json()
+            }else{
+                return new Promise((resolve, reject) => {
+                    reject("failed to fetch data")
+                })
+            }
+        }).then((json) => {
+            log(json)
+            this.setState({
+                Fts:json
+            })
+        }).catch(e => {
+            log(e) 
+            alert(e)
+        })
+    }
 
 
     // a event handler whenever we type into a input box for the user
@@ -116,25 +123,25 @@ class Admin extends React.Component{
         })
     }
 
-    //for initialize the user we want to edit
-    initUser=(user) => {
-        this.setState({
-            EditUser:user,
-            Userid:user.id,
-            Usertype:user.type,
-            Username:user.name,
-            Useremail:user.email,
-            Userphone:user.phone,
-            Userimg:user.img
-        })
-    }
+    // //for initialize the user we want to edit
+    // initUser=(user) => {
+    //     this.setState({
+    //         EditUser:user,
+    //         Userid:user.id,
+    //         Usertype:user.type,
+    //         Username:user.name,
+    //         Useremail:user.email,
+    //         Userphone:user.phone,
+    //         Userimg:user.img
+    //     })
+    // }
 
     //for initialize the food truck user we want to edit
     initFt=(ft) => {
         this.setState({
             EditFt:ft,
-            Ftid:ft.id,
-            Fttype:ft.type,
+            Ftid:ft._id,
+            Fttype:'ft',
             Ftname:ft.name,
             Ftemail:ft.email,
             Ftphone:ft.phone,
@@ -143,61 +150,61 @@ class Admin extends React.Component{
     }
 
     // initializing data when we add a new user
-    createUser=()=>{
+    // createUser=()=>{
         
-        this.setState({
-            Userid:this.state.nextFtid,
-            Usertype:"ft",
-            Username:"",
-            Useremail:"",
-            Userphone:"",
-            Userimg:"./user.png"
-        })
+    //     this.setState({
+    //         Userid:this.state.nextFtid,
+    //         Usertype:"ft",
+    //         Username:"",
+    //         Useremail:"",
+    //         Userphone:"",
+    //         Userimg:"./user.png"
+    //     })
 
-        console.log(this.state)
-    }
+    //     console.log(this.state)
+    // }
 
     // initializing data when we add a new foodtruck
     createFt=()=>{
         this.setState({
-            Ftid:this.state.nextFtid,
+            // Ftid:this.state.nextFtid,
             Fttype:"ft",
             Ftname:"",
             Ftemail:"",
             Ftphone:"",
+            Ftlocation:"",
             Ftimg:"./truck1.png"
         })
     }
 
 
-    // method to add a new user
-    addUser = () => {
+    // // method to add a new user
+    // addUser = () => {
         
-        const user = {
-            id:this.state.nextUid,
-            type:this.state.Usertype,
-            name:this.state.Username,
-            email:this.state.Useremail,
-            phone:this.state.Userphone,
-            img:this.state.Userimg
-        }
+    //     const user = {
+    //         id:this.state.nextUid,
+    //         type:this.state.Usertype,
+    //         name:this.state.Username,
+    //         email:this.state.Useremail,
+    //         phone:this.state.Userphone,
+    //         img:this.state.Userimg
+    //     }
 
-        const users = this.state.Users
+    //     const users = this.state.Users
 
-        users.push(user)
+    //     users.push(user)
 
-        const nextUid = this.state.nextUid + 1
-        this.setState({
-            Users:users,
-            nextUid:nextUid
-        })
-    }
+    //     const nextUid = this.state.nextUid + 1
+    //     this.setState({
+    //         Users:users,
+    //         nextUid:nextUid
+    //     })
+    // }
 
     // method to add a new food truck
     addFt = () => {
 
         const ft = {
-            id:this.state.nextFtid,
             type:this.state.Fttype,
             name:this.state.Ftname,
             email:this.state.Ftemail,
@@ -209,10 +216,8 @@ class Admin extends React.Component{
 
         fts.push(ft)
 
-        const nextFid = this.state.nextFtid + 1
         this.setState({
-            Fts:fts,
-            nextUid:nextFid
+            Fts:fts
         })
     }
 
@@ -220,7 +225,7 @@ class Admin extends React.Component{
     EditUser= () => {
 
         const user = {
-            id:this.state.Userid,
+            _id:this.state.Userid,
             type:this.state.Usertype,
             name:this.state.Username,
             email:this.state.Useremail,
@@ -231,7 +236,7 @@ class Admin extends React.Component{
         const users = this.state.Users
         let index;
         for (index=0; index < users.length; index++){
-            if (users[index].id === user.id){
+            if (users[index].name === user.name){
                 break;
             }
         }
@@ -249,7 +254,7 @@ class Admin extends React.Component{
     EditFt= () => {
 
         const ft = {
-            id:this.state.Ftid,
+            _id:this.state.Ftid,
             type:this.state.Fttype,
             name:this.state.Ftname,
             email:this.state.Ftemail,

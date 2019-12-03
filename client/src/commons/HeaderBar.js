@@ -22,7 +22,7 @@ class HeaderBar extends React.Component {
 
     componentDidMount() {
         fetch("/api/check-session").then((res) => {
-            if (res.status == 200) {
+            if (res.status === 200) {
                 return res.json();
             }
         }).then((json) => {
@@ -40,7 +40,7 @@ class HeaderBar extends React.Component {
         e.preventDefault();
 
         fetch("/api/logout").then((res) => {
-            if (res.status == 200) {
+            if (res.status === 200) {
                 message.success("Successfully logged out.");
             } else {
                 message.error("Something wrong, please try again later.");

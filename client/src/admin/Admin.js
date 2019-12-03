@@ -36,7 +36,7 @@ class Admin extends React.Component{
     }
 
     getUsers = () => {
-        const url = "/api/admin/users";
+        const url = "/api/students";
         fetch(url).then((res) => {
             log(res.status);
             if (res.status === 200) {
@@ -218,7 +218,7 @@ class Admin extends React.Component{
     // method to edit a user
     EditUser= () => {
 
-        const url = "/api/admin/users/" + this.state.Userid; 
+        const url = "/api/student/" + this.state.Userid; 
 
         const data = {
             name:this.state.Username,

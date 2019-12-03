@@ -60,7 +60,7 @@ class Register extends React.Component {
     });
 
     fetch(request).then((res) => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         return res.json();
       } else {
         message.error("Something wrong with the server");

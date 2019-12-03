@@ -63,7 +63,7 @@ const modifyStudent = (req, res) => {
     profileImg: "./user.png"
   };
 
-  Student.findByIdAndUpdate(id, { $set: newStudent }, { new: true })
+  Student.findByIdAndUpdate(studentId, { $set: newStudent }, { new: true })
     .then((result) => {
       if (!result) {
         res.status(404).send();

@@ -70,34 +70,22 @@ app.use(
  * }
  */
 app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
-  log(username, password);
-});
-// app.post("/api/login", (req, res) => {
-//   const username = req.body.username;
-//   const password = req.body.password;
+  const username = req.body.username;
+  const password = req.body.password;
 
-//   log(username, password);
-//   // Use the static method on the User model to find a user
-//   // by their email and password
-//   userAuth.findByUsernamePassword(username, password)
-//     .then(user => {
-//       if (!user) {
-//         log("User not found");
-//         // res.redirect('/');
-//       } else {
-//         // Add the user's id to the session cookie.
-//         // We can check later if this exists to ensure we are logged in.
-//         log("SESSION!");
-//         req.session.user = user._id;
-//         res.send({ screen: "logged in" });
-//       }
-//     })
-//     .catch(error => {
-//       log(400);
-//       // res.status(400).redirect('/');
-//     });
-// });
+  userAuth.findByUsernamePassword(username, password)
+    .then((user) => {
+      if (!user) {
+        res.status(404).send("User not found");
+      } else {
+        req.session.user = user._id;
+        req.session.username = user.username;
+        res.send({ role: user.role });
+      }
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
 
 // A route to logout a user
 app.get("/api/logout", (req, res) => {

@@ -1,14 +1,33 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+"use strict";
 
-const customerSchema = new Schema({
-  _id: { type: Schema.Types.ObjectId, ref: "UserAuth" },
-  name: String,
-  phone: String,
-  email: String,
-  profileImg: String
+const mongoose = require("mongoose");
+
+const customerSchema = new mongoose.Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+    ref: "UserAuth",
+  },
+  name: {
+    type: String,
+    required: true,
+    minlength: 1,
+  },
+  phone: {
+    type: String,
+    required: false,
+    minlength: 10,
+  },
+  email: {
+    type: String,
+    require: false,
+    minlength: 1,
+  },
+  profileImg: {
+    type: String,
+    required: false,
+  },
 });
 
-const Customer = mongoose.model("Customer", customerSchema);
+const customer = mongoose.model("Customer", customerSchema);
 
-module.exports = { Customer };
+module.exports = { customer };

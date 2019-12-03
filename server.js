@@ -14,10 +14,8 @@ if (process.env.ENV == "PROD") {
 const { mongoose } = require("./db/mongoose");
 
 // Importing mongoose models
-const { UserAuth } = require("./models/UserAuth");
 const { Order } = require("./models/order");
 const { Food } = require("./models/food");
-const { Truck } = require("./models/Truck");
 const { Request } = require("./models/request");
 
 // For testing purpose only,

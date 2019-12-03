@@ -65,9 +65,9 @@ class UserInfoCard extends React.Component{
                     <Card className="text-center">
                         <Card.Header>
                             <div className="image-container">
-                                <img src={data.img} alt="FT" width="50" height="50" />
+                                <img src={data.profileImg} alt="FT" width="50" height="50" />
                             </div>
-                            User ID # {data.id}
+                            User ID # {data._id}
                         </Card.Header>
                             <Card.Body>
                                 <Form>
@@ -80,7 +80,7 @@ class UserInfoCard extends React.Component{
                                                     onChange={this.props.handleInputChange} 
                                                     className={(this.state.inEdit)? "":"info-item"} 
                                                     plaintext={this.state.plaintext} 
-                                                    readOnly={this.state.readOnly} 
+                                                    readOnly="true"
                                                     defaultValue={data.name} />
                                         </Col>
                                     </Form.Group>

@@ -65,9 +65,9 @@ class FtInfoCard extends React.Component{
                     <Card className="text-center">
                         <Card.Header>
                             <div className="image-container">
-                                <img src={data.img} alt="FT" width="50" height="50" />
+                                <img src={data.profileImg} alt="FT" width="50" height="50" />
                             </div>
-                            Food Truck ID # {data.id}
+                            Food Truck ID # {data._id}
                         </Card.Header>
                             <Card.Body>
                                 <Form>
@@ -108,6 +108,20 @@ class FtInfoCard extends React.Component{
                                                         plaintext={this.state.plaintext}
                                                         readOnly={this.state.readOnly} 
                                                         defaultValue={data.phone} />
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} controlId="formPlaintextEmail">
+                                        <Form.Label column sm="2">
+                                        Location: 
+                                    
+                                        </Form.Label>
+                                        <Col sm="10">
+                                        <Form.Control name="Ftlocation" 
+                                                        onChange={this.props.handleInputChange} 
+                                                        className={(this.state.inEdit)? "":"info-item"}
+                                                        plaintext={this.state.plaintext}
+                                                        readOnly={this.state.readOnly} 
+                                                        defaultValue={data.location} />
                                         </Col>
                                     </Form.Group>
                                 </Form>

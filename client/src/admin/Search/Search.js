@@ -36,7 +36,7 @@ class Search extends React.Component{
         super(props)
         this.state={
             choice:"User",
-            id:-1,
+            name:"",
             result:{},
             noResultShow:false,
             invalidInputShow:false,
@@ -94,19 +94,18 @@ class Search extends React.Component{
         }, 200);
     }
 
-    // handle the onClick for the search button
-    searchId=()=>{
-
-        if(this.state.id < 0){
+    searchName = () => {
+        if (this.state.name.length === 0){
             this.setShow("invalidInputShow", true)
             return;
-        }
+        }   
 
-        let result=-1;
+        let result = -1;
+
         if (this.state.choice === "User"){
             const users = this.props.Users
             for (let i = 0; i < users.length; i++){
-                if (users[i].id === this.state.id){
+                if (users[i].name === this.state.name){
                     result = users[i]
                     break;
                 }
@@ -114,7 +113,7 @@ class Search extends React.Component{
         }else{
             const fts = this.props.Fts
             for (let i = 0; i < fts.length; i++){
-                if (fts[i].id === this.state.id){
+                if (fts[i].name === this.state.name){
                     result = fts[i]
                     break;
                 }
@@ -138,6 +137,50 @@ class Search extends React.Component{
 
     }
 
+    // handle the onClick for the search button
+    // searchId=()=>{
+
+    //     if(this.state.id < 0){
+    //         this.setShow("invalidInputShow", true)
+    //         return;
+    //     }
+
+    //     let result=-1;
+    //     if (this.state.choice === "User"){
+    //         const users = this.props.Users
+    //         for (let i = 0; i < users.length; i++){
+    //             if (users[i].id === this.state.id){
+    //                 result = users[i]
+    //                 break;
+    //             }
+    //         }
+    //     }else{
+    //         const fts = this.props.Fts
+    //         for (let i = 0; i < fts.length; i++){
+    //             if (fts[i].id === this.state.id){
+    //                 result = fts[i]
+    //                 break;
+    //             }
+    //         }
+    //     }
+
+    //     if (result === -1){
+    //         this.setShow("noResultShow", true)
+    //     }else{
+    //         this.setState({
+    //             result:result
+    //         })
+
+    //         if(this.state.choice === "User"){
+    //             this.props.initUser(result)
+    //         }else{
+    //             this.props.initFt(result)
+    //         }
+    //         this.setShow("resultShow", true)
+    //     }
+
+    // }
+
     render(){
         return(
             <div id="search-container">
@@ -155,9 +198,9 @@ class Search extends React.Component{
                             </Form.Control>
                         </Form>
                         <Form inline>
-                            <FormControl id="search-input" onChange={this.handleInput} name="id" type="number" placeholder={(this.state.choice==="User")? "User id":"Food Truck Id"} className=" mr-sm-2" />
+                            <FormControl id="search-input" onChange={this.handleInput} name="name" placeholder={(this.state.choice==="User")? "User name":"Food Truck name"} className=" mr-sm-2" />
                             <>
-                                <Button id="search-btn" onClick={this.searchId}>
+                                <Button id="search-btn" onClick={this.searchName}>
                                     Search
                                 </Button>
                                 

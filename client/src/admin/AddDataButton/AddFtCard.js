@@ -10,6 +10,8 @@ class AddFtCard extends React.Component{
     }
 
     addUser=()=>{
+
+
         this.props.onHide()
         setTimeout(() => {
             this.props.addData()
@@ -41,19 +43,26 @@ class AddFtCard extends React.Component{
                             </Card.Header>
                                 <Card.Body>
                                     <Form>
-                                    <Form.Group as={Row} controlId="exampleForm.ControlInput1">
-                                            <Form.Label>Food Truck Name</Form.Label>
+                                        <Form.Group as={Row} controlId="exampleForm.ControlInput1">
+                                            <Form.Label>Food Truck Name/ User Name</Form.Label>
                                             <Form.Control name='Ftname' onChange={this.props.handleInputChange} placeholder="Name" />
                                         </Form.Group>
                                         <Form.Group as={Row} controlId="exampleForm.ControlInput2">
+                                            <Form.Label>Password</Form.Label>
+                                            <Form.Control name='Ftpassword' onChange={this.props.handleInputChange} placeholder="Password" />
+                                        </Form.Group>
+                                        <Form.Group as={Row} controlId="exampleForm.ControlInput3">
                                             <Form.Label>Email Address</Form.Label>
                                             <Form.Control name='Ftemail' onChange={this.props.handleInputChange} placeholder="Email" />
                                         </Form.Group>
-                                        <Form.Group as={Row} controlId="exampleForm.ControlInput3">
+                                        <Form.Group as={Row} controlId="exampleForm.ControlInput4">
                                             <Form.Label>Phone Number</Form.Label>
                                             <Form.Control name='Ftphone' onChange={this.props.handleInputChange} placeholder="Phone" />
                                         </Form.Group>
-
+                                        <Form.Group as={Row} controlId="exampleForm.ControlInput5">
+                                            <Form.Label>Location</Form.Label>
+                                            <Form.Control name='Ftlocation' onChange={this.props.handleInputChange} placeholder="Location" />
+                                        </Form.Group>
                                     </Form>
                                 </Card.Body>
                         </Card>

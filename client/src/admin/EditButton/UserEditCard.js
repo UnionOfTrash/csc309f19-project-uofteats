@@ -5,9 +5,7 @@ class UserEditCard extends React.Component{
 
     constructor(props){
         super(props)
-        this.state={
-            id:this.props.data.id
-        }
+        this.state={}
     }
 
     saveClick=() => {
@@ -30,22 +28,22 @@ class UserEditCard extends React.Component{
             >
               <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                  Edit {this.props.dataType}
+                  Edit User
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                     <Card className="text-center">
                         <Card.Header>
                             <div className="image-container">
-                                <img src={data.img} alt="FT" width="50" height="50" />
+                                <img src={data.profileImg} alt="FT" width="50" height="50" />
                               </div>
-                            User ID # {data.id}
+                            User ID # {data._id}
                         </Card.Header>
                             <Card.Body>
                                 <Form>
                                     <Form.Group as={Row} controlId="exampleForm.ControlInput1">
                                         <Form.Label>User Name</Form.Label>
-                                        <Form.Control name='Username' onChange={this.props.handleInputChange} placeholder={data.name} />
+                                        <Form.Control name='Username' readOnly={true} placeholder={data.name} />
                                     </Form.Group>
                                     <Form.Group as={Row} controlId="exampleForm.ControlInput2">
                                         <Form.Label>Email Address</Form.Label>

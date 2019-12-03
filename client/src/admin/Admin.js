@@ -2,11 +2,8 @@ import React from "react";
 import HeaderBar from "../commons/HeaderBar";
 import "./admin.css";
 import Control from './Control';
-import Login from "../commons/Login"
 
 const log = console.log
-
-
 
 // This is the main entrance when the user login to the Admin dashboard
 
@@ -20,7 +17,7 @@ class Admin extends React.Component{
             result:{},
             nextFtid:0,
             EditFt:{},
-            firstTimeLoad: true
+            timeOut: true
         }
     }
     // 
@@ -30,31 +27,34 @@ class Admin extends React.Component{
         // _id, name, email, phone, location, profileImg
     // 
     
-    componentWillMount(){
-        this.getUsers()
-        this.getFts()
+    componentDidMount(){
+        setTimeout(() => {
+            this.getUsers();
+            this.getFts()
+        }, 1500);
+        
     }
 
     getUsers = () => {
-        const url = "/api/students"
-
+        const url = "/api/admin/users";
         fetch(url).then((res) => {
-            if (res.status === 200){
-                return res.json()
-            }else{
-                return new Promise((resolve, reject) => {
-                    reject("failed to fetch data")
-                })
+            log(res.status);
+            if (res.status === 200) {
+                res.json().then((users) => {
+                    this.setState({
+                        Users: users,
+                    })
+                }, (e) => {
+                    log(e);
+                });
+            } else {
+                this.props.history.push('/');
             }
-        }).then((json) => {
-            this.setState({
-                Users:json
-            })
-        }).catch(e => {
-            log(e)
-            alert(e)
-        })
+        }, (e) => {
+            log(e);
+        });
     }
+
 
     getFts = () => {
         const url = "/api/admin/fts"
@@ -64,17 +64,16 @@ class Admin extends React.Component{
                 return res.json()
             }else{
                 return new Promise((resolve, reject) => {
-                    reject("failed to fetch data")
+                    reject("Time out")
                 })
             }
         }).then((json) => {
-            log(json)
             this.setState({
                 Fts:json
             })
+            return true
         }).catch(e => {
-            log(e) 
-            alert(e)
+            log(e)
         })
     }
 
@@ -87,13 +86,11 @@ class Admin extends React.Component{
         let value = target.value
 
         if (!value){
-            if (name==="Username"){
-                value=this.state.EditUser.name
-            }else if(name==="Useremail"){
+            if(name==="Useremail"){
                 value=this.state.EditUser.email
             }
             else if(name==="Userphone"){
-                value=this.state.EditUser.email
+                value=this.state.EditUser.phone
             }
         }
         this.setState({
@@ -109,13 +106,13 @@ class Admin extends React.Component{
         const name = target.name
         let value = target.value
         if (!value){
-            if (name==="Ftname"){
-                value=this.state.EditFt.name
-            }else if(name==="Ftemail"){
+            if(name==="Ftemail"){
                 value=this.state.EditFt.email
             }
             else if(name==="Ftphone"){
                 value=this.state.EditFt.phone
+            }else if(name==="Ftlocation"){
+                value=this.state.EditFt.location
             }
         }
         this.setState({
@@ -123,53 +120,48 @@ class Admin extends React.Component{
         })
     }
 
-    // //for initialize the user we want to edit
-    // initUser=(user) => {
-    //     this.setState({
-    //         EditUser:user,
-    //         Userid:user.id,
-    //         Usertype:user.type,
-    //         Username:user.name,
-    //         Useremail:user.email,
-    //         Userphone:user.phone,
-    //         Userimg:user.img
-    //     })
-    // }
+    //for initialize the user we want to edit
+    initUser=(user) => {
+        this.setState({
+            EditUser:user,
+            Userid:user._id,
+            Usertype:"u",
+            Username:user.name,
+            Useremail:user.email,
+            Userphone:user.phone,
+            Userimg:user.profileImg
+        })
+    }
 
     //for initialize the food truck user we want to edit
     initFt=(ft) => {
         this.setState({
             EditFt:ft,
             Ftid:ft._id,
-            Fttype:'ft',
             Ftname:ft.name,
             Ftemail:ft.email,
             Ftphone:ft.phone,
-            Ftimg:ft.img
+            Ftlocation:ft.location,
+            Ftimg:ft.profileImg
         })
     }
 
     // initializing data when we add a new user
-    // createUser=()=>{
+    createUser=()=>{
         
-    //     this.setState({
-    //         Userid:this.state.nextFtid,
-    //         Usertype:"ft",
-    //         Username:"",
-    //         Useremail:"",
-    //         Userphone:"",
-    //         Userimg:"./user.png"
-    //     })
-
-    //     console.log(this.state)
-    // }
+        this.setState({
+            Username:"",
+            Useremail:"",
+            Userphone:"",
+            Userimg:"./user.png"
+        })
+    }
 
     // initializing data when we add a new foodtruck
     createFt=()=>{
         this.setState({
-            // Ftid:this.state.nextFtid,
-            Fttype:"ft",
             Ftname:"",
+            Ftpassword: "123",
             Ftemail:"",
             Ftphone:"",
             Ftlocation:"",
@@ -177,76 +169,70 @@ class Admin extends React.Component{
         })
     }
 
-
-    // // method to add a new user
-    // addUser = () => {
-        
-    //     const user = {
-    //         id:this.state.nextUid,
-    //         type:this.state.Usertype,
-    //         name:this.state.Username,
-    //         email:this.state.Useremail,
-    //         phone:this.state.Userphone,
-    //         img:this.state.Userimg
-    //     }
-
-    //     const users = this.state.Users
-
-    //     users.push(user)
-
-    //     const nextUid = this.state.nextUid + 1
-    //     this.setState({
-    //         Users:users,
-    //         nextUid:nextUid
-    //     })
-    // }
-
     // method to add a new food truck
     addFt = () => {
 
-        const ft = {
-            type:this.state.Fttype,
-            name:this.state.Ftname,
+        const url = "/api/admin/fts"
+
+        const data = {
+            username:this.state.Ftname,
+            password:this.state.Ftpassword,
+            type:"u",
             email:this.state.Ftemail,
             phone:this.state.Ftphone,
-            img:this.state.Ftimg
+            location:this.state.Ftlocation
         }
 
-        const fts = this.state.Fts
-
-        fts.push(ft)
-
-        this.setState({
-            Fts:fts
+        const request = new Request(url, {
+            method: "post",
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
         })
+
+        // send request then fetch
+        fetch(request).then((res) => {
+            if (res.status === 200){
+                alert("Success add a food truck")
+                window.location.reload()
+            }else{
+                alert("fail to add a food truck")
+            }
+        }).catch(e => log(e))
+
     }
 
     // method to edit a user
     EditUser= () => {
 
-        const user = {
-            _id:this.state.Userid,
-            type:this.state.Usertype,
-            name:this.state.Username,
-            email:this.state.Useremail,
-            phone:this.state.Userphone,
-            img:this.state.Userimg
+        const url = "/api/admin/users/" + this.state.Userid; 
+
+        const data = {
+            "name":this.state.Username,
+            "phone":this.state.Userphone,
+            "email":this.state.Useremail
         }
 
-        const users = this.state.Users
-        let index;
-        for (index=0; index < users.length; index++){
-            if (users[index].name === user.name){
-                break;
-            }
-        }
-
-        users[index] = user
-        
-        this.setState({
-            Users:users
+        const request = new Request(url, {
+            method:'patch',
+            body:JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
         })
 
+        fetch(request).then((res) => {
+            log(res)
+            if (res.status === 200){
+                alert("success to edit a user")
+                window.location.reload()
+            }else{
+                alert("fail to edit a user")
+            }
+        }).catch(e => log(e))
     }
 
 
@@ -255,22 +241,20 @@ class Admin extends React.Component{
 
         const ft = {
             _id:this.state.Ftid,
-            type:this.state.Fttype,
             name:this.state.Ftname,
             email:this.state.Ftemail,
             phone:this.state.Ftphone,
-            img:this.state.Ftimg
+            location:this.state.Ftlocation,
+            profileImg:"./truck1.png"
         }
 
         const fts = this.state.Fts
         let index;
         for (index=0; index < fts.length; index++){
-            if (fts[index].id === ft.id){
+            if (fts[index].name === ft.name){
                 break;
             }
         }
-        console.log(index)
-        console.log(fts)
 
         fts[index] = ft
         

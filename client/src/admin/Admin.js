@@ -28,11 +28,12 @@ class Admin extends React.Component{
     // 
     
     componentWillMount(){
-        setTimeout(() => {
-            this.getUsers();
-            this.getFts()
-        }, 1500);
-        
+        this.getUsers();
+        this.getFts();
+        // setTimeout(() => {
+        //     this.getUsers();
+        //     this.getFts()
+        // }, 1500);
     }
 
     getUsers = () => {
@@ -57,7 +58,7 @@ class Admin extends React.Component{
 
 
     getFts = () => {
-        const url = "/api/admin/fts"
+        const url = "/api/trucks"
 
         fetch(url).then((res) => {
             if (res.status === 200){
@@ -118,7 +119,7 @@ class Admin extends React.Component{
                 value=this.state.EditFt.time
             }
             else if(name==="Fttype"){
-                value=this.state.EditFt.type
+                value=this.state.EditFt.cuisine
             }
         }
         this.setState({
@@ -148,7 +149,7 @@ class Admin extends React.Component{
             Ftemail:ft.email,
             Ftphone:ft.phone,
             Ftlocation:ft.location,
-            Fttype: ft.type,
+            Fttype: ft.cuisine,
             Fttime: ft.time,
             Ftimg:ft.profileImg
         })
@@ -182,7 +183,7 @@ class Admin extends React.Component{
     // method to add a new food truck
     addFt = () => {
 
-        const url = "/api/admin/fts"
+        const url = "/api/truck"
 
         const data = {
             username:this.state.Ftname,
@@ -190,7 +191,7 @@ class Admin extends React.Component{
             email:this.state.Ftemail,
             phone:this.state.Ftphone,
             location:this.state.Ftlocation,
-            type: this.state.Fttype,
+            cuisine: this.state.Fttype,
             time: this.state.Fttime
         }
 
@@ -253,21 +254,20 @@ class Admin extends React.Component{
     // method to edit a food truck
     EditFt= () => {
 
-        const url = "/api/admin/users" + this.state.Ftid
+        const url = "/api/truck/" + this.state.Ftid
 
         const ft = {
-            _id:this.state.Ftid,
             name:this.state.Ftname,
             email:this.state.Ftemail,
             phone:this.state.Ftphone,
             location:this.state.Ftlocation,
-            type: this.state.Fttype,
+            cuisine: this.state.Fttype,
             time: this.state.Fttime,
             profileImg:"./truck1.png"
         }
 
         const request = new Request(url, {
-            method:"patch",
+            method:"PATCH",
             body:JSON.stringify(ft),
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -282,7 +282,7 @@ class Admin extends React.Component{
             }else{
                 alert("Fail to edit food truck")
             }
-        }).catch(e => {log(e)})
+        }, err => log(err)).catch(e => {log(e)})
     }
 
 
@@ -312,7 +312,7 @@ class Admin extends React.Component{
 
     removeFt = (ft) => {
 
-        const url = "/api/admin/fts/" + ft._id
+        const url = "/api/truck/" + ft._id
         log(url)
 
         const request = new Request( url , {

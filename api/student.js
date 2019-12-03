@@ -20,7 +20,7 @@ const getStudent = (req, res) => {
     }
   }, (err) => {
     res.status(500).send(err);
-  })
+  });
 }
 
 const addStudent = (req, res) => {
@@ -46,7 +46,7 @@ const addStudent = (req, res) => {
     })
   }, (err) => {
     res.status(500).send(err);
-  })
+  });
 }
 
 const modifyStudent = (req, res) => {

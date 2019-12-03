@@ -1,16 +1,36 @@
-/* Foodtruck mongoose model */
+"use strict";
+
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
 const TruckSchema = new mongoose.Schema({
-  _id: { type: Schema.Types.ObjectId, ref: "UserAuth" },
-  name: String,
-  phone: Number,
-  email: String,
-  location: String,
-  type: String,
-  time: String,
-  profileImg: String
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "UserAuth",
+  },
+  name: {
+    type: String,
+    required: true,
+    minlength: 1,
+  },
+  phone: {
+    type: String,
+    minlength: 10,
+  },
+  email: {
+    type: String,
+  },
+  location: {
+    type: String,
+  },
+  cuisine: {
+    type: String,
+  },
+  time: {
+    type: String,
+  },
+  profileImg: {
+    type: String,
+  },
 });
 
 const Truck = mongoose.model("Truck", TruckSchema);

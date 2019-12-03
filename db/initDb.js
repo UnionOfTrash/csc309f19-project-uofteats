@@ -2,7 +2,7 @@ const log = console.log;
 const mongoose = require("mongoose");
 const { UserAuth } = require("../models/UserAuth");
 const { Student } = require("../models/Student");
-const { Truck } = require("../models/truck");
+const { Truck } = require("../models/Truck");
 
 // Add a new admin
 const admin = new UserAuth({
@@ -49,34 +49,34 @@ studentAuth.save().then((res0) => {
 });
 
 
-// initialize a new truck
-const truck = new UserAuth({
-  _id: new mongoose.Types.ObjectId(),
-  username: "user2",
-  password: "user2",
-  type: "ft"
+// add a new truck
+const truckAuth = new UserAuth({
+  username: "user1",
+  password: "user1",
+  role: "Truck",
 });
 
-truck.save().then(res0 => {
-
-  const t = new Truck({
-    _id: truck._id,
+truckAuth.save().then((res0) => {
+  const truck = new Truck({
+    _id: res0._id,
     name: "Ideal Catering",
     email: "idealcatering@gmail.com",
     phone: "6470000002",
     location: "Bahen Centre for Information Technology",
-    type: "• American • Fast Food • Hot Dogs",
+    cuisine: "• American • Fast Food • Hot Dogs",
     time: "9:00 AM - 9:00 PM",
     profileImg: "./truck1.png"
-  })
+  });
 
-  t.save().then( res1 => {
-    log("Successfully added a student");
+  truck.save().then((res1) => {
+    log("Successfully added a truck");
     log(res0);
     log(res1);
-  }, err => {
-    log("Error when adding a student");
+  }, (err) => {
+    log("Error when adding a truck");
     log(err);
-  }).catch(e => log(e))
-
+  })
+}, (err) => {
+  log("Error when adding a truck");
+  log(err);
 });

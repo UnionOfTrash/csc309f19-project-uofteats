@@ -15,10 +15,9 @@ const { mongoose } = require("./db/mongoose");
 
 // Importing mongoose models
 const { UserAuth } = require("./models/UserAuth");
-const { Student } = require("./models/Student");
 const { Order } = require("./models/order");
 const { Food } = require("./models/food");
-const { Truck } = require("./models/truck");
+const { Truck } = require("./models/Truck");
 const { Request } = require("./models/request");
 
 // For testing purpose only,
@@ -63,6 +62,7 @@ app.use(
 // DEFINING ROUTES HERE
 const userApi = require("./api/user");
 const studentApi = require("./api/student");
+const truckApi = require("./api/truck");
 
 /*
  * Route(/api/login)
@@ -136,47 +136,62 @@ app.delete("/api/student/:id", userApi.authenticate("Student"), studentApi.delet
  */
 app.get("/api/students", userApi.authenticate(""), studentApi.getAllStudents);
 
+/*
+ * Route(/api/truck/{id})
+ * Method: GET
+ * Required parameters: {
+ *   id: String,
+ * }
+ */
+app.get("/api/truck/:id", userApi.authenticate("All"), truckApi.getTruck);
+
+/*
+ * Route(/api/student)
+ * Method: POST
+ * Required body: {
+ *   username: String,
+ *   password: String,
+ *   email: String,
+ * }
+ * Currently only allow Admin to visit!
+ */
+app.post("/api/truck", userApi.authenticate(""), truckApi.addTruck);
+
+/*
+ * Route(/api/truck/{id})
+ * Method: PATCH
+ * Required parameters: {
+ *   id: String,
+ * }
+ * Required body: {
+ *   name: String,
+ *   phone: String,
+ *   email: String,
+ *   location: String,
+ *   cuisine: String,
+ *   time: String,
+ * }
+ */
+app.patch("/api/truck/:id", userApi.authenticate("Truck"), truckApi.modifyTruck);
+
+/*
+ * Route(/api/truck/{id})
+ * Method: DELETE
+ * Required paramters: {
+ *   id: String,
+ * }
+ */
+app.delete("/api/truck/:id", userApi.authenticate("Truck"), truckApi.deleteTruck);
+
+/*
+ * Route(/api/trucks)
+ * Method: GET
+ */
+app.get("/api/trucks", userApi.authenticate("All"), truckApi.getAllTrucks);
+
 const authenticate = (req, res, next) => {
   next();
 }
-
-/*********************************************************/
-
-/*** API Routes below ************************************/
-/** Truck resource routes**/
-app.get("/api/trucks", (req, res) => {
-  Truck.find().then(
-    trucks => {
-      res.send({ trucks });
-    },
-    error => {
-      res.status(500).send(error); // server error
-    }
-  );
-});
-
-app.get("/api/trucks/:id", (req, res) => {
-  /// req.params has the wildcard parameters in the url, in this case, id.
-  // log(req.params.id)
-  const id = req.params.id;
-
-  if (!ObjectID.isValid(id)) {
-    res.status(404).send(); // if invalid id, definitely can't find resource, 404.
-  }
-
-  // Otherwise, find by the id and creator
-  Truck.findOne({ _id: id })
-    .then(truck => {
-      if (!truck) {
-        res.status(404).send(); // could not find this student
-      } else {
-        res.send(truck);
-      }
-    })
-    .catch(error => {
-      res.status(500).send(); // server error
-    });
-});
 
 /** Food resource routes **/
 app.get("/api/foods", (req, res) => {
@@ -299,98 +314,6 @@ app.post("/api/requests", authenticate, (req, res) => {
       res.status(400).send(error); // 400 for bad request
     }
   );
-});
-
-// get all foodtrucks
-app.get("/api/admin/fts", authenticate, (req, res) => {
-  Truck.find().then(
-    result => {
-      res.send(result);
-    },
-    error => {
-      res.status(500).send(error);
-    }
-  );
-});
-
-// add a food truck
-app.post("/api/admin/fts", authenticate, (req, res) => {
-  const user = new UserAuth({
-    _id: new mongoose.Types.ObjectId(),
-    username: req.body.username,
-    password: req.body.password,
-    type: req.body.type
-  });
-
-  user
-    .save()
-    .then(u => {
-      const truck = new Truck({
-        _id: u._id,
-        name: u.username,
-        phone: req.body.phone,
-        email: req.body.email,
-        location: req.body.location,
-        type: req.body.type,
-        time: req.body.time,
-        profileImg: "./truck1.png"
-      });
-
-      truck.save().then(result => res.send(result));
-    })
-    .catch(e => res.status(500).send(e));
-});
-
-// delete a food truck
-app.delete("/api/admin/fts/:id", authenticate, (req, res) => {
-  const id = req.params.id;
-  if (!ObjectID.isValid(id)) {
-    res.status(500).send("invalid ft id");
-  }
-
-  Truck.findByIdAndDelete(id)
-    .then(result => {
-      if (!result) {
-        res.status(404).send("could not find the foodtruck");
-      } else {
-        UserAuth.findByIdAndDelete(id).then(result => {
-          if (!result) {
-            res.status(500).send("could not find the user");
-          } else {
-            res.send(result);
-          }
-        });
-      }
-    })
-    .catch(error => res.status(500).send(error));
-});
-
-// change the properties of a food truck
-app.patch("/api/admin/fts/:id", authenticate, (req, res) => {
-  const id = req.params.id;
-  if (!ObjectID.isValid(id)) {
-    res.status(500).send("invalid user id");
-  }
-
-  const truck = {
-    name: req.body.name,
-    phone: req.body.phone,
-    email: req.body.email,
-    location: req.body.location,
-    type: req.body.type,
-    time: req.body.time,
-    profileImg: "./truck1.png"
-  };
-
-  Truck.findByIdAndUpdate(id, { $set: truck }, { new: true })
-    .then(result => {
-      if (!result) {
-        res.status(404).send("could not find the truck");
-      } else {
-        res.send(result);
-      }
-    })
-    .catch(e => res.status(400).send(error));
 });
 
 /*** Webpage routes below **********************************/

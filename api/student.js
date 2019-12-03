@@ -49,6 +49,32 @@ const addStudent = (req, res) => {
   })
 }
 
+const modifyStudent = (req, res) => {
+  const studentId = req.params.id;
+
+  if (!ObjectID.isValid(studentId)) {
+    res.status(404).send();
+  }
+
+  const newStudent = {
+    name: req.body.name,
+    phone: req.body.phone,
+    email: req.body.email,
+    profileImg: "./user.png"
+  };
+
+  Student.findByIdAndUpdate(id, { $set: newStudent }, { new: true })
+    .then((result) => {
+      if (!result) {
+        res.status(404).send();
+      } else {
+        res.send(result);
+      }
+    }, (err) => {
+      res.status(500).send(err);
+    });
+}
+
 const getAllStudents = (req, res) => {
   Student.find().then((students) => {
     res.send(students);
@@ -57,4 +83,4 @@ const getAllStudents = (req, res) => {
   });
 };
 
-module.exports = { getStudent, addStudent, getAllStudents }
+module.exports = { getStudent, addStudent, modifyStudent, getAllStudents }

@@ -106,6 +106,20 @@ app.get("/api/student/:id", userApi.authenticate("Student"), studentApi.getStude
  */
 app.post("/api/student", studentApi.addStudent);
 
+/*
+ * Route(/api/student/{id})
+ * Method: PATCH
+ * Required paramaters: {
+ *   id: String,
+ * }
+ * Required body: {
+ *   name: String,
+ *   phone: String,
+ *   email: String,
+ * }
+ */
+app.patch("/api/student/:id", userApi.authenticate("Student"), studentApi.modifyStudent);
+
 app.get("/api/students", userApi.authenticate(""), studentApi.getAllStudents);
 
 const authenticate = (req, res, next) => {
@@ -434,31 +448,6 @@ app.delete("/api/admin/fts/:id", authenticate, (req, res) => {
       }
     })
     .catch(error => res.status(500).send(error));
-});
-
-// change some properties of a user
-app.patch("/api/admin/users/:id", authenticate, (req, res) => {
-  const id = req.params.id;
-  if (!ObjectID.isValid(id)) {
-    res.status(500).send("invalid user id");
-  }
-
-  const student = {
-    name: req.body.name,
-    phone: req.body.phone,
-    email: req.body.email,
-    profileImg: "./user.png"
-  };
-
-  Student.findByIdAndUpdate(id, { $set: student }, { new: true })
-    .then(result => {
-      if (!result) {
-        res.status(404).send("could not find the student");
-      } else {
-        res.send(result);
-      }
-    })
-    .catch(e => res.status(400).send(error));
 });
 
 // change the properties of a food truck

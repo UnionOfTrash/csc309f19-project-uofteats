@@ -111,24 +111,15 @@ class Login extends React.Component {
                   <Checkbox defaultChecked> Remember me? </Checkbox>
                 </Form.Item>
                 <Form.Item className="commonFormItem">
-                  <Button type="primary" htmlType="submit" block>
-                    {" "}
-                    Log me in{" "}
-                  </Button>
+                  <Button type="primary" htmlType="submit" block> Log me in </Button>
                 </Form.Item>
                 <Form.Item className="commonFormItem">
                   <Row>
                     <Col span={12} className="commonGridComponent">
-                      <Button type="link" href="/reset">
-                        {" "}
-                        Forget Password?{" "}
-                      </Button>
+                      <Button type="link" href="/reset"> Forget Password? </Button>
                     </Col>
                     <Col span={12} className="commonGridComponent">
-                      <Button type="link" href="/register">
-                        {" "}
-                        Register Here!{" "}
-                      </Button>
+                      <Button type="link" href="/register"> Register Here! </Button>
                     </Col>
                   </Row>
                 </Form.Item>

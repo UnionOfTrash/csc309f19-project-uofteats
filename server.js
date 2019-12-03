@@ -64,28 +64,9 @@ app.use(
 const userApi = require("./api/user");
 const studentApi = require("./api/student");
 
-// Middleware for authentication of resources
-const authenticate = (req, res, next) => {
-  if (req.session.user) {
-    UserAuth.findById(req.session.user)
-      .then(user => {
-        if (!user) {
-          return Promise.reject();
-        } else {
-          req.user = user;
-          next();
-        }
-      })
-      .catch(error => {
-        res.status(401).send("Unauthorized");
-      });
-  } else {
-    res.status(401).send("Unauthorized");
-  }
-};
-
 /*
  * Route(/api/login)
+ * Method: POST
  * Required body: {
  *   username: String,
  *   password: String,
@@ -95,28 +76,41 @@ app.post("/api/login", userApi.login);
 
 /*
  * Route(/api/logout)
+ * Method: GET
  */
 app.get("/api/logout", userApi.logout);
 
 /*
  * Route(/api/check-session)
+ * Method: GET
  */
 app.get("/api/check-session", userApi.check);
 
-app.get("/api/students", authenticate, studentApi.getAllStudents);
+/*
+ * Route(/api/student/{id})
+ * Method: GET
+ * Required parameters: {
+ *   id: String,
+ * }
+ */
+app.get("/api/student/:id", userApi.authenticate("Student"), studentApi.getStudent);
 
+/*
+ * Route(/api/student)
+ * Method: POST
+ * Required body: {
+ *   username: String,
+ *   password: String,
+ *   email: String,
+ * }
+ */
+app.post("/api/student", studentApi.addStudent);
 
-// A route to check if a use is logged in on the session cookie
-app.get("/api/check-session", (req, res) => {
-  // Remove the session
-  if (req.session.user) {
-    res.send(req.session.user);
-  } else {
-    res.redirect("/login");
-  }
-});
+app.get("/api/students", userApi.authenticate(""), studentApi.getAllStudents);
 
-
+const authenticate = (req, res, next) => {
+  next();
+}
 
 /*********************************************************/
 

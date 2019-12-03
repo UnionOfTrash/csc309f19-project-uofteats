@@ -448,7 +448,6 @@ app.patch("/api/admin/users/:id", authenticate, (req, res) => {
   }
 
   const customer = {
-    _id: req.body.id,
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,
@@ -474,7 +473,6 @@ app.patch("/api/admin/fts/:id", authenticate, (req, res) => {
   }
 
   const truck = {
-    _id: req.body.id,
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,

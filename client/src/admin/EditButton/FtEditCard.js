@@ -58,6 +58,14 @@ class FtEditCard extends React.Component{
                                           <Form.Label>Location</Form.Label>
                                           <Form.Control name='Ftlocation' onChange={this.props.handleInputChange} placeholder={data.location} />
                                       </Form.Group>
+                                      <Form.Group as={Row} controlId="exampleForm.ControlInput5">
+                                          <Form.Label>Type</Form.Label>
+                                          <Form.Control name='Fttype' onChange={this.props.handleInputChange} placeholder={data.type} />
+                                      </Form.Group>
+                                      <Form.Group as={Row} controlId="exampleForm.ControlInput4">
+                                          <Form.Label>Time</Form.Label>
+                                          <Form.Control name='Fttime' onChange={this.props.handleInputChange} placeholder={data.time} />
+                                      </Form.Group>
                                   </Form>
                               </Card.Body>
                       </Card>

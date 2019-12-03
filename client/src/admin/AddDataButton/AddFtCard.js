@@ -63,6 +63,14 @@ class AddFtCard extends React.Component{
                                             <Form.Label>Location</Form.Label>
                                             <Form.Control name='Ftlocation' onChange={this.props.handleInputChange} placeholder="Location" />
                                         </Form.Group>
+                                        <Form.Group as={Row} controlId="exampleForm.ControlInput6">
+                                            <Form.Label>Type</Form.Label>
+                                            <Form.Control name='Fttype' onChange={this.props.handleInputChange} placeholder="Type" />
+                                        </Form.Group>
+                                        <Form.Group as={Row} controlId="exampleForm.ControlInput7">
+                                            <Form.Label>Time</Form.Label>
+                                            <Form.Control name='Fttime' onChange={this.props.handleInputChange} placeholder="Time" />
+                                        </Form.Group>
                                     </Form>
                                 </Card.Body>
                         </Card>

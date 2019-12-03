@@ -56,10 +56,12 @@ class Login extends React.Component {
       if (res.status == 200) {
         return res.json();
       } else {
-        message.warning("No such user!");
+        message.warning("Wrong username or password!");
       }
     }).then((json) => {
-      this.props.history.push(this.jumpLinks[json.role]);
+      if (json && json.role) {
+        this.props.history.push(this.jumpLinks[json.role]);
+      }
     }).catch((err) => {
       console.log(err);
     });

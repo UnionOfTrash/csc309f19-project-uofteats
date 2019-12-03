@@ -64,26 +64,6 @@ app.use(
 const userApi = require("./api/user");
 const studentApi = require("./api/student");
 
-// Middleware for authentication of resources
-const authenticate = (req, res, next) => {
-  if (req.session.user) {
-    UserAuth.findById(req.session.user)
-      .then(user => {
-        if (!user) {
-          return Promise.reject();
-        } else {
-          req.user = user;
-          next();
-        }
-      })
-      .catch(error => {
-        res.status(401).send("Unauthorized");
-      });
-  } else {
-    res.status(401).send("Unauthorized");
-  }
-};
-
 /*
  * Route(/api/login)
  * Required body: {
@@ -103,20 +83,11 @@ app.get("/api/logout", userApi.logout);
  */
 app.get("/api/check-session", userApi.check);
 
-app.get("/api/students", authenticate, studentApi.getAllStudents);
+app.get("/api/students", userApi.authenticate(""), studentApi.getAllStudents);
 
-
-// A route to check if a use is logged in on the session cookie
-app.get("/api/check-session", (req, res) => {
-  // Remove the session
-  if (req.session.user) {
-    res.send(req.session.user);
-  } else {
-    res.redirect("/login");
-  }
-});
-
-
+const authenticate = (req, res, next) => {
+  next();
+}
 
 /*********************************************************/
 

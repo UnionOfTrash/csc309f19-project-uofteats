@@ -42,8 +42,29 @@ const check = (req, res) => {
       res.status(500).send(err);
     });
   } else {
-    res.status(404).send();
+    res.status(401).send("Unauthorized");
   }
 }
 
-module.exports = { login, logout, check };
+// Middleware for authentication of resources
+const authenticate = (role) => (req, res, next) => {
+  if (req.session.userID) {
+    UserAuth.findById(req.session.userID).then((user) => {
+      if (!user) {
+        return Promise.reject();
+      } else {
+        if ((role == "All") || (user.role == "Admin") || (user.role == role)) {
+          next();
+        } else {
+          res.status(401).send("Unauthorized");
+        }
+      }
+    }, (err) => {
+      res.status(500).send(err);
+    })
+  } else {
+    res.status(401).send("Unauthorized");
+  }
+}
+
+module.exports = { login, logout, check, authenticate };

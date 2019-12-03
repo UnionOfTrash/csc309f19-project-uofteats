@@ -66,6 +66,7 @@ const studentApi = require("./api/student");
 
 /*
  * Route(/api/login)
+ * Method: POST
  * Required body: {
  *   username: String,
  *   password: String,
@@ -75,13 +76,35 @@ app.post("/api/login", userApi.login);
 
 /*
  * Route(/api/logout)
+ * Method: GET
  */
 app.get("/api/logout", userApi.logout);
 
 /*
  * Route(/api/check-session)
+ * Method: GET
  */
 app.get("/api/check-session", userApi.check);
+
+/*
+ * Route(/api/student/{id})
+ * Method: GET
+ * Required parameters: {
+ *   id: String,
+ * }
+ */
+app.get("/api/student/:id", userApi.authenticate("Student"), studentApi.getStudent);
+
+/*
+ * Route(/api/student)
+ * Method: POST
+ * Required body: {
+ *   username: String,
+ *   password: String,
+ *   email: String,
+ * }
+ */
+app.post("/api/student", studentApi.addStudent);
 
 app.get("/api/students", userApi.authenticate(""), studentApi.getAllStudents);
 

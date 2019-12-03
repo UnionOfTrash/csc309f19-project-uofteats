@@ -18,7 +18,6 @@ const { UserAuth } = require("./models/UserAuth");
 const { Student } = require("./models/Student");
 const { Order } = require("./models/order");
 const { Food } = require("./models/food");
-const { Customer } = require("./models/customer");
 const { Truck } = require("./models/truck");
 const { Request } = require("./models/request");
 
@@ -289,7 +288,7 @@ app.get("/api/users/:id", authenticate, (req, res) => {
   if (!ObjectID.isValid(id)) {
     res.status(404).send("Invalid Id");
   } else {
-    Customer.findById(id).then(
+    Student.findById(id).then(
       user => {
         console.log(user);
         res.send(user);
@@ -316,7 +315,7 @@ app.post("/api/users", (req, res) => {
   user
     .save()
     .then(result => {
-      const newUser = new Customer({
+      const newUser = new Student({
         _id: result._id,
         name: req.body.name,
         phone: req.body.phone,
@@ -346,7 +345,7 @@ app.get("/api/admin/UserAuth", authenticate, (req, res) => {
 
 // get all users
 app.get("/api/admin/users", authenticate, (req, res) => {
-  Customer.find().then(
+  Student.find().then(
     result => {
       res.send(result);
     },
@@ -385,6 +384,9 @@ app.post("/api/admin/fts", authenticate, (req, res) => {
         name: req.body.name,
         phone: req.body.phone,
         email: req.body.email,
+        location: req.body.location,
+        type: req.body.type,
+        time: req.body.time,
         profileImg: "./truck1.png"
       });
 
@@ -393,13 +395,13 @@ app.post("/api/admin/fts", authenticate, (req, res) => {
     .catch(e => res.status(500).send(e));
 });
 
-// delete a customer
+// delete a student
 app.delete("/api/admin/users/:id", authenticate, (req, res) => {
   const id = req.params.id;
   if (!ObjectID.isValid(id)) {
     res.status(500).send("invalid id");
   }
-  Customer.findByIdAndDelete(id)
+  Student.findByIdAndDelete(id)
     .then(result => {
       if (!result) {
         res.status(404).send("could not find the user");
@@ -447,17 +449,17 @@ app.patch("/api/admin/users/:id", authenticate, (req, res) => {
     res.status(500).send("invalid user id");
   }
 
-  const customer = {
+  const student = {
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,
     profileImg: "./user.png"
   };
 
-  Customer.findByIdAndUpdate(id, { $set: customer }, { new: true })
+  Student.findByIdAndUpdate(id, { $set: student }, { new: true })
     .then(result => {
       if (!result) {
-        res.status(404).send("could not find the customer");
+        res.status(404).send("could not find the student");
       } else {
         res.send(result);
       }
@@ -476,6 +478,9 @@ app.patch("/api/admin/fts/:id", authenticate, (req, res) => {
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,
+    location: req.body.location,
+    type: req.body.type,
+    time: req.body.time,
     profileImg: "./truck1.png"
   };
 

@@ -44,27 +44,27 @@ class FtEditCard extends React.Component{
                                   <Form>
                                   <Form.Group as={Row} controlId="exampleForm.ControlInput1">
                                           <Form.Label>Food Truck Name</Form.Label>
-                                          <Form.Control name='Ftname' readOnly={true} placeholder={data.name} />
+                                          <Form.Control name='Ftname' plaintext={true} readOnly={true} placeholder={data.name} />
                                       </Form.Group>
                                       <Form.Group as={Row} controlId="exampleForm.ControlInput2">
                                           <Form.Label>Email Address</Form.Label>
-                                          <Form.Control name='Ftemail' onChange={this.props.handleInputChange} placeholder={data.email} />
+                                          <Form.Control name='Ftemail' plaintext={true} onChange={this.props.handleInputChange} placeholder={data.email} />
                                       </Form.Group>
                                       <Form.Group as={Row} controlId="exampleForm.ControlInput3">
                                           <Form.Label>Phone Number</Form.Label>
-                                          <Form.Control name='Ftphone' onChange={this.props.handleInputChange} placeholder={data.phone} />
+                                          <Form.Control name='Ftphone' plaintext={true} onChange={this.props.handleInputChange} placeholder={data.phone} />
                                       </Form.Group>
                                       <Form.Group as={Row} controlId="exampleForm.ControlInput4">
                                           <Form.Label>Location</Form.Label>
-                                          <Form.Control name='Ftlocation' onChange={this.props.handleInputChange} placeholder={data.location} />
+                                          <Form.Control name='Ftlocation' plaintext={true} onChange={this.props.handleInputChange} placeholder={data.location} />
                                       </Form.Group>
                                       <Form.Group as={Row} controlId="exampleForm.ControlInput5">
                                           <Form.Label>Cuisine</Form.Label>
-                                          <Form.Control name='Fttype' onChange={this.props.handleInputChange} placeholder={data.cuisine} />
+                                          <Form.Control name='Fttype' plaintext={true} onChange={this.props.handleInputChange} placeholder={data.cuisine} />
                                       </Form.Group>
                                       <Form.Group as={Row} controlId="exampleForm.ControlInput4">
                                           <Form.Label>Time</Form.Label>
-                                          <Form.Control name='Fttime' onChange={this.props.handleInputChange} placeholder={data.time} />
+                                          <Form.Control name='Fttime' plaintext={true} onChange={this.props.handleInputChange} placeholder={data.time} />
                                       </Form.Group>
                                   </Form>
                               </Card.Body>

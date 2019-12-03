@@ -24,8 +24,8 @@ class FtInfoCard extends React.Component{
 
     // handle the click for save button
     handleSave=()=>{
-        this.props.editData()
         this.handleClose()
+        this.props.editData()
     }
 
     // handle the click for close button
@@ -41,10 +41,9 @@ class FtInfoCard extends React.Component{
 
     // handle the click for delete button
     handleRemoveUser=()=>{
-        this.props.removeFt(this.props.data)
         this.handleClose()
+        this.props.removeFt(this.props.data)
     }
-
     
     render(){
         const {data} = this.props
@@ -71,11 +70,11 @@ class FtInfoCard extends React.Component{
                         </Card.Header>
                             <Card.Body>
                                 <Form>
-                                    <Form.Group as={Row} controlId="formPlaintextEmail">
-                                        <Form.Label column sm="2">
-                                        Name:
+                                    <Form.Group as={Row} controlId="1">
+                                        <Form.Label column sm="3">
+                                            Name:
                                         </Form.Label>
-                                        <Col sm="10">
+                                        <Col sm="9">
                                         <Form.Control name="Ftname" 
                                                       onChange={this.props.handleInputChange} 
                                                       className={(this.state.inEdit)? "":"info-item"} 
@@ -84,11 +83,11 @@ class FtInfoCard extends React.Component{
                                                       defaultValue={data.name} />
                                         </Col>
                                     </Form.Group>
-                                    <Form.Group as={Row} controlId="formPlaintextEmail">
-                                        <Form.Label column sm="2">
-                                        Email:
+                                    <Form.Group as={Row} controlId="2">
+                                        <Form.Label column sm="3">
+                                            Email:
                                         </Form.Label>
-                                        <Col sm="10">
+                                        <Col sm="9">
                                         <Form.Control name="Ftemail" 
                                                         onChange={this.props.handleInputChange} 
                                                         className={(this.state.inEdit)? "":"info-item"} 
@@ -97,11 +96,11 @@ class FtInfoCard extends React.Component{
                                                         defaultValue={data.email} />
                                         </Col>
                                     </Form.Group>
-                                    <Form.Group as={Row} controlId="formPlaintextEmail">
-                                        <Form.Label column sm="2">
-                                        Phone:
+                                    <Form.Group as={Row} controlId="3">
+                                        <Form.Label column sm="3">
+                                            Phone:
                                         </Form.Label>
-                                        <Col sm="10">
+                                        <Col sm="9">
                                         <Form.Control name="Ftphone" 
                                                         onChange={this.props.handleInputChange} 
                                                         className={(this.state.inEdit)? "":"info-item"}
@@ -110,18 +109,43 @@ class FtInfoCard extends React.Component{
                                                         defaultValue={data.phone} />
                                         </Col>
                                     </Form.Group>
-                                    <Form.Group as={Row} controlId="formPlaintextEmail">
-                                        <Form.Label column sm="2">
-                                        Location: 
-                                    
+                                    <Form.Group as={Row} controlId="4">
+                                        <Form.Label column sm="3">
+                                            Location:
                                         </Form.Label>
-                                        <Col sm="10">
+                                        <Col sm="9">
                                         <Form.Control name="Ftlocation" 
                                                         onChange={this.props.handleInputChange} 
                                                         className={(this.state.inEdit)? "":"info-item"}
                                                         plaintext={this.state.plaintext}
                                                         readOnly={this.state.readOnly} 
                                                         defaultValue={data.location} />
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} controlId="5">
+                                        <Form.Label column sm="3">
+                                            Cuisine:
+                                        </Form.Label>
+                                        <Col sm="9">
+                                        <Form.Control name="Fttype" 
+                                                        onChange={this.props.handleInputChange} 
+                                                        className={(this.state.inEdit)? "":"info-item"}
+                                                        plaintext={this.state.plaintext}
+                                                        readOnly={this.state.readOnly} 
+                                                        defaultValue={data.cuisine} />
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} controlId="6">
+                                        <Form.Label column sm="3">
+                                            Time:
+                                        </Form.Label>
+                                        <Col sm="9">
+                                        <Form.Control name="Fttime" 
+                                                        onChange={this.props.handleInputChange} 
+                                                        className={(this.state.inEdit)? "":"info-item"}
+                                                        plaintext={this.state.plaintext}
+                                                        readOnly={this.state.readOnly}
+                                                        defaultValue={data.time} />
                                         </Col>
                                     </Form.Group>
                                 </Form>

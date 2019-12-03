@@ -30,7 +30,7 @@ class Control extends React.Component{
                     <Tab eventKey="FtDataList" title="Food Truck Management">
                         <FtDataList
                             Fts = {Fts}
-                            removeUser = {this.props.removeUser}
+                            removeUser = {this.props.removeFt}
                             admin={admin}
                             handleInputChange={this.props.handleEditFtInputChange}
                             initData={this.props.initFt}
@@ -42,7 +42,7 @@ class Control extends React.Component{
 
                     {/* The tab for Search a User/FoodTruck */}
                     <Tab eventKey="Search" title="Search">
-                        <Search 
+                        <Search
                             Fts={Fts}
                             Users={Users}
                             initUser={this.props.initUser}
@@ -52,6 +52,7 @@ class Control extends React.Component{
                             handleEditFtInputChange={this.props.handleEditFtInputChange}
                             handleEditUserInputChange={this.props.handleEditUserInputChange}
                             removeUser = {this.props.removeUser}
+                            removeFt = {this.props.removeFt}
                         />
                     </Tab>
                 </Tabs>

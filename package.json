@@ -7,7 +7,8 @@
     "setup": "npm install && cd client && npm install && cd ..",
     "build-client": "cd client && npm run build && cd ..",
     "start": "node server.js",
-    "prod": "npm run setup && npm run build-client && ENV=PROD node server.js"
+    "prod": "npm run setup && npm run build-client && ENV=PROD node server.js",
+    "test": "cd client && npm run build && cd .. && node server.js"
   },
   "repository": {
     "type": "git",

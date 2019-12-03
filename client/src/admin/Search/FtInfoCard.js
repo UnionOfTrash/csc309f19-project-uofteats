@@ -41,7 +41,7 @@ class FtInfoCard extends React.Component{
 
     // handle the click for delete button
     handleRemoveUser=()=>{
-        this.props.removeUser(this.props.data)
+        this.props.removeFt(this.props.data)
         this.handleClose()
     }
 

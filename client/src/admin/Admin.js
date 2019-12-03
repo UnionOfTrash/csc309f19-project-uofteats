@@ -27,7 +27,7 @@ class Admin extends React.Component{
         // _id, name, email, phone, location, profileImg
     // 
     
-    componentDidMount(){
+    componentWillMount(){
         setTimeout(() => {
             this.getUsers();
             this.getFts()
@@ -114,6 +114,12 @@ class Admin extends React.Component{
             }else if(name==="Ftlocation"){
                 value=this.state.EditFt.location
             }
+            else if(name==="Fttime"){
+                value=this.state.EditFt.time
+            }
+            else if(name==="Fttype"){
+                value=this.state.EditFt.type
+            }
         }
         this.setState({
             [name]:value
@@ -142,6 +148,8 @@ class Admin extends React.Component{
             Ftemail:ft.email,
             Ftphone:ft.phone,
             Ftlocation:ft.location,
+            Fttype: ft.type,
+            Fttime: ft.time,
             Ftimg:ft.profileImg
         })
     }
@@ -165,6 +173,8 @@ class Admin extends React.Component{
             Ftemail:"",
             Ftphone:"",
             Ftlocation:"",
+            Fttype: "",
+            Fttime: "",
             Ftimg:"./truck1.png"
         })
     }
@@ -177,10 +187,11 @@ class Admin extends React.Component{
         const data = {
             username:this.state.Ftname,
             password:this.state.Ftpassword,
-            type:"u",
             email:this.state.Ftemail,
             phone:this.state.Ftphone,
-            location:this.state.Ftlocation
+            location:this.state.Ftlocation,
+            type: this.state.Fttype,
+            time: this.state.Fttime
         }
 
         const request = new Request(url, {
@@ -210,13 +221,16 @@ class Admin extends React.Component{
         const url = "/api/admin/users/" + this.state.Userid; 
 
         const data = {
-            "name":this.state.Username,
-            "phone":this.state.Userphone,
-            "email":this.state.Useremail
+            name:this.state.Username,
+            phone:this.state.Userphone,
+            email:this.state.Useremail
         }
 
+        log(url)
+        log(data)
+
         const request = new Request(url, {
-            method:'patch',
+            method:"PATCH",
             body:JSON.stringify(data),
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -225,7 +239,7 @@ class Admin extends React.Component{
         })
 
         fetch(request).then((res) => {
-            log(res)
+
             if (res.status === 200){
                 alert("success to edit a user")
                 window.location.reload()
@@ -239,50 +253,86 @@ class Admin extends React.Component{
     // method to edit a food truck
     EditFt= () => {
 
+        const url = "/api/admin/users" + this.state.Ftid
+
         const ft = {
             _id:this.state.Ftid,
             name:this.state.Ftname,
             email:this.state.Ftemail,
             phone:this.state.Ftphone,
             location:this.state.Ftlocation,
+            type: this.state.Fttype,
+            time: this.state.Fttime,
             profileImg:"./truck1.png"
         }
 
-        const fts = this.state.Fts
-        let index;
-        for (index=0; index < fts.length; index++){
-            if (fts[index].name === ft.name){
-                break;
-            }
-        }
-
-        fts[index] = ft
-        
-        this.setState({
-            Fts:fts
+        const request = new Request(url, {
+            method:"patch",
+            body:JSON.stringify(ft),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
         })
+
+        fetch(request).then(res => {
+            if (res.status === 200){
+                alert("Eidt food truck success")
+                window.location.reload()
+            }else{
+                alert("Fail to edit food truck")
+            }
+        }).catch(e => {log(e)})
     }
 
 
     // method to remove a user/truck from the datalist
     removeUser = (user) => {
-        if (user.type === "u"){
-            const filteredUsers = this.state.Users.filter((u) => {
-                return u !== user 
-            })
-    
-            this.setState({
-                Users: filteredUsers
-            })
-        }else{
-            const filteredUsers = this.state.Fts.filter((u) => {
-                return u !== user 
-            })
-    
-            this.setState({
-                Fts: filteredUsers
-            })
-        }
+        const url = "/api/admin/users/" + user._id
+
+        const request = new Request( url , {
+            method: 'delete',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        })
+
+        fetch(request).then((res) => {
+            if (res.status === 200){
+                alert("delete success");
+                window.location.reload()
+            }else{
+                alert("fail to delete");
+            }
+        }).catch(e => log(e))
+
+
+    }
+
+    removeFt = (ft) => {
+
+        const url = "/api/admin/fts/" + ft._id
+        log(url)
+
+        const request = new Request( url , {
+            method:'delete',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        })
+
+        fetch(request).then((res) => {
+            if (res.status === 200){
+                alert("delete success");
+                window.location.reload()
+            }else{
+                alert("fail to delete");
+            }
+        }).catch(e => log(e))
+
+
     }
 
     render() {
@@ -295,6 +345,7 @@ class Admin extends React.Component{
                     Users = {this.state.Users}
                     Fts = {this.state.Fts}
                     removeUser = {this.removeUser}
+                    removeFt = {this.removeFt}
                     admin={this}
                     handleEditFtInputChange={this.handleEditFtInputChange}
                     handleEditUserInputChange={this.handleEditUserInputChange}

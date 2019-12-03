@@ -29,6 +29,8 @@ class FtDataList extends React.Component{
                     <th>Truck Name</th>
                     <th>Contact Email</th>
                     <th>Phone #</th>
+                    <th>Type</th>
+                    <th>Time</th>
                     <th>Location </th>
                     <th>Profile Image</th>
                     <th>

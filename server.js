@@ -325,7 +325,7 @@ app.post("/api/users", (req, res) => {
     .then(result => {
       const newUser = new Student({
         _id: result._id,
-        name: req.body.name,
+        name: result.username,
         phone: req.body.phone,
         email: req.body.email,
         profileImg: "./user.png"
@@ -389,7 +389,7 @@ app.post("/api/admin/fts", authenticate, (req, res) => {
     .then(u => {
       const truck = new Truck({
         _id: u._id,
-        name: req.body.name,
+        name: u.username,
         phone: req.body.phone,
         email: req.body.email,
         location: req.body.location,
@@ -433,7 +433,7 @@ app.delete("/api/admin/fts/:id", authenticate, (req, res) => {
     res.status(500).send("invalid ft id");
   }
 
-  FoodTruck.findByIdAndDelete(id)
+  Truck.findByIdAndDelete(id)
     .then(result => {
       if (!result) {
         res.status(404).send("could not find the foodtruck");

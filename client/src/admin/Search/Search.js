@@ -215,6 +215,7 @@ class Search extends React.Component{
                                     handleEditUserInputChange={this.props.handleEditUserInputChange}
                                     handleEditFtInputChange={this.props.handleEditFtInputChange}
                                     removeUser = {this.props.removeUser}
+                                    removeFt = {this.props.removeFt}
                                 />
                             </>
                         </Form>

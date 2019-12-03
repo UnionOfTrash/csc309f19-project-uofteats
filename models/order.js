@@ -14,7 +14,8 @@ const Order = mongoose.model("Order", {
   price: Number,
   pickDate: String,
   pickTime: String,
-  noteContent: String
+  noteContent: String,
+  status: { type: Number, min: 0, max: 3 }
 });
 
 module.exports = { Order };

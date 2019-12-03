@@ -16,7 +16,6 @@ const { mongoose } = require("./db/mongoose");
 // Importing mongoose models
 const { Order } = require("./models/order");
 const { Food } = require("./models/food");
-const { Request } = require("./models/request");
 
 // For testing purpose only,
 // we will wipe out the dev database and
@@ -27,7 +26,6 @@ if (process.env.ENV != "PROD") {
 }
 
 // END OF INITIALIZING DATABASE
-
 
 // START INITIALIZING EXPRESS SERVER
 
@@ -49,13 +47,12 @@ app.use(
     saveUninitialized: false,
     cookie: {
       expires: 600000000,
-      httpOnly: true,
-    },
+      httpOnly: true
+    }
   })
 );
 
 // END OF INITIALIZING EXPRESS SERVER
-
 
 // DEFINING ROUTES HERE
 const userApi = require("./api/user");
@@ -91,7 +88,11 @@ app.get("/api/check-session", userApi.check);
  *   id: String,
  * }
  */
-app.get("/api/student/:id", userApi.authenticate("Student"), studentApi.getStudent);
+app.get(
+  "/api/student/:id",
+  userApi.authenticate("Student"),
+  studentApi.getStudent
+);
 
 /*
  * Route(/api/student)
@@ -116,7 +117,11 @@ app.post("/api/student", studentApi.addStudent);
  *   email: String,
  * }
  */
-app.patch("/api/student/:id", userApi.authenticate("Student"), studentApi.modifyStudent);
+app.patch(
+  "/api/student/:id",
+  userApi.authenticate("Student"),
+  studentApi.modifyStudent
+);
 
 /*
  * Route(/api/student/{id})
@@ -125,7 +130,11 @@ app.patch("/api/student/:id", userApi.authenticate("Student"), studentApi.modify
  *   id: String,
  * }
  */
-app.delete("/api/student/:id", userApi.authenticate("Student"), studentApi.deleteStudent);
+app.delete(
+  "/api/student/:id",
+  userApi.authenticate("Student"),
+  studentApi.deleteStudent
+);
 
 /*
  * Route(/api/students)
@@ -170,7 +179,11 @@ app.post("/api/truck", userApi.authenticate(""), truckApi.addTruck);
  *   time: String,
  * }
  */
-app.patch("/api/truck/:id", userApi.authenticate("Truck"), truckApi.modifyTruck);
+app.patch(
+  "/api/truck/:id",
+  userApi.authenticate("Truck"),
+  truckApi.modifyTruck
+);
 
 /*
  * Route(/api/truck/{id})
@@ -179,7 +192,11 @@ app.patch("/api/truck/:id", userApi.authenticate("Truck"), truckApi.modifyTruck)
  *   id: String,
  * }
  */
-app.delete("/api/truck/:id", userApi.authenticate("Truck"), truckApi.deleteTruck);
+app.delete(
+  "/api/truck/:id",
+  userApi.authenticate("Truck"),
+  truckApi.deleteTruck
+);
 
 /*
  * Route(/api/trucks)
@@ -189,7 +206,7 @@ app.get("/api/trucks", userApi.authenticate("All"), truckApi.getAllTrucks);
 
 const authenticate = (req, res, next) => {
   next();
-}
+};
 
 /** Food resource routes **/
 app.get("/api/foods", (req, res) => {
@@ -240,7 +257,8 @@ app.post("/api/orders", authenticate, (req, res) => {
     price: req.body.price,
     pickDate: req.body.pickDate,
     pickTime: req.body.pickTime,
-    noteContent: req.body.noteContent
+    noteContent: req.body.noteContent,
+    status: req.body.status
   });
 
   // Save order to the database
@@ -291,27 +309,6 @@ app.get("/api/orders/:id", authenticate, (req, res) => {
     .catch(error => {
       res.status(500).send(); // server error
     });
-});
-
-/** Request routes below **/
-app.post("/api/requests", authenticate, (req, res) => {
-  // log(req.body)
-  // Create a new order using the Order mongoose model
-  const request = new Request({
-    _id: new mongoose.Types.ObjectId(),
-    orderId: req.body.orderId,
-    status: 0
-  });
-
-  // Save order to the database
-  request.save().then(
-    result => {
-      res.send(result);
-    },
-    error => {
-      res.status(400).send(error); // 400 for bad request
-    }
-  );
 });
 
 /*** Webpage routes below **********************************/

@@ -225,29 +225,11 @@ class Schedule extends React.Component {
               price: this.cartFoodPrice.toFixed(2),
               pickDate: moment(this.state.pickupDate).format("YYYY-MM-DD"),
               pickTime: moment(this.state.pickupTime, "HH:mm").format("HH:mm"),
-              noteContent: this.state.note
+              noteContent: this.state.note,
+              status: 0
             })
           })
             .then(res => res.json())
-            .then(res => {
-              console.log(res);
-              fetch("/api/requests", {
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json"
-                },
-                method: "POST",
-                body: JSON.stringify({
-                  orderId: res._id
-                })
-              })
-                .then(function(res) {
-                  console.log(res);
-                })
-                .catch(function(res) {
-                  console.log(res);
-                });
-            })
             .catch(function(res) {
               console.log(res);
             }) && (

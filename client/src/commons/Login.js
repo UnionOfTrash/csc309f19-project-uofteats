@@ -16,25 +16,8 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: [
-        {
-          name: "user",
-          password: "user",
-          role: "Student"
-        },
-        {
-          name: "user2",
-          password: "user2",
-          role: "Truck"
-        },
-        {
-          name: "admin",
-          password: "admin",
-          role: "Admin"
-        }
-      ],
       loginUser: {
-        name: "",
+        username: "",
         password: ""
       },
       jumpLink: ""
@@ -59,28 +42,27 @@ class Login extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     // log on server
-    const loginUser = {
-      username: this.state.loginUser.name,
-      password: this.state.loginUser.password
-    };
-    const response = fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify(loginUser),
+
+    const request = new Request("/api/login", {
+      method: "post",
+      body: JSON.stringify(this.state.loginUser),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
     });
 
-    const user = this.state.user.filter(
-      user => user.name === this.state.loginUser.name
-    );
-    if (user.length === 0) {
-      message.warning("No such user!");
-    } else if (user[0].password !== this.state.loginUser.password) {
-      message.warning("Wrong Password");
-    } else {
-      this.props.history.push(this.jumpLinks[user[0].role]);
-    }
+    fetch(request).then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        message.warning("No such user!");
+      }
+    }).then((json) => {
+      this.props.history.push(this.jumpLinks[json.role]);
+    }).catch((err) => {
+      console.log(err);
+    });
   };
 
   render() {
@@ -106,11 +88,11 @@ class Login extends React.Component {
               >
                 <Form.Item className="commonFormItem">
                   <Input
-                    name="name"
+                    name="username"
                     prefix={<Icon type="user" />}
                     type="text"
                     placeholder="Username"
-                    value={this.state.loginUser.name}
+                    value={this.state.loginUser.username}
                     autoFocus
                   />
                 </Form.Item>

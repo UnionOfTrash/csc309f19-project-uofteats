@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const UserAuthSchema = new mongoose.Schema({
+const userAuthSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -24,7 +24,7 @@ const UserAuthSchema = new mongoose.Schema({
 // An example of Mongoose middleware.
 // This function will run immediately prior to saving the document
 // in the database.
-UserAuthSchema.pre("save", function(next) {
+userAuthSchema.pre("save", function(next) {
   const user = this; // binds this to User document instance
 
   // checks to ensure we don't hash password more than once
@@ -44,7 +44,7 @@ UserAuthSchema.pre("save", function(next) {
 // A static method on the document model.
 // Allows us to find a User document by comparing the hashed password
 //  to a given one, for example when logging in.
-UserAuthSchema.statics.findByUsernamePassword = function(username, password) {
+userAuthSchema.statics.findByUsernamePassword = function(username, password) {
   const User = this; // binds this to the User model
 
   // First find the user by their username
@@ -66,5 +66,5 @@ UserAuthSchema.statics.findByUsernamePassword = function(username, password) {
 };
 
 // make a model using the User schema
-const userAuth = mongoose.model("UserAuth", UserAuthSchema);
+const userAuth = mongoose.model("UserAuth", userAuthSchema);
 module.exports = { userAuth };

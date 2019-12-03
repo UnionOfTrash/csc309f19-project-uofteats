@@ -109,7 +109,7 @@ app.post("/api/student", studentApi.addStudent);
 /*
  * Route(/api/student/{id})
  * Method: PATCH
- * Required paramaters: {
+ * Required parameters: {
  *   id: String,
  * }
  * Required body: {
@@ -120,6 +120,20 @@ app.post("/api/student", studentApi.addStudent);
  */
 app.patch("/api/student/:id", userApi.authenticate("Student"), studentApi.modifyStudent);
 
+/*
+ * Route(/api/student/{id})
+ * Method: DELETE
+ * Required parameters: {
+ *   id: String,
+ * }
+ */
+app.delete("/api/student/:id", userApi.authenticate("Student"), studentApi.deleteStudent);
+
+/*
+ * Route(/api/students)
+ * Method: GET
+ * Only allow Admin to visit!
+ */
 app.get("/api/students", userApi.authenticate(""), studentApi.getAllStudents);
 
 const authenticate = (req, res, next) => {
@@ -287,82 +301,6 @@ app.post("/api/requests", authenticate, (req, res) => {
   );
 });
 
-/** User routes below **/
-// Set up a POST route to *create* a user of your web app.
-
-app.get("/api/users/:id", authenticate, (req, res) => {
-  const id = req.params.id;
-  console.log(id);
-  if (!ObjectID.isValid(id)) {
-    res.status(404).send("Invalid Id");
-  } else {
-    Student.findById(id).then(
-      user => {
-        console.log(user);
-        res.send(user);
-      },
-      err => {
-        res.status(500).send(err);
-      }
-    );
-  }
-});
-
-app.post("/api/users", (req, res) => {
-  log(req.body);
-
-  // Create a new user
-  const user = new UserAuth({
-    _id: new mongoose.Types.ObjectId(),
-    username: req.body.username,
-    password: req.body.password,
-    type: "u"
-  });
-
-  // Save the user
-  user
-    .save()
-    .then(result => {
-      const newUser = new Student({
-        _id: result._id,
-        name: result.username,
-        phone: req.body.phone,
-        email: req.body.email,
-        profileImg: "./user.png"
-      });
-
-      newUser.save().then(result => {
-        res.send(result);
-      });
-    })
-    .catch(e => res.status(500).send(e));
-});
-
-/*
-    APIs for admin use:
-*/
-
-// get all UserAuth
-app.get("/api/admin/UserAuth", authenticate, (req, res) => {
-  UserAuth.find()
-    .then(result => {
-      res.send(result);
-    })
-    .catch(e => res.status(400).send(e));
-});
-
-// get all users
-app.get("/api/admin/users", authenticate, (req, res) => {
-  Student.find().then(
-    result => {
-      res.send(result);
-    },
-    error => {
-      res.status(500).send(error);
-    }
-  );
-});
-
 // get all foodtrucks
 app.get("/api/admin/fts", authenticate, (req, res) => {
   Truck.find().then(
@@ -399,29 +337,6 @@ app.post("/api/admin/fts", authenticate, (req, res) => {
       });
 
       truck.save().then(result => res.send(result));
-    })
-    .catch(e => res.status(500).send(e));
-});
-
-// delete a student
-app.delete("/api/admin/users/:id", authenticate, (req, res) => {
-  const id = req.params.id;
-  if (!ObjectID.isValid(id)) {
-    res.status(500).send("invalid id");
-  }
-  Student.findByIdAndDelete(id)
-    .then(result => {
-      if (!result) {
-        res.status(404).send("could not find the user");
-      } else {
-        UserAuth.findByIdAndDelete(id).then(result => {
-          if (!result) {
-            res.status(404).send("could not find the user");
-          } else {
-            res.send(result);
-          }
-        });
-      }
     })
     .catch(e => res.status(500).send(e));
 });

@@ -288,7 +288,7 @@ class Admin extends React.Component{
 
     // method to remove a user/truck from the datalist
     removeUser = (user) => {
-        const url = "/api/admin/users/" + user._id
+        const url = "/api/student/" + user._id
 
         const request = new Request( url , {
             method: 'delete',

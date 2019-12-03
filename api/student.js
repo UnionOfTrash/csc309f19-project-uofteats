@@ -75,6 +75,24 @@ const modifyStudent = (req, res) => {
     });
 }
 
+const deleteStudent = (req, res) => {
+  const studentId = req.params.id;
+
+  if (!ObjectID.isValid(studentId)) {
+    res.status(404).send();
+  }
+
+  Student.findByIdAndRemove(studentId).then((result) => {
+    if (!result) {
+      res.status(404).send();
+    } else {
+      res.send(result);
+    }
+  }, (err) => {
+    res.status(500).send(err);
+  });
+}
+
 const getAllStudents = (req, res) => {
   Student.find().then((students) => {
     res.send(students);
@@ -83,4 +101,4 @@ const getAllStudents = (req, res) => {
   });
 };
 
-module.exports = { getStudent, addStudent, modifyStudent, getAllStudents }
+module.exports = { getStudent, addStudent, modifyStudent, deleteStudent, getAllStudents }

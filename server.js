@@ -27,7 +27,6 @@ const { Request } = require("./models/request");
 // fill in some data.
 if (process.env.ENV != "PROD") {
   mongoose.connection.dropDatabase();
-  //require("./initial_data/initData");
   require("./db/initDb");
 }
 
@@ -86,26 +85,27 @@ const authenticate = (req, res, next) => {
   }
 };
 
-/* Route(/api/login)
+/*
+ * Route(/api/login)
  * Required body: {
  *   username: String,
  *   password: String,
  * }
  */
 app.post("/api/login", userApi.login);
+
+/*
+ * Route(/api/logout)
+ */
+app.get("/api/logout", userApi.logout);
+
+/*
+ * Route(/api/check-session)
+ */
+app.get("/api/check-session", userApi.check);
+
 app.get("/api/students", authenticate, studentApi.getAllStudents);
 
-// A route to logout a user
-app.get("/api/logout", (req, res) => {
-  // Remove the session
-  req.session.destroy(error => {
-    if (error) {
-      res.status(500).send(error);
-    } else {
-      res.redirect("/login");
-    }
-  });
-});
 
 // A route to check if a use is logged in on the session cookie
 app.get("/api/check-session", (req, res) => {

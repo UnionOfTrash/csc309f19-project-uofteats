@@ -10,10 +10,9 @@ const login = (req, res) => {
   UserAuth.findByUsernamePassword(username, password)
     .then((user) => {
       if (!user) {
-        res.status(404).send("User not found");
+        res.status(404).send();
       } else {
-        req.session.user = user._id;
-        req.session.username = user.username;
+        req.session.userID = user._id;
         res.send({ role: user.role });
       }
     }, (err) => {
@@ -21,4 +20,30 @@ const login = (req, res) => {
     });
 };
 
-module.exports = { login };
+const logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send();
+    }
+  });
+};
+
+const check = (req, res) => {
+  if (req.session.userID) {
+    UserAuth.findById(req.session.userID).then((user) => {
+      if (!user) {
+        res.status(500).send();
+      } else {
+        res.send({ username: user.username, role: user.role });
+      }
+    }, (err) => {
+      res.status(500).send(err);
+    });
+  } else {
+    res.status(404).send();
+  }
+}
+
+module.exports = { login, logout, check };

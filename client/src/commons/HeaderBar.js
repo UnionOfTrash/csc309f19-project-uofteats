@@ -4,7 +4,7 @@ import "antd/dist/antd.css";
 import "./commons.css";
 
 import { PageHeader, Dropdown, Menu } from "antd";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { Typography } from "antd";
 
 const { Text } = Typography;
@@ -20,30 +20,34 @@ class HeaderBar extends React.Component {
         };
     }
 
-    async getName() {
-        const url = '/api/check-session';
-        const res = await fetch(url);
-        if (!res) {
-            this.setState( {user: {} } );
-            return;
-        }
-        const id = await res.text();
-        if (!id) {
-            this.setState({ user: {} });
-            return;
-        }
-        console.log('Hello: ', id);
-        const data = await fetch(`/api/users/${id}`);
-        if (!data) {
-            this.setState({ user: {} });
-            return;
-        }
-        const json = await data.json();
-        this.setState({ username: json.name });
+    componentDidMount() {
+        fetch("/api/check-session").then((res) => {
+            if (res.status == 200) {
+                return res.json();
+            }
+        }).then((json) => {
+            if (json && json.username) {
+                this.setState({
+                    username: json.username,
+                });
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
-    componentDidMount() {
-        this.getName()
+    handleLogoutBtnClick = e => {
+        e.preventDefault();
+
+        fetch("/api/logout").then((res) => {
+            if (res.status == 200) {
+                message.success("Successfully logged out.");
+            } else {
+                message.error("Something wrong, please try again later.");
+            }
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     userMenu = () => (
@@ -54,7 +58,7 @@ class HeaderBar extends React.Component {
                 </Button>
             </Menu.Item>
             <Menu.Item key='Logout'>
-                <Button type='link' href='' block>
+                <Button type='link' href='' block onClick={ this.handleLogoutBtnClick }>
                     <Text strong> Logout </Text>
                 </Button>
             </Menu.Item>

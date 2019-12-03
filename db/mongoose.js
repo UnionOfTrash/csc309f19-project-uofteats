@@ -4,7 +4,7 @@
 const mongoose = require("mongoose");
 
 /* Connnect to our database */
-const mongoURI = "mongodb://" + process.env.DB_USER + ":" + process.env.DB_KEY + "@" + process.env.DB_URL;
+const mongoURI = `mongodb://${ process.env.DB_USER }:${ process.env.DB_KEY }@${ process.env.DB_URL }`;
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,

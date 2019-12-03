@@ -1,4 +1,4 @@
-const { UserAuth } = require("../models/userAuth");
+const { userAuth } = require("../models/UserAuth");
 const { Admin } = require("../models/admin");
 const { Customer } = require("../models/customer");
 const { Truck } = require("../models/truck");
@@ -8,7 +8,7 @@ const { Request } = require("../models/request");
 const mongoose = require("mongoose");
 
 // initialize a new admin
-const admin = new UserAuth({
+const admin = new userAuth({
   _id: new mongoose.Types.ObjectId(),
   username: "admin",
   password: "admin",
@@ -30,7 +30,7 @@ admin.save(function(err) {
 });
 
 // initialize a new customer
-const customer = new UserAuth({
+const customer = new userAuth({
   _id: new mongoose.Types.ObjectId(),
   username: "user",
   password: "user",
@@ -52,7 +52,7 @@ customer.save(function(err) {
 });
 
 // initialize a new truck
-const truck = new UserAuth({
+const truck = new userAuth({
   _id: new mongoose.Types.ObjectId(),
   username: "user2",
   password: "user2",

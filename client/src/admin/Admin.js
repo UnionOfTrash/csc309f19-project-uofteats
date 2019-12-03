@@ -36,7 +36,7 @@ class Admin extends React.Component{
     }
 
     getUsers = () => {
-        const url = "/api/admin/users"
+        const url = "/api/students"
 
         fetch(url).then((res) => {
             if (res.status === 200){

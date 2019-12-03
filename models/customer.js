@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const customerSchema = new mongoose.Schema({
   _id: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "UserAuth",
   },
   name: {

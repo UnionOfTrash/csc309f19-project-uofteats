@@ -25,8 +25,13 @@ class FoodPage extends React.Component {
   };
 
   componentDidMount() {
-    const truckUrl = `/api/trucks/${this.state.truckId}`;
+    const truckUrl = `/api/truck/${this.state.truckId}`;
     const foodUrl = `/api/foods/${this.state.truckId}`;
+
+    if (localStorage.getItem("cart")) {
+      this.setState({ foodList: localStorage.getItem("cart") });
+      return;
+    }
 
     Promise.all([fetch(truckUrl), fetch(foodUrl)])
       .then(([truckRes, foodRes]) => {
@@ -78,6 +83,7 @@ class FoodPage extends React.Component {
     this.setState({
       foodList: [].concat(this.state.foodList)
     });
+    localStorage.setItem("carts", JSON.stringify(this.state.foodList));
   }
 
   get cartFoodPrice() {

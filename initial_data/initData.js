@@ -4,7 +4,6 @@ const { Customer } = require("../models/customer");
 const { Truck } = require("../models/truck");
 const { Food } = require("../models/food");
 const { Order } = require("../models/order");
-const { Request } = require("../models/request");
 const mongoose = require("mongoose");
 
 // initialize a new admin
@@ -199,14 +198,5 @@ const order1 = new Order({
   noteContent: "Extra ketchup, thanks"
 });
 order1.save(function(err) {
-  if (err) console.log(err);
-});
-
-const request1 = new Request({
-  _id: new mongoose.Types.ObjectId(),
-  orderId: order1._id,
-  status: 0
-});
-request1.save(function(err) {
   if (err) console.log(err);
 });

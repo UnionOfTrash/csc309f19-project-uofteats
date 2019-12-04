@@ -13,12 +13,12 @@ const UserAuthSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   role: {
     type: String,
-    required: false,
-  },
+    required: false
+  }
 });
 
 // An example of Mongoose middleware.

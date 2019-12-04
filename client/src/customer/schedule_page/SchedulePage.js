@@ -117,6 +117,7 @@ class Schedule extends React.Component {
   };
 
   handleChange = event => {
+    event.preventDefault();
     this.setState({ note: event.target.value });
   };
 
@@ -209,7 +210,7 @@ class Schedule extends React.Component {
                     format="HH:mm"
                   />
                 </Form.Item>
-                <Form.Item onChange={value => this.setDate(value)}>
+                <Form.Item>
                   <Input
                     type="text"
                     value={this.state.note}

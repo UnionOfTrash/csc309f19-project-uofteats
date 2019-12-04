@@ -33,7 +33,7 @@ const addFood = (req, res) => {
   }else if(cata == "Poutine"){
     fimg = "./Poutine.jpg"
   }else{
-    fimg = "./GreenTea.jpg"
+    fimg = "./star.png"
   }
 
   const food = new Food({

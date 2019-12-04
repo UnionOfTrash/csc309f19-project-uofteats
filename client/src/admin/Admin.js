@@ -20,12 +20,6 @@ class Admin extends React.Component{
             timeOut: true
         }
     }
-    // 
-        // props -> user:
-        // _id, name, email, phone, profileImg
-        // props -> ft:
-        // _id, name, email, phone, location, profileImg
-    // 
     
     componentWillMount(){
         this.getUsers();

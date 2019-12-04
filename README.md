@@ -8,20 +8,30 @@ This website is intended not only to solve the issue that students have to suffe
 
 ## Login Users
 
-#### - Student:
-username: user
+<img src="./client/public/login.png" />
 
-password: user
+You can login to different platforms by entering the following username and password 
 
-#### - Truck Manager:
-username: user2
+#### - for Student:
+    username: user0
 
-password: user2
+    password: user0
 
-#### - Admin:
-username: admin
+#### - for Truck Manager:
+    username: user1
 
-password: admin
+    password: user1
+
+#### - for Admin:
+    username: admin
+
+    password: admin
+
+## Register for User
+
+<img src="./client/public/register.png" />
+
+By click -> Register Here!, you can then sign up a new user account for UofTEats
 
 ## User Side
 
@@ -80,8 +90,3 @@ For each entry listed blow, the admin can either edit the info or delete a user/
 <img src="./client/public/SearchView.gif">
 
 When entering the Search tab, the admin can search for a paticular user or food truck by providing its Id number. On the display card of the particular user, the admin will have the ability to edit or delete.
-
-
-## NOTE:
-
-In phase 1, the user side, food truck side and admin side are seperated among each other. However, all three sides will be combined as a whole in phase 2 when we can fetch data from the server and database.

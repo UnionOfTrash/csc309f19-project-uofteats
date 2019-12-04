@@ -168,9 +168,6 @@ class TruckView extends React.Component {
     this.setState({ item: itemLeft });
   };
 
-  handleEdit = record => {
-    const 
-  }
 
   selectPane = () => (
     <Tabs defaultActiveKey="orders" className="commonTab">

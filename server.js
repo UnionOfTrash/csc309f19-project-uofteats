@@ -13,9 +13,6 @@ if (process.env.ENV == "PROD") {
 }
 const { mongoose } = require("./db/mongoose");
 
-// Importing mongoose models
-const { Order } = require("./models/order");
-
 // For testing purpose only,
 // we will wipe out the dev database and
 // fill in some data.
@@ -30,7 +27,6 @@ if (process.env.ENV != "PROD") {
 
 // Start the express server
 const express = require("express");
-const { ObjectID } = require("mongodb");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 
@@ -58,6 +54,7 @@ const userApi = require("./api/user");
 const studentApi = require("./api/student");
 const truckApi = require("./api/truck");
 const foodApi = require("./api/food");
+const orderApi = require("./api/order");
 
 /*
  * Route(/api/login)
@@ -234,77 +231,59 @@ app.delete("/api/food/:id", userApi.authenticate("Truck"), foodApi.deleteFood);
  */
 app.get("/api/foods/:truckId", userApi.authenticate("All"), foodApi.getFoodsByTruck);
 
-const authenticate = (req, res, next) => {
-  next();
-};
+/*
+ * Route(/api/order/{id})
+ * Method: GET
+ * Required paramters: {
+ *   id: String,
+ * }
+ */
+app.get("/api/order/:id", userApi.authenticate("All"), orderApi.getOrder);
 
-// /** Order resource routes **/
-app.post("/api/orders", authenticate, (req, res) => {
-  // log(req.body)
+/*
+ * Route(/api/order)
+ * Method: POST
+ * Required body: {
+ *   customerId: String,
+ *   truckId: String,
+ *   food: List,
+ *   price: Number,
+ *   pickDate: String,
+ *   pickTime: String,
+ *   noteContent: String,
+ * }
+ */
+app.post("/api/order", userApi.authenticate("Student"), orderApi.addOrder);
 
-  // Create a new order using the Order mongoose model
+/*
+ * Route(/api/order/{id})
+ * Method: PATCH
+ * Required parameters: {
+ *   id: String,
+ * }
+ * Required body: {
+ *   status: Number,
+ * }
+ */
+app.patch("/api/order/:id", userApi.authenticate("All"), orderApi.modifyOrder);
 
-  const order = new Order({
-    _id: new mongoose.Types.ObjectId(),
-    customerId: req.user._id,
-    truckId: req.body.truckId,
-    food: req.body.food,
-    price: req.body.price,
-    pickDate: req.body.pickDate,
-    pickTime: req.body.pickTime,
-    noteContent: req.body.noteContent,
-    status: req.body.status
-  });
+/*
+ * Route(/api/orderbyuser/{studentId})
+ * Method: GET
+ * Required parameters: {
+ *  id: String,
+ * }
+ */
+app.get("/api/orderbyuser/:studentId", userApi.authenticate("Student"), orderApi.getOrderByUser);
 
-  // Save order to the database
-  order.save().then(
-    result => {
-      res.send(result);
-    },
-    error => {
-      res.status(400).send(error); // 400 for bad request
-    }
-  );
-});
-
-// a GET route to get all orders of a user
-app.get("/api/orders", authenticate, (req, res) => {
-  Order.find({
-    customerId: req.user._id // from authenticate middleware
-  }).then(
-    orders => {
-      res.send({ orders }); // can wrap in object if want to add more properties
-    },
-    error => {
-      res.status(500).send(error); // server error
-    }
-  );
-});
-
-// a GET route to get orders by customer id.
-// id is treated as a wildcard parameter, which is why there is a colon : beside it.
-app.get("/api/orders/:id", authenticate, (req, res) => {
-  /// req.params has the wildcard parameters in the url, in this case, id.
-  // log(req.params.id)
-  const id = req.params.id;
-
-  if (!ObjectID.isValid(id)) {
-    res.status(404).send(); // if invalid id, definitely can't find resource, 404.
-  }
-
-  // Otherwise, find by the id and creator
-  Order.find({ customerId: id })
-    .then(orders => {
-      if (!orders) {
-        res.status(404).send(); // could not find this student
-      } else {
-        res.send(orders);
-      }
-    })
-    .catch(error => {
-      res.status(500).send(); // server error
-    });
-});
+/*
+ * Route(/api/orderbutruck/{truckId})
+ * Method: GET
+ * Required parameters: {
+ *   id: String,
+ * }
+ */
+app.get("/api/orderbytruck/:truckId", userApi.authenticate("Truck"), orderApi.getOrderByTruck);
 
 /*** Webpage routes below **********************************/
 // Serve the build

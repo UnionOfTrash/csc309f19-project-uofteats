@@ -11,15 +11,13 @@ const getFood = (req, res) => {
     res.status(404).send();
   }
 
-  Food.findById(id).then(
-    food => {
+  Food.findById(id).then((food) => {
       if (!food) {
         res.status(404).send();
       } else {
         res.send(food);
       }
-    },
-    err => {
+    }, (err) => {
       res.status(500).send(err);
     }
   );
@@ -46,11 +44,9 @@ const addFood = (req, res) => {
     img: fimg
   });
 
-  food.save().then(
-    result => {
+  food.save().then((result) => {
       res.send(result);
-    },
-    err => {
+    }, (err) => {
       res.status(500).send(err);
     }
   );
@@ -67,22 +63,18 @@ const modifyFood = (req, res) => {
     name: req.body.name,
     price: req.body.price,
     category: req.body.category,
-    img: req.body.img
   };
 
-  Food.findByIdAndUpdate(id, { $set: newFood }, { new: true }).then(
-    result => {
+  Food.findByIdAndUpdate(id, { $set: newFood }, { new: true }).then((result) => {
       if (!result) {
         res.status(404).send();
       } else {
         res.send(result);
       }
-    },
-    err => {
+    }, (err) => {
       res.status(500).send(err);
-    }
-  );
-};
+    });
+}
 
 const deleteFood = (req, res) => {
   const id = req.params.id;

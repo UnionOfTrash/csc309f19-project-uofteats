@@ -4,7 +4,7 @@ const { UserAuth } = require("../models/UserAuth");
 const { Student } = require("../models/Student");
 const { Truck } = require("../models/Truck");
 const { Food } = require("../models/Food");
-const { Order } = require("../models/order");
+const { Order } = require("../models/Order");
 
 // Add a new admin
 const admin = new UserAuth({

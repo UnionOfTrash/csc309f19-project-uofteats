@@ -229,7 +229,11 @@ class Schedule extends React.Component {
               status: 0
             })
           })
-            .then(res => res.json())
+            .then(res => {
+              res.json();
+              // clear local storage of shopping carts
+              localStorage.removeItem("carts");
+            })
             .catch(function(res) {
               console.log(res);
             }) && (

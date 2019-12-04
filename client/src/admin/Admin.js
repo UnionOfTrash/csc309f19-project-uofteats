@@ -20,20 +20,10 @@ class Admin extends React.Component{
             timeOut: true
         }
     }
-    // 
-        // props -> user:
-        // _id, name, email, phone, profileImg
-        // props -> ft:
-        // _id, name, email, phone, location, profileImg
-    // 
     
     componentWillMount(){
         this.getUsers();
         this.getFts();
-        // setTimeout(() => {
-        //     this.getUsers();
-        //     this.getFts()
-        // }, 1500);
     }
 
     getUsers = () => {
@@ -77,7 +67,6 @@ class Admin extends React.Component{
             log(e)
         })
     }
-
 
     // a event handler whenever we type into a input box for the user
     handleEditUserInputChange=(event)=>{
@@ -249,7 +238,6 @@ class Admin extends React.Component{
             }
         }).catch(e => log(e))
     }
-
 
     // method to edit a food truck
     EditFt= () => {

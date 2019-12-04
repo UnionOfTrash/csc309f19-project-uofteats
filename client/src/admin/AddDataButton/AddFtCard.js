@@ -10,8 +10,6 @@ class AddFtCard extends React.Component{
     }
 
     addUser=()=>{
-
-
         this.props.onHide()
         setTimeout(() => {
             this.props.addData()
@@ -49,7 +47,7 @@ class AddFtCard extends React.Component{
                                         </Form.Group>
                                         <Form.Group as={Row} controlId="exampleForm.ControlInput2">
                                             <Form.Label>Password</Form.Label>
-                                            <Form.Control name='Ftpassword' onChange={this.props.handleInputChange} placeholder="Password" />
+                                            <Form.Control name='Ftpassword' type='password' onChange={this.props.handleInputChange} placeholder="Password" />
                                         </Form.Group>
                                         <Form.Group as={Row} controlId="exampleForm.ControlInput3">
                                             <Form.Label>Email Address</Form.Label>

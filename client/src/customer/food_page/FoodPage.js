@@ -28,23 +28,32 @@ class FoodPage extends React.Component {
     const truckUrl = `/api/truck/${this.state.truckId}`;
     const foodUrl = `/api/foods/${this.state.truckId}`;
 
-    if (localStorage.getItem("cart")) {
-      this.setState({ foodList: localStorage.getItem("cart") });
-      return;
-    }
+    // redirect to login page if haven't logged in
+    fetch("/api/check-session")
+      .then(res => {
+        if (res.status === 401) {
+          return this.props.history.push("/");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
     Promise.all([fetch(truckUrl), fetch(foodUrl)])
       .then(([truckRes, foodRes]) => {
         return Promise.all([truckRes.json(), foodRes.json()]);
       })
       .then(([truckRes, foodRes]) => {
+        if (truckRes.status || foodRes.status == 401) {
+          this.props.history.push("/");
+        }
+
         // set state in here
         this.setState({ truck: truckRes });
 
         // restructure the food list
         const foodList = [];
-
-        const resFoodList = foodRes.foods;
+        const resFoodList = foodRes || [];
         for (let i = 0; i < resFoodList.length; i++) {
           let food = resFoodList[i];
           let added = false;
@@ -83,7 +92,6 @@ class FoodPage extends React.Component {
     this.setState({
       foodList: [].concat(this.state.foodList)
     });
-    localStorage.setItem("carts", JSON.stringify(this.state.foodList));
   }
 
   get cartFoodPrice() {
@@ -138,7 +146,7 @@ class FoodPage extends React.Component {
           cartFoodNum={this.cartFoodNum}
           truckName={this.state.truck.name}
           location={this.state.truck.location}
-          foodType={this.state.truck.type}
+          foodType={this.state.truck.cuisine}
           serveTime={this.state.truck.time}
           showCartDrawer={() => this.showCartDrawer()}
           showCart="true"

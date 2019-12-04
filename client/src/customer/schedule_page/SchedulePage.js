@@ -117,8 +117,21 @@ class Schedule extends React.Component {
   };
 
   handleChange = event => {
+    event.preventDefault();
     this.setState({ note: event.target.value });
   };
+
+  componentDidMount() {
+    fetch("/api/check-session")
+      .then(res => {
+        if (res.status === 401) {
+          return this.props.history.push("/");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   render() {
     return (
@@ -131,7 +144,7 @@ class Schedule extends React.Component {
               cartFoodNum={this.cartFoodNum}
               truckName={this.state.truck.name}
               location={this.state.truck.location}
-              foodType={this.state.truck.type}
+              foodType={this.state.truck.cuisine}
               serveTime={this.state.truck.time}
               showCartDrawer={() => this.showCartDrawer()}
             />
@@ -197,7 +210,7 @@ class Schedule extends React.Component {
                     format="HH:mm"
                   />
                 </Form.Item>
-                <Form.Item onChange={value => this.setDate(value)}>
+                <Form.Item>
                   <Input
                     type="text"
                     value={this.state.note}
@@ -231,8 +244,6 @@ class Schedule extends React.Component {
           })
             .then(res => {
               res.json();
-              // clear local storage of shopping carts
-              localStorage.removeItem("carts");
             })
             .catch(function(res) {
               console.log(res);

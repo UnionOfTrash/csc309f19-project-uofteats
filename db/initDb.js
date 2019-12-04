@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const { UserAuth } = require("../models/UserAuth");
 const { Student } = require("../models/Student");
 const { Truck } = require("../models/Truck");
-const { Food } = require("../models/food");
+const { Food } = require("../models/Food");
 const { Order } = require("../models/order");
 
 // Add a new admin
@@ -65,35 +65,6 @@ const truckAuth = new UserAuth({
   password: "user1",
   role: "Truck"
 });
-
-truckAuth.save().then(
-  res0 => {
-    const truck = new Truck({
-      _id: res0._id,
-      name: "Ideal Catering",
-      email: "idealcatering@gmail.com",
-      phone: "6470000002",
-      location: "Bahen Centre for Information Technology",
-      cuisine: "• American • Fast Food • Hot Dogs",
-      time: "9:00 AM - 9:00 PM",
-      profileImg: "./truck1.png"
-    });
-
-    truck.save().then(
-      res1 => {
-        log("Successfully added a truck");
-        log(res0);
-        log(res1);
-      },
-      err => {
-        log("Error when adding a truck");
-        log(err);
-      }
-    );
-  }, err => {
-      log(err);
-  }
-);
 
 truckAuth.save().then((res0) => {
   const truck = new Truck({

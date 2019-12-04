@@ -2,7 +2,7 @@
 const log = console.log;
 
 const { ObjectID } = require("mongodb");
-const { Food } = require("../models/food");
+const { Food } = require("../models/Food");
 
 const getFood = (req, res) => {
   const id = req.params.id;

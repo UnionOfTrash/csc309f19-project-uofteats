@@ -88,11 +88,7 @@ app.get("/api/check-session", userApi.check);
  *   id: String,
  * }
  */
-app.get(
-  "/api/student/:id",
-  userApi.authenticate("Student"),
-  studentApi.getStudent
-);
+app.get("/api/student/:id", userApi.authenticate("Student"), studentApi.getStudent);
 
 /*
  * Route(/api/student)
@@ -117,11 +113,7 @@ app.post("/api/student", studentApi.addStudent);
  *   email: String,
  * }
  */
-app.patch(
-  "/api/student/:id",
-  userApi.authenticate("Student"),
-  studentApi.modifyStudent
-);
+app.patch("/api/student/:id", userApi.authenticate("Student"), studentApi.modifyStudent);
 
 /*
  * Route(/api/student/{id})
@@ -130,11 +122,7 @@ app.patch(
  *   id: String,
  * }
  */
-app.delete(
-  "/api/student/:id",
-  userApi.authenticate("Student"),
-  studentApi.deleteStudent
-);
+app.delete("/api/student/:id", userApi.authenticate("Student"), studentApi.deleteStudent);
 
 /*
  * Route(/api/students)
@@ -179,11 +167,7 @@ app.post("/api/truck", userApi.authenticate(""), truckApi.addTruck);
  *   time: String,
  * }
  */
-app.patch(
-  "/api/truck/:id",
-  userApi.authenticate("Truck"),
-  truckApi.modifyTruck
-);
+app.patch("/api/truck/:id", userApi.authenticate("Truck"), truckApi.modifyTruck);
 
 /*
  * Route(/api/truck/{id})
@@ -192,11 +176,7 @@ app.patch(
  *   id: String,
  * }
  */
-app.delete(
-  "/api/truck/:id",
-  userApi.authenticate("Truck"),
-  truckApi.deleteTruck
-);
+app.delete("/api/truck/:id", userApi.authenticate("Truck"), truckApi.deleteTruck);
 
 /*
  * Route(/api/trucks)
@@ -257,41 +237,6 @@ app.get("/api/foods/:truckId", userApi.authenticate("All"), foodApi.getFoodsByTr
 const authenticate = (req, res, next) => {
   next();
 };
-
-/** Food resource routes **/
-app.get("/api/foods", (req, res) => {
-  Food.find().then(
-    foods => {
-      res.send({ foods });
-    },
-    error => {
-      res.status(500).send(error); // server error
-    }
-  );
-});
-
-app.get("/api/foods/:truckId", (req, res) => {
-  /// req.params has the wildcard parameters in the url, in this case, id.
-  // log(req.params.id)
-  const truckId = req.params.truckId;
-
-  if (!ObjectID.isValid(truckId)) {
-    res.status(404).send(); // if invalid id, definitely can't find resource, 404.
-  }
-
-  // Otherwise, find by the id and creator
-  Food.find({ truckId: truckId })
-    .then(foods => {
-      if (!foods) {
-        res.status(404).send(); // could not find this student
-      } else {
-        res.send({ foods });
-      }
-    })
-    .catch(error => {
-      res.status(500).send(error); // server error
-    });
-});
 
 // /** Order resource routes **/
 app.post("/api/orders", authenticate, (req, res) => {

@@ -27,19 +27,19 @@ password: admin
 
 #### Search for food truck
 
-<img src="./public/SearchTruck.gif">
+<img src="./client/public/SearchTruck.gif">
 
 User can search food truck by name on the main page of user side. After clicking the search icon, only trucks that match up the search key will be filtered out.
 
 #### Add food into cart
 
-<img src="./public/OrderFood.gif">
+<img src="./client/public/OrderFood.gif">
 
 User can add food items into cart by clicking "Add to Cart" button, and increase or decrease number of items to order. 
 
 #### Schedule pick-up
 
-<img src="./public/SchedualFood.gif">
+<img src="./client/public/SchedualFood.gif">
 
 After finishing adding food into cart, user can choose a pick-up time by selecting date and time. Also, user can leave a note to the food truck by entering into an input box.
 
@@ -47,19 +47,19 @@ After finishing adding food into cart, user can choose a pick-up time by selecti
 
 #### Incoming Orders
 
-<img src="./public/FtOrders.gif">
+<img src="./client/public/FtOrders.gif">
 
 The Food Truck Owner is eligible to decide whether to accept the incoming food order or not. All accepted food orders will be listed below
 
 #### Done for Cook
 
-<img src="./public/DoneOrder.gif">
+<img src="./client/public/DoneOrder.gif">
 
 After the food is prepared, the truck owner can click "done" button to notify the user that his/her order is ready to pick up.
 
 #### Edit Serving Foods
 
-<img src="./public/EditFood.gif">
+<img src="./client/public/EditFood.gif">
 
 The Food Truck owner can add new food items or delete food items as they want.
 
@@ -67,17 +67,17 @@ The Food Truck owner can add new food items or delete food items as they want.
 
 #### Basic utilities
 
-<img src="./public/adminViews.gif">
+<img src="./client/public/adminViews.gif">
 
 After login to the admin dashboard, the admin will have the access to the information of all users and food trucks by switching between "User Management" and "Food Truck Management" tabs.
 
-<img src="./public/EditUser.gif">
+<img src="./client/public/EditUser.gif">
 
 For each entry listed blow, the admin can either edit the info or delete a user/food truck. The admin can create new user or food truck as well.
 
 #### Search
 
-<img src="./public/SearchView.gif">
+<img src="./client/public/SearchView.gif">
 
 When entering the Search tab, the admin can search for a paticular user or food truck by providing its Id number. On the display card of the particular user, the admin will have the ability to edit or delete.
 

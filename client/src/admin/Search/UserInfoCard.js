@@ -23,8 +23,8 @@ class UserInfoCard extends React.Component{
     }
     // handle the click for save button
     handleSave=()=>{
-        this.props.editData()
         this.handleClose()
+        this.props.editData()
     }
 
     // handle the click for close button
@@ -40,8 +40,8 @@ class UserInfoCard extends React.Component{
 
     // handle the click for delete button
     handleRemoveUser=()=>{
-        this.props.removeUser(this.props.data)
         this.handleClose()
+        this.props.removeUser(this.props.data)
     }
     
     render(){

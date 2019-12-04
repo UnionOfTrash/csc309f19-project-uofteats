@@ -8,6 +8,23 @@ UofTEats is a website for university students to order their food served by food
 
 This website is intended not only to solve the issue that students have to suffer from the extremely hot/cold weather while waiting for the order to be ready, but also save their time by ordering their lunch/dinner before the lecture is finished.
 
+
+## Build the project
+
+First clone the git
+
+```git clone https://github.com/csc309-fall-2019/team49.git ```
+
+then
+
+```cd team49 ```
+
+```npm run setup```
+
+```npm run test```
+
+open the localhost:3000, then you will see the login page.
+
 ## Login Users
 
 <img src="./client/public/login.png" />

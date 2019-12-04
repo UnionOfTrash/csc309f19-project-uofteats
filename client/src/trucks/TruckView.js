@@ -62,17 +62,23 @@ class TruckView extends React.Component {
         {
           key: 1,
           name: "All Beef HotDog",
-          price: 4.0
+          price: 4.0,
+          catagory:"HotDogs",
+          img:"./BeefHotDog.jpeg"
         },
         {
           key: 2,
           name: "Chicken HotDog",
-          price: 4.0
+          price: 4.0,
+          catagory:"HotDogs",
+          img:"./ChickenHotDog.jpeg"
         },
         {
           key: 3,
           name: "Green Tea",
-          price: 2.25
+          price: 2.25,
+          catagory:"Drink",
+          img:"./GreenTea.jpeg"
         }
       ]
     };
@@ -161,6 +167,10 @@ class TruckView extends React.Component {
     const itemLeft = this.state.item.filter(item => item.key !== record.key);
     this.setState({ item: itemLeft });
   };
+
+  handleEdit = record => {
+    const 
+  }
 
   selectPane = () => (
     <Tabs defaultActiveKey="orders" className="commonTab">
@@ -262,13 +272,33 @@ class TruckView extends React.Component {
             render={text => `$ ${text}`}
           />
           <Column
+            title="Catagory"
+            key="catagory"
+            dataIndex="catagory"
+            render={text => `${text}`}
+          />
+          <Column 
+            title="Image"
+            key="img"
+            dataIndex="img"
+            render={text => (
+              <img src={text} alt="food img" width="80" height="80" />
+            )}
+          />
+          <Column
             title="Action"
             key="action"
             render={record => (
-              <Button type="danger" onClick={this.handleItemRemove(record)}>
-                {" "}
-                Remove{" "}
-              </Button>
+              <>
+                {/* <Button type="default" onClick={this.handleItemRemove(record)}>
+                  {" "}
+                  Edit{" "}
+                </Button> */}
+                <Button type="danger" onClick={this.handleItemRemove(record)}>
+                  {" "}
+                  Remove{" "}
+                </Button>
+              </>
             )}
           />
         </Table>

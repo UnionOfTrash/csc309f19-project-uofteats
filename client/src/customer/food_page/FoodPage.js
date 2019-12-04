@@ -28,11 +28,26 @@ class FoodPage extends React.Component {
     const truckUrl = `/api/truck/${this.state.truckId}`;
     const foodUrl = `/api/foods/${this.state.truckId}`;
 
+    // redirect to login page if haven't logged in
+    fetch("/api/check-session")
+      .then(res => {
+        if (res.status === 401) {
+          return this.props.history.push("/");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
     Promise.all([fetch(truckUrl), fetch(foodUrl)])
       .then(([truckRes, foodRes]) => {
         return Promise.all([truckRes.json(), foodRes.json()]);
       })
       .then(([truckRes, foodRes]) => {
+        if (truckRes.status || foodRes.status == 401) {
+          this.props.history.push("/");
+        }
+
         // set state in here
         this.setState({ truck: truckRes });
 

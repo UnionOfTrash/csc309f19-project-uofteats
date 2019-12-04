@@ -120,6 +120,18 @@ class Schedule extends React.Component {
     this.setState({ note: event.target.value });
   };
 
+  componentDidMount() {
+    fetch("/api/check-session")
+      .then(res => {
+        if (res.status === 401) {
+          return this.props.history.push("/");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
       <div>

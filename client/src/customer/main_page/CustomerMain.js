@@ -39,12 +39,15 @@ class CustomerMain extends React.Component {
       .then(res => {
         if (res.status === 200) {
           return res.json();
-        } else {
-          alert("could not load food trucks");
+        } else if (res.status == 401) {
+          this.props.history.push("/");
         }
       })
       .then(json => {
-        this.setState({ allTrucks: json.trucks, shown: json.trucks });
+        console.log(json);
+        if (json) {
+          this.setState({ allTrucks: json, shown: json });
+        }
       })
       .catch(error => {
         console.log(error);
@@ -58,7 +61,7 @@ class CustomerMain extends React.Component {
         id={truck._id}
         name={truck.name}
         location={truck.location}
-        type={truck.type}
+        type={truck.cuisine}
         image={truck.profileImg}
       />
     ));

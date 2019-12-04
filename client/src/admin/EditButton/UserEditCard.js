@@ -43,15 +43,15 @@ class UserEditCard extends React.Component{
                                 <Form>
                                     <Form.Group as={Row} controlId="exampleForm.ControlInput1">
                                         <Form.Label>User Name</Form.Label>
-                                        <Form.Control name='Username' readOnly={true} placeholder={data.name} />
+                                        <Form.Control name='Username' readOnly={true} defaultValue={data.name} />
                                     </Form.Group>
                                     <Form.Group as={Row} controlId="exampleForm.ControlInput2">
                                         <Form.Label>Email Address</Form.Label>
-                                        <Form.Control name='Useremail' onChange={this.props.handleInputChange} placeholder={data.email} />
+                                        <Form.Control name='Useremail' onChange={this.props.handleInputChange} defaultValue={data.email} />
                                     </Form.Group>
                                     <Form.Group as={Row} controlId="exampleForm.ControlInput3">
                                         <Form.Label>Phone Number</Form.Label>
-                                        <Form.Control name='Userphone' onChange={this.props.handleInputChange} placeholder={data.phone} />
+                                        <Form.Control name='Userphone' onChange={this.props.handleInputChange} defaultValue={data.phone} />
                                     </Form.Group>
                                 </Form>
                             </Card.Body>

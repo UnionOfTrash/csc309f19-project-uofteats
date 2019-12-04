@@ -23,12 +23,25 @@ const getFood = (req, res) => {
 }
 
 const addFood = (req, res) => {
+
+  const cata = req.body.category
+  let fimg;
+  if (cata === "HotDog"){
+    fimg = "./ChickenHotDog.jpeg"
+  }else if(cata === "Drink"){
+    fimg = "./Water.jpeg"
+  }else if(cata == "Poutine"){
+    fimg = "./Poutine.jpg"
+  }else{
+    fimg = "./GreenTea.jpg"
+  }
+
   const food = new Food({
     truckId: req.body.truckId,
     name: req.body.name,
     price: req.body.price,
-    category: req.body.category,
-    img: req.body.img,
+    category: cata,
+    img: fimg,
   });
 
   food.save().then((result) => {

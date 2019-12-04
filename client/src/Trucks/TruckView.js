@@ -188,7 +188,6 @@ class TruckView extends React.Component {
       },
     });
 
-<<<<<<< HEAD
     fetch(request).then((res) => {
       if (res.status === 200) {
         return res.json();
@@ -199,8 +198,6 @@ class TruckView extends React.Component {
 
     this.getFoodList();
   };
-=======
->>>>>>> 7246449780e4fe8bf810a8eab74bc6b05efd4583
 
   selectPane = () => (
     <Tabs defaultActiveKey="orders" className="commonTab">

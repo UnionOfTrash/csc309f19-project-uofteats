@@ -131,7 +131,7 @@ class Schedule extends React.Component {
               cartFoodNum={this.cartFoodNum}
               truckName={this.state.truck.name}
               location={this.state.truck.location}
-              foodType={this.state.truck.type}
+              foodType={this.state.truck.cuisine}
               serveTime={this.state.truck.time}
               showCartDrawer={() => this.showCartDrawer()}
             />
@@ -231,8 +231,6 @@ class Schedule extends React.Component {
           })
             .then(res => {
               res.json();
-              // clear local storage of shopping carts
-              localStorage.removeItem("carts");
             })
             .catch(function(res) {
               console.log(res);

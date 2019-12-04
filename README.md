@@ -6,8 +6,6 @@ UofTEats is a website for university students to order their food served by food
 
 This website is intended not only to solve the issue that students have to suffer from the extremely hot/cold weather while waiting for the order to be ready, but also save their time by ordering their lunch/dinner before the lecture is finished.
 
-This project is using React + Bootstrap + AntDesign for its frontend, and Express + MongoDB for its backend.
-
 ## Login Users
 
 <img src="./client/public/login.png" />
@@ -34,9 +32,6 @@ You can login to different platforms by entering the following username and pass
 <img src="./client/public/register.png" />
 
 By click -> Register Here!, you can then sign up a new user account for UofTEats
-
-### Note:
-To sign up a Food truck account, you have to use the admin page to add a new food truck.
 
 ## User Side
 

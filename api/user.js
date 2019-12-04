@@ -36,7 +36,7 @@ const check = (req, res) => {
       if (!user) {
         res.status(500).send();
       } else {
-        res.send({ username: user.username, role: user.role });
+        res.send({ id: user._id, username: user.username, role: user.role });
       }
     }, (err) => {
       res.status(500).send(err);

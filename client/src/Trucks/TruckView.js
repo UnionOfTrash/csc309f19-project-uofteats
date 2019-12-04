@@ -1,25 +1,16 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
 import "antd/dist/antd.css";
 import "../commons/commons.css";
 import "./trucks.css";
 
 import { Layout } from "antd";
-import { PageHeader, Descriptions, Tabs } from "antd";
-import {
-  DatePicker,
-  Table,
-  Card,
-  Button,
-  Statistic,
-  Modal,
-  Form,
-  Input
-} from "antd";
+import { PageHeader, Tabs } from "antd";
+import { DatePicker, Table, Card, Button, Statistic, Modal, Form, Input } from "antd";
 import { Typography } from "antd";
 
 import HeaderBar from "../commons/HeaderBar";
-import truckData from "../data/TrackData";
 import orderData from "../data/OrderData";
 
 const { Header, Content } = Layout;
@@ -31,58 +22,66 @@ const { Text } = Typography;
 class TruckView extends React.Component {
   constructor(props) {
     super(props);
+    this.title = "Uoft Eats Food Truck";
     this.state = {
-      title: "Uoft Eats Food Truck",
-      userName: this.getUserInfo().name,
-      truckName: this.getTruckInfo().name,
-      rating: this.getTruckInfo().rating,
+      truckInfo: {},
+      foods: [],
       incomingOrder: this.getOrderList(),
       order: [],
-      item: this.getTruckInfo().items,
       addItem: {
         name: "",
-        price: ""
+        price: "",
+        category: "",
       },
       incomingOrderState: false,
       addItemState: false
     };
   }
 
-  getUserInfo = () => {
-    // require server call
-    return truckData[0];
-  };
+  componentDidMount() {
+    fetch("/api/check-session").then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        this.props.history.push("/login");
+      }
+    }).then((json) => {
+      if (json) {
+        this.setState({
+          truckInfo: {
+            id: json.id,
+            name: json.username,
+          }
+        });
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
 
-  getTruckInfo = () => {
-    // require server call
-    return {
-      name: truckData[0].name,
-      rating: truckData[0].rate,
-      items: [
-        {
-          key: 1,
-          name: "All Beef HotDog",
-          price: 4.0,
-          catagory:"HotDogs",
-          img:"./BeefHotDog.jpeg"
-        },
-        {
-          key: 2,
-          name: "Chicken HotDog",
-          price: 4.0,
-          catagory:"HotDogs",
-          img:"./ChickenHotDog.jpeg"
-        },
-        {
-          key: 3,
-          name: "Green Tea",
-          price: 2.25,
-          catagory:"Drink",
-          img:"./GreenTea.jpeg"
+    this.getFoodList();
+  }
+
+  getFoodList = () => {
+    if (this.state.truckInfo.id) {
+      fetch("/api/foods/" + this.state.truckInfo.id).then((res) => {
+        if (res.status === 200) {
+          return res.json();
         }
-      ]
-    };
-  };
+      }).then((json) => {
+        if (json) {
+          this.setState({
+            foods: json,
+          });
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+
+    if (this.state.foods.length === 0) {
+      setInterval(this.getFoodList, 3000);
+    }
+  }
 
   getOrderList = () => {
     // require server call
@@ -146,16 +145,33 @@ class TruckView extends React.Component {
   };
 
   handleItemOk = () => {
-    const newItem = {
-      key: this.state.item[this.state.item.length - 1].key + 1,
+    const newFood = {
+      truckId: this.state.truckInfo.id,
       name: this.state.addItem.name,
-      price: parseInt(this.state.addItem.price)
+      price: this.state.addItem.price,
+      category: this.state.addItem.category,
     };
 
-    this.state.item.push(newItem);
+    const request = new Request("/api/food", {
+      method: "POST",
+      body: JSON.stringify(newFood),
+      headers: {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+    });
+
+    fetch(request).then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
 
     this.setState({ addItem: { name: "", price: "" } });
     this.setState({ addItemState: false });
+    this.getFoodList();
   };
 
   handleItemCancel = () => {
@@ -164,13 +180,24 @@ class TruckView extends React.Component {
   };
 
   handleItemRemove = record => () => {
-    const itemLeft = this.state.item.filter(item => item.key !== record.key);
-    this.setState({ item: itemLeft });
-  };
+    const request = new Request("/api/food/" + record._id, {
+      method: "DELETE",
+      headers: {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+    });
 
-  handleEdit = record => {
-    const 
-  }
+    fetch(request).then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+
+    this.getFoodList();
+  };
 
   selectPane = () => (
     <Tabs defaultActiveKey="orders" className="commonTab">
@@ -262,8 +289,8 @@ class TruckView extends React.Component {
         </Button>
       </div>
       <div className="commonContentComponentLayout">
-        <Table dataSource={this.state.item} pagination={false}>
-          <Column title="#" key="#" dataIndex="key" />
+        <Table dataSource={this.state.foods} pagination={false}>
+          <Column title="#" key="#" dataIndex="_id" />
           <Column title="Name" key="name" dataIndex="name" />
           <Column
             title="Price"
@@ -272,12 +299,12 @@ class TruckView extends React.Component {
             render={text => `$ ${text}`}
           />
           <Column
-            title="Catagory"
-            key="catagory"
-            dataIndex="catagory"
+            title="Category"
+            key="category"
+            dataIndex="category"
             render={text => `${text}`}
           />
-          <Column 
+          <Column
             title="Image"
             key="img"
             dataIndex="img"
@@ -289,16 +316,7 @@ class TruckView extends React.Component {
             title="Action"
             key="action"
             render={record => (
-              <>
-                {/* <Button type="default" onClick={this.handleItemRemove(record)}>
-                  {" "}
-                  Edit{" "}
-                </Button> */}
-                <Button type="danger" onClick={this.handleItemRemove(record)}>
-                  {" "}
-                  Remove{" "}
-                </Button>
-              </>
+              <Button type="danger" onClick={this.handleItemRemove(record)}> Remove </Button>
             )}
           />
         </Table>
@@ -310,23 +328,16 @@ class TruckView extends React.Component {
     return (
       <Layout className="commonLayout">
         <Header className="commonHeaderLayout">
-          <HeaderBar title={this.state.title} username={this.state.userName} />
+          <HeaderBar title={this.title} />
         </Header>
         <Content className="commonContentLayout">
           <PageHeader
             ghost={false}
-            title={this.state.truckName}
+            title={this.state.truckInfo.name}
             extra={this.incomingOrderBtn()}
             footer={this.selectPane()}
             className="trucksHeader"
-          >
-            <Descriptions size="small" column={1}>
-              <Descriptions.Item label="Rating">
-                {" "}
-                {`${this.state.rating} ★`}{" "}
-              </Descriptions.Item>
-            </Descriptions>
-          </PageHeader>
+          />
           <Modal
             title="Incoming Order"
             closable={false}
@@ -385,6 +396,14 @@ class TruckView extends React.Component {
                   value={this.state.addItem.price}
                 />
               </Form.Item>
+              <Form.Item label="Category" className="commonFormItem">
+                <Input
+                  name="category"
+                  type="text"
+                  onChange={this.handleItemChange}
+                  value={this.state.addItem.category}
+                />
+              </Form.Item>
             </Form>
           </Modal>
         </Content>
@@ -393,4 +412,4 @@ class TruckView extends React.Component {
   }
 }
 
-export default TruckView;
+export default withRouter(TruckView);

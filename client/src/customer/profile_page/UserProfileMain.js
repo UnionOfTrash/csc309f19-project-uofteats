@@ -14,22 +14,24 @@ class UserProfileMain extends React.Component {
 
     async loadData() {
         const url = '/api/check-session';
-        const res = await fetch(url);
+        let res;
+        let json;
+        res = await fetch(url);
         if (!res) {
             this.setState( {user: {} } );
             return;
         }
-        const id = await res.text();
-        if (!id) {
+        json = await res.json();
+        if (!json) {
             this.setState({ user: {} });
             return;
         }
-        const data = await fetch(`/api/users/${id}`);
-        if (!data) {
+        res = await fetch(`/api/student/${json.id}`);
+        if (!res) {
             this.setState({ user: {} });
             return;
         }
-        const json = await data.json();
+        json = await res.json();
         const user = {
             id: json._id,
             name: json.name,

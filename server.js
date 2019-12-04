@@ -15,7 +15,6 @@ const { mongoose } = require("./db/mongoose");
 
 // Importing mongoose models
 const { Order } = require("./models/order");
-const { Food } = require("./models/food");
 
 // For testing purpose only,
 // we will wipe out the dev database and
@@ -58,6 +57,7 @@ app.use(
 const userApi = require("./api/user");
 const studentApi = require("./api/student");
 const truckApi = require("./api/truck");
+const foodApi = require("./api/food");
 
 /*
  * Route(/api/login)
@@ -203,6 +203,56 @@ app.delete(
  * Method: GET
  */
 app.get("/api/trucks", userApi.authenticate("All"), truckApi.getAllTrucks);
+
+/*
+ * Route(/api/food/{id})
+ * Method: GET
+ * Required parameters: {
+ *   id: String,
+ * }
+ */
+app.get("/api/food/:id", userApi.authenticate("All"), foodApi.getFood);
+
+/*
+ * Route(/api/food)
+ * Method: POST
+ * Required body: {
+ *   name: String,
+ *   price: Number,
+ * }
+ */
+app.post("/api/food", userApi.authenticate("Truck"), foodApi.addFood);
+
+/*
+ * Route(/api/food/{id})
+ * Method: PATCH
+ * Required parameters: {
+ *   id: String,
+ * }
+ * Required body: {
+ *   name: String,
+ *   price: Number,
+ * }
+ */
+app.patch("/api/food/:id", userApi.authenticate("Truck"), foodApi.modifyFood);
+
+/*
+ * Route(/api/food/{id})
+ * Method: DELETE
+ * Required parameters: {
+ *   id: String,
+ * }
+ */
+app.delete("/api/food/:id", userApi.authenticate("Truck"), foodApi.deleteFood);
+
+/*
+ * Route(/api/foods/{truckId})
+ * Method: GET
+ * Required parameters: {
+ *   truckId: String,
+ * }
+ */
+app.get("/api/foods/:truckId", userApi.authenticate("All"), foodApi.getFoodsByTruck);
 
 const authenticate = (req, res, next) => {
   next();

@@ -18,6 +18,7 @@ import moment from "moment";
 const { Title } = Typography;
 class Schedule extends React.Component {
   state = {
+    id: null,
     userName: "",
     truck:
       (this.props.history.location.state &&
@@ -124,7 +125,13 @@ class Schedule extends React.Component {
   componentDidMount() {
     fetch("/api/check-session")
       .then(res => {
-        if (res.status === 401) {
+        if (res.status === 200) {
+          res.json().then(json => {
+            this.setState({
+              id: json.id
+            });
+          });
+        } else {
           return this.props.history.push("/");
         }
       })
@@ -233,13 +240,13 @@ class Schedule extends React.Component {
             },
             method: "POST",
             body: JSON.stringify({
+              customerId: this.state.id,
               truckId: this.state.truck._id,
               food: this.getOrderedFood(),
               price: this.cartFoodPrice.toFixed(2),
               pickDate: moment(this.state.pickupDate).format("YYYY-MM-DD"),
               pickTime: moment(this.state.pickupTime, "HH:mm").format("HH:mm"),
-              noteContent: this.state.note,
-              status: 0
+              noteContent: this.state.note
             })
           })
             .then(res => {

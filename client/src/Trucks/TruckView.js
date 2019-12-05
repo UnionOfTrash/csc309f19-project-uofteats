@@ -11,7 +11,6 @@ import { DatePicker, Table, Card, Button, Statistic, Modal, Form, Input } from "
 import { Typography } from "antd";
 
 import HeaderBar from "../commons/HeaderBar";
-import orderData from "../data/OrderData";
 
 const { Header, Content } = Layout;
 const { TabPane } = Tabs;
@@ -26,7 +25,7 @@ class TruckView extends React.Component {
     this.state = {
       truckInfo: {},
       foods: [],
-      incomingOrder: this.getOrderList(),
+      incomingOrder: [],
       order: [],
       addItem: {
         name: "",
@@ -59,6 +58,7 @@ class TruckView extends React.Component {
     });
 
     this.getFoodList();
+    this.getOrderList();
   }
 
   getFoodList = () => {
@@ -79,42 +79,97 @@ class TruckView extends React.Component {
     }
 
     if (this.state.foods.length === 0) {
-      setInterval(this.getFoodList, 3000);
+      setInterval(this.getFoodList, 1000);
     }
   }
 
   getOrderList = () => {
-    // require server call
-    return orderData;
-  };
+    if (this.state.truckInfo.id) {
+      fetch("/api/order/t/" + this.state.truckInfo.id).then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      }).then((json) => {
+        if (json) {
+          const workingOrder = [];
+          const incomingOrder = [];
+          json.map((order) => {
+            if (order.status === 0) {
+              incomingOrder.push(order);
+            } else {
+              workingOrder.push(order);
+            }
+            this.setState({
+              order: workingOrder,
+              incomingOrder: incomingOrder,
+            });
+          });
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+
+    if (this.state.workingOrder === 0) {
+      setInterval(this.getOrderList, 5000);
+    } else {
+      setInterval(this.getOrderList, 60000);
+    }
+  }
 
   incomingOrderBtn = () => (
-    <Button
-      icon="shopping-cart"
-      onClick={() => {
-        this.setState({ incomingOrderState: true });
-      }}
-    >
-      {" "}
-      {this.state.incomingOrder.length}{" "}
-    </Button>
+    <Button icon="shopping-cart" onClick={() => { this.setState({ incomingOrderState: true }); }}> { this.state.incomingOrder.length } </Button>
   );
 
   incomingOrderAction = record => {
     const handleAccept = () => {
-      this.state.order.push(record);
-      const incomingOrderLeft = this.state.incomingOrder.filter(
-        order => order.key !== record.key
-      );
-      this.setState({ incomingOrder: incomingOrderLeft });
-    };
+
+      const request = new Request("/api/order/" + record._id, {
+        method: "PATCH",
+        body: JSON.stringify({ status: 1 }),
+        headers: {
+          "Accept": "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+      });
+
+      fetch(request).then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      }).then((json) => {
+        if (json) {
+          const incomingOrderLeft = this.state.incomingOrder.filter(
+            order => order._id !== json._id
+          );
+          const newOrder = this.state.order.push(json);
+          this.setState({ incomingOrder: incomingOrderLeft, order: newOrder });
+        }
+      });
+    }
 
     const handleCancel = () => {
-      const incomingOrderLeft = this.state.incomingOrder.filter(
-        order => order.key !== record.key
-      );
-      this.setState({ incomingOrder: incomingOrderLeft });
-    };
+
+      const request = new Request("/api/order/" + record._id, {
+        method: "PATCH",
+        body: JSON.stringify({ status: 3 }),
+        headers: {
+          "Accept": "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+      });
+
+      fetch(request).then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      }).then((json) => {
+        const incomingOrderLeft = this.state.incomingOrder.filter(
+          order => order._id !== json._id
+        );
+        this.setState({ incomingOrder: incomingOrderLeft });
+      });
+    }
 
     return (
       <Button.Group>
@@ -210,45 +265,74 @@ class TruckView extends React.Component {
     </Tabs>
   );
 
-  orderInfoRender = record => (
-    <div>
-      <Text strong className="orderInfo1">
-        {" "}
-        {`${record.pickupTimeStart} - ${record.pickupTimeEnd}`}{" "}
-      </Text>
-      <Text className="orderInfo2"> {`Order #: ${record.key}`} </Text>
-      <Text className="orderInfo2"> {`User Name: ${record.orderFrom}`} </Text>
-      <Text type="warning" ellipsis={true} className="orderInfo1">
-        {" "}
-        {`Notes: ${record.notes}`}{" "}
-      </Text>
-    </div>
-  );
+  orderInfoRender = record => {
 
-  orderDetailRender = record => (
-    <div>
-      {record.orderList.map(item => (
-        <Card
-          cover={<img src="./logo192.png" alt={item.name} />}
-          className="orderDetailCard"
-        >
-          <Meta title={item.name} description={`Quantity: ${item.quantity}`} />
-          <Button
-            type="dashed"
-            size="small"
-            className="doneCookingBtn"
-            onClick={e => {
-              e.target.disabled = true;
-            }}
-            block
+    fetch("/api/student/" + record.customerId).then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      }
+    }).then((json) => {
+      if (json) {
+        return (
+          <div>
+            <Text strong className="orderInfo1"> {`${record.pickDate} - ${record.pickTime}`} </Text>
+            <Text className="orderInfo2"> {`Order #: ${record._id}`} </Text>
+            <Text className="orderInfo2"> {`User Name: ${json.name}`} </Text>
+            <Text type="warning" ellipsis={true} className="orderInfo1"> {`Notes: ${record.noteContent}`} </Text>
+          </div>
+        )
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+
+  orderDetailRender = record => {
+
+    const foodList = [];
+    record.food.map((food) => {
+      fetch("/api/food/" + food.foodId).then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      }).then((json) => {
+        if (json) {
+          foodList.push({
+            name: json.name,
+            img: json.img,
+            quantity: food.quantity,
+          });
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    });
+
+    return (
+      <div>
+        {foodList.map(item => (
+          <Card
+            cover={<img src={item.img} alt={item.name} />}
+            className="orderDetailCard"
           >
-            {" "}
-            Done Cooking!{" "}
-          </Button>
-        </Card>
-      ))}
-    </div>
-  );
+            <Meta title={item.name} description={`Quantity: ${item.quantity}`} />
+            <Button
+              type="dashed"
+              size="small"
+              className="doneCookingBtn"
+              onClick={e => {
+                e.target.disabled = true;
+              }}
+              block
+            >
+              {" "}
+              Done Cooking!{" "}
+            </Button>
+          </Card>
+        ))}
+      </div>
+    )
+  }
 
   chargeRender = record => (
     <Statistic title="Price" prefix="$" value={record.charge} />

@@ -85,7 +85,7 @@ app.get("/api/check-session", userApi.check);
  *   id: String,
  * }
  */
-app.get("/api/student/:id", userApi.authenticate("Student"), studentApi.getStudent);
+app.get("/api/student/:id", userApi.authenticate("All"), studentApi.getStudent);
 
 /*
  * Route(/api/student)
@@ -274,7 +274,7 @@ app.patch("/api/order/:id", userApi.authenticate("All"), orderApi.modifyOrder);
  *  id: String,
  * }
  */
-app.get("/api/orderbyuser/:studentId", userApi.authenticate("Student"), orderApi.getOrderByUser);
+app.get("/api/order/s/:studentId", userApi.authenticate("Student"), orderApi.getOrderByUser);
 
 /*
  * Route(/api/orderbutruck/{truckId})
@@ -283,7 +283,7 @@ app.get("/api/orderbyuser/:studentId", userApi.authenticate("Student"), orderApi
  *   id: String,
  * }
  */
-app.get("/api/orderbytruck/:truckId", userApi.authenticate("Truck"), orderApi.getOrderByTruck);
+app.get("/api/order/t/:truckId", userApi.authenticate("Truck"), orderApi.getOrderByTruck);
 
 /*** Webpage routes below **********************************/
 // Serve the build

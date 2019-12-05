@@ -16,7 +16,7 @@ import Reset from "./commons/Reset";
 import FoodPage from "./customer/food_page/FoodPage";
 import SchedulePage from "./customer/schedule_page/SchedulePage";
 import CustomerMain from "./customer/main_page/CustomerMain";
-import TruckView from "./trucks/TruckView";
+import TruckView from "./Trucks/TruckView";
 import Admin from "./admin/Admin";
 import UserProfileMain from "./customer/profile_page/UserProfileMain";
 

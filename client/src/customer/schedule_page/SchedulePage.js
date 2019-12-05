@@ -226,7 +226,7 @@ class Schedule extends React.Component {
           </>
         )}
         {this.state.result &&
-          fetch("/api/orders/", {
+          fetch("/api/order/", {
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json"

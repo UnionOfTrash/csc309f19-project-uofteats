@@ -11,13 +11,15 @@ const getFood = (req, res) => {
     res.status(404).send();
   }
 
-  Food.findById(id).then((food) => {
+  Food.findById(id).then(
+    food => {
       if (!food) {
         res.status(404).send();
       } else {
         res.send(food);
       }
-    }, (err) => {
+    },
+    err => {
       res.status(500).send(err);
     }
   );
@@ -26,11 +28,11 @@ const getFood = (req, res) => {
 const addFood = (req, res) => {
   const cata = req.body.category;
   let fimg;
-  if (cata === "HotDog") {
+  if (cata === "Hot Dogs") {
     fimg = "./ChickenHotDog.jpeg";
-  } else if (cata === "Drink") {
+  } else if (cata === "Beverages") {
     fimg = "./Water.jpeg";
-  } else if (cata == "Poutine") {
+  } else if (cata == "Sides") {
     fimg = "./Poutine.jpg";
   } else {
     fimg = "./star.png";
@@ -44,9 +46,11 @@ const addFood = (req, res) => {
     img: fimg
   });
 
-  food.save().then((result) => {
+  food.save().then(
+    result => {
       res.send(result);
-    }, (err) => {
+    },
+    err => {
       res.status(500).send(err);
     }
   );
@@ -62,19 +66,22 @@ const modifyFood = (req, res) => {
   const newFood = {
     name: req.body.name,
     price: req.body.price,
-    category: req.body.category,
+    category: req.body.category
   };
 
-  Food.findByIdAndUpdate(id, { $set: newFood }, { new: true }).then((result) => {
+  Food.findByIdAndUpdate(id, { $set: newFood }, { new: true }).then(
+    result => {
       if (!result) {
         res.status(404).send();
       } else {
         res.send(result);
       }
-    }, (err) => {
+    },
+    err => {
       res.status(500).send(err);
-    });
-}
+    }
+  );
+};
 
 const deleteFood = (req, res) => {
   const id = req.params.id;

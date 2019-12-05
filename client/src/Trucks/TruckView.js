@@ -91,16 +91,50 @@ class TruckView extends React.Component {
         }
       }).then((json) => {
         if (json) {
-          const workingOrder = [];
           const incomingOrder = [];
           json.map((order) => {
+
+            fetch("/api/student/" + order.customerId).then((res) => {
+              if (res.status === 200) {
+                return res.json();
+              }
+            }).then((json) => {
+              if (json) {
+                order.customer = json.name;
+              }
+              this.setState({
+                order: this.state.order,
+              });
+            }).catch((err) => {
+              console.log(err);
+            });
+
+            order.food.map((food) => {
+              fetch("/api/food/" + food.foodId).then((res) => {
+                if (res.status === 200) {
+                  return res.json();
+                }
+              }).then((json) => {
+                if (json) {
+                  food.name = json.name;
+                  food.img = json.img;
+                }
+                this.setState({
+                  order: this.state.order,
+                });
+              }).catch((err) => {
+                console.log(err);
+              })
+            });
+
             if (order.status === 0) {
               incomingOrder.push(order);
-            } else {
-              workingOrder.push(order);
+            } else if (order.state !== 3) {
+              if (!this.state.order.find((o) => o._id == order._id)) {
+                this.state.order.push(order);
+              }
             }
             this.setState({
-              order: workingOrder,
               incomingOrder: incomingOrder,
             });
           });
@@ -110,8 +144,8 @@ class TruckView extends React.Component {
       });
     }
 
-    if (this.state.workingOrder === 0) {
-      setInterval(this.getOrderList, 5000);
+    if ((this.state.order.length === 0) && (this.state.incomingOrder.length === 0)) {
+      setInterval(this.getOrderList, 1000);
     } else {
       setInterval(this.getOrderList, 60000);
     }
@@ -142,8 +176,8 @@ class TruckView extends React.Component {
           const incomingOrderLeft = this.state.incomingOrder.filter(
             order => order._id !== json._id
           );
-          const newOrder = this.state.order.push(json);
-          this.setState({ incomingOrder: incomingOrderLeft, order: newOrder });
+          this.state.order.push(json);
+          this.setState({ incomingOrder: incomingOrderLeft });
         }
       });
     }
@@ -265,77 +299,42 @@ class TruckView extends React.Component {
     </Tabs>
   );
 
-  orderInfoRender = record => {
+  orderInfoRender = record => (
+    <div>
+      <Text strong className="orderInfo1"> {`${record.pickDate} - ${record.pickTime}`} </Text>
+      <Text className="orderInfo2"> {`Order #: ${record._id}`} </Text>
+      <Text className="orderInfo2"> {`User Name: ${record.customer}`} </Text>
+      <Text type="warning" ellipsis={true} className="orderInfo1"> {`Notes: ${record.noteContent}`} </Text>
+    </div>
+  )
 
-    fetch("/api/student/" + record.customerId).then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      }
-    }).then((json) => {
-      if (json) {
-        return (
-          <div>
-            <Text strong className="orderInfo1"> {`${record.pickDate} - ${record.pickTime}`} </Text>
-            <Text className="orderInfo2"> {`Order #: ${record._id}`} </Text>
-            <Text className="orderInfo2"> {`User Name: ${json.name}`} </Text>
-            <Text type="warning" ellipsis={true} className="orderInfo1"> {`Notes: ${record.noteContent}`} </Text>
-          </div>
-        )
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
-  };
-
-  orderDetailRender = record => {
-
-    const foodList = [];
-    record.food.map((food) => {
-      fetch("/api/food/" + food.foodId).then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-      }).then((json) => {
-        if (json) {
-          foodList.push({
-            name: json.name,
-            img: json.img,
-            quantity: food.quantity,
-          });
-        }
-      }).catch((err) => {
-        console.log(err);
-      });
-    });
-
-    return (
-      <div>
-        {foodList.map(item => (
-          <Card
-            cover={<img src={item.img} alt={item.name} />}
-            className="orderDetailCard"
+  orderDetailRender = record => (
+    <div>
+      {record.food.map(item => (
+        <Card
+          cover={<img src={item.img} alt={item.name} />}
+          className="orderDetailCard"
+        >
+          <Meta title={item.name} description={`Quantity: ${item.quantity}`} />
+          <Button
+            type="dashed"
+            size="small"
+            className="doneCookingBtn"
+            onClick={e => {
+              e.target.disabled = true;
+            }}
+            block
           >
-            <Meta title={item.name} description={`Quantity: ${item.quantity}`} />
-            <Button
-              type="dashed"
-              size="small"
-              className="doneCookingBtn"
-              onClick={e => {
-                e.target.disabled = true;
-              }}
-              block
-            >
-              {" "}
-              Done Cooking!{" "}
-            </Button>
-          </Card>
-        ))}
-      </div>
-    )
-  }
+            {" "}
+            Done Cooking!{" "}
+          </Button>
+        </Card>
+      ))}
+    </div>
+  )
 
   chargeRender = record => (
-    <Statistic title="Price" prefix="$" value={record.charge} />
+    <Statistic title="Price" prefix="$" value={record.price} />
   );
 
   orderTab = () => (
@@ -433,7 +432,7 @@ class TruckView extends React.Component {
               <Column
                 title="Order #"
                 key="orderNumber"
-                dataIndex="key"
+                dataIndex="_id"
                 align="center"
               />
               <Column
@@ -443,7 +442,7 @@ class TruckView extends React.Component {
                 render={record => (
                   <Text strong className="orderInfo1">
                     {" "}
-                    {`${record.pickupTimeStart} - ${record.pickupTimeEnd}`}{" "}
+                    {`${record.pickDate} - ${record.pickTime}`}{" "}
                   </Text>
                 )}
               />

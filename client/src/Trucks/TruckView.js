@@ -23,6 +23,7 @@ class TruckView extends React.Component {
     super(props);
     this.title = "Uoft Eats Food Truck";
     this.state = {
+      flag: true,
       truckInfo: {},
       foods: [],
       incomingOrder: [],
@@ -103,7 +104,7 @@ class TruckView extends React.Component {
                 order.customer = json.name;
               }
               this.setState({
-                order: this.state.order,
+                flag: !this.state.flag,
               });
             }).catch((err) => {
               console.log(err);
@@ -120,7 +121,7 @@ class TruckView extends React.Component {
                   food.img = json.img;
                 }
                 this.setState({
-                  order: this.state.order,
+                  flag: !this.state.flag,
                 });
               }).catch((err) => {
                 console.log(err);

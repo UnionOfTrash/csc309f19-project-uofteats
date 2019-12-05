@@ -107,18 +107,18 @@ class Login extends React.Component {
                     value={this.state.loginUser.password}
                   />
                 </Form.Item>
-                <Form.Item className="commonFormItem">
+                {/* <Form.Item className="commonFormItem">
                   <Checkbox defaultChecked> Remember me? </Checkbox>
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item className="commonFormItem">
                   <Button type="primary" htmlType="submit" block> Log me in </Button>
                 </Form.Item>
                 <Form.Item className="commonFormItem">
                   <Row>
-                    <Col span={12} className="commonGridComponent">
+                    {/* <Col span={12} className="commonGridComponent">
                       <Button type="link" href="/reset"> Forget Password? </Button>
-                    </Col>
-                    <Col span={12} className="commonGridComponent">
+                    </Col> */}
+                    <Col span={24} className="commonGridComponent">
                       <Button type="link" href="/register"> Register Here! </Button>
                     </Col>
                   </Row>

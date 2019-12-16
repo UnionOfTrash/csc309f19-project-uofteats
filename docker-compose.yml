@@ -1,0 +1,32 @@
+version: "3.1"
+
+services:
+    mongo:
+        image: "mongo:4.2-bionic"
+        restart: always
+        volumes:
+            - /home/even/UofTEats/mongo-data:/data/db
+        ports:
+            - 27017:27017
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: uofteats
+
+    # mongo-express:
+    #     image: mongo-express
+    #     restart: always
+    #     ports:
+    #         - 8081:8081
+    #     environment:
+    #         ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+    #         ME_CONFIG_MONGODB_ADMINPASSWORD: uofteats
+
+    node:
+        image: "node:lts-buster"
+        user: "root"
+        working_dir: /home/node/app
+        volumes:
+            - /home/even/UofTEats:/home/node/app
+        ports:
+            - 3000:3000
+        command: "npm run test"

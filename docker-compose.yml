@@ -5,28 +5,34 @@ services:
         image: "mongo:4.2-bionic"
         restart: always
         volumes:
-            - /home/even/UofTEats/mongo-data:/data/db
+            - PWD/mongo-data:/data/db
         ports:
             - 27017:27017
         environment:
-            MONGO_INITDB_ROOT_USERNAME: admin
-            MONGO_INITDB_ROOT_PASSWORD: uofteats
+            MONGO_INITDB_ROOT_USERNAME: DB_USER
+            MONGO_INITDB_ROOT_PASSWORD: DB_KEY
 
     # mongo-express:
-    #     image: mongo-express
+    #     image: "mongo-express"
     #     restart: always
     #     ports:
     #         - 8081:8081
     #     environment:
-    #         ME_CONFIG_MONGODB_ADMINUSERNAME: admin
-    #         ME_CONFIG_MONGODB_ADMINPASSWORD: uofteats
+    #         ME_CONFIG_MONGODB_ADMINUSERNAME: DB_USER
+    #         ME_CONFIG_MONGODB_ADMINPASSWORD: DB_KEY
 
     node:
         image: "node:lts-buster"
+        restart: always
         user: "root"
         working_dir: /home/node/app
         volumes:
-            - /home/even/UofTEats:/home/node/app
+            - PWD:/home/node/app
         ports:
             - 3000:3000
-        command: "npm run test"
+        enviroment:
+            PORT: 3000
+            DB_URL: DB_URL
+            DB_USER: DB_USER
+            DB_KEY: DB_KEY
+        command: "npm run prod"

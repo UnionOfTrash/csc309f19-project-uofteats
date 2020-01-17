@@ -3,19 +3,10 @@ const log = console.log;
 
 // START INITIALIZING DATABASE
 
-// Loading environment variables based on current running environment
-if (process.env.ENV == "PROD") {
-  require("dotenv").config({ path: process.cwd() + "/.env_prod" });
-  log(process.env.DB_URL); // Should be prod database
-} else {
-  require("dotenv").config({ path: process.cwd() + "/.env_dev" });
-  log(process.env.DB_URL); // Shoule be dev database
-}
 const { mongoose } = require("./db/mongoose");
 
 // For testing purpose only,
-// we will wipe out the dev database and
-// fill in some data.
+// we will wipe out the dev database and fill in some data.
 if (process.env.ENV != "PROD") {
   mongoose.connection.dropDatabase();
   require("./db/initDb");
@@ -296,7 +287,7 @@ app.get("*", (req, res) => {
 
 /*************************************************/
 // Express server listening...
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   log(`Listening on port ${port}...`);
 });

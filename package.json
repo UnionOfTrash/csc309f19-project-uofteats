@@ -6,9 +6,8 @@
   "scripts": {
     "setup": "npm install && cd client && npm install && cd ..",
     "build-client": "cd client && npm run build && cd ..",
-    "start": "node server.js",
-    "prod": "npm run setup && npm run build-client && ENV=PROD node server.js",
-    "test": "npm run build-client && npm run start"
+    "prod": "npm run setup && npm run build-client && node server.js",
+    "test": "npm run build-client && node server.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +23,6 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "http-proxy-middleware": "^0.20.0",

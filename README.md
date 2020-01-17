@@ -1,8 +1,6 @@
-# team49
+# Project Name : UofT Eats
 
-## Project Overview : UofT Eats
-
-#### The website is :  <a href="uofteats.unoinoftrash.org">UofTEats</a>
+#### The website is : [UofTEats](uofteats.unionoftrash.org)
 
 UofTEats is a website for university students to order their food served by food trucks online. Similar to the interface of UberEats, each food truck has its own spot on UofTEats where students can get an intuitive view to all available food trucks. By clicking each truck’s view, students can order any food they want from the menu of the specific food truck and set a time to take the order from the truck.
 
@@ -11,17 +9,26 @@ This website is intended not only to solve the issue that students have to suffe
 
 ## Build the project
 
-First clone the git
+First clone the git repo
 
-```git clone https://github.com/csc309-fall-2019/team49.git ```
+```
+git clone https://github.com/iforgetmyname/UofTEats.git
+```
 
 then
 
-```cd team49 ```
+```
+cd UofTEats
+### Modify settings in docker-compose.yml
+docker-compose up -d
+```
 
-```npm run setup```
+Or
 
-```npm run test```
+```
+npm run setup
+npm run test
+```
 
 open the localhost:3000, then you will see the login page.
 
